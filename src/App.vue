@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import TheScramble from './components/UI/TheScramble.vue';
+import TheScramble from './components/scramble/TheScramble.vue';
 
 export default {
   name: 'App',

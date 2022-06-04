@@ -1,7 +1,7 @@
 <template>
   <p>{{ algName }}</p>
   <p>{{ scramble }}</p>
-  <button @click="poop">PEE!</button>
+  <button @click="test">test</button>
 </template>
 
 <script>
@@ -17,7 +17,7 @@ export default {
     };
   },
   methods: {
-    poop() {
+    test() {
       this.algName =
         this.algNames[Math.floor(Math.random() * this.algNames.length)];
       const scrambleList = this.scrambles[this.algName];
