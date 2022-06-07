@@ -242,7 +242,10 @@ export default class AlgTrainer {
       i += 1;
     }
 
-    let scrambleInfo = require(file_path);
+    let scrambleInfo = null;
+    this._loadJSON(function(response) {
+      scrambleInfo = JSON.parse(response)
+    }, file_path);
 
     for (let algName in scrambleInfo) {
       const newAlg = new Algorithm(algName, scrambleInfo[algName]);
@@ -266,5 +269,21 @@ export default class AlgTrainer {
     while (i < minCount) {
       this._move(this.boxes[0].getAlgorithm(), 0, 2);
     }
+  }
+
+  _loadJSON(callback, file_path) {
+    /*
+    taken from https://www.geekstrick.com/load-json-file-locally-using-pure-javascript/
+    */
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open("GET", file_path, true); // Replace 'appDataServices' with the path to your file
+    xobj.onreadystatechange = function () {
+      if (xobj.readyState == 4 && xobj.status == "200") {
+        // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+        callback(xobj.responseText);
+      }
+    };
+    xobj.send(null);
   }
 }
