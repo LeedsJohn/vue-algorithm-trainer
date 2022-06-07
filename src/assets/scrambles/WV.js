@@ -1,4 +1,4 @@
-{
+export const test = {
   "WV 1": [
     "R' D R2 U' R' U R2 D' R2",
     "R' D R2 U' R' U R2 D' R2 U2",

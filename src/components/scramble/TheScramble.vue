@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import WV from "../../assets/scrambles/WV.json";
+import WV from "../../assets/scrambles/WV.js";
 import AlgTrainer from '../../js/scramble_generator/algtrainer.js';
 
 export default {
@@ -31,7 +31,7 @@ export default {
   mounted() {
     const names = Object.keys(this.scrambles);
     this.algNames = names;
-    this.testing = new AlgTrainer("../../assets/scrambles/WV.json");
+    this.testing = new AlgTrainer("../../assets/scrambles/WV.js");
   },
 };
 </script>
