@@ -5,9 +5,9 @@ box.py
 
 Contains datastructure Box which holds Algorithms
 */
-import Algorithm from "./algorithm.js";
+// import Algorithm from "./algorithm.js";
 
-class Box {
+export default class Box {
   constructor() {
     this.algorithms = [];
   }
@@ -17,7 +17,8 @@ class Box {
     Receives an algorithm to remove from the algorithms (list)
     */
     // TODO: maybe should be value.getName === alg.getName etc
-    this.algorithms.filter(function (value, index, arr) {
+    // TODO: maybe should be this.algorithms.filter(function (value, index, arr)
+    this.algorithms.filter(function (value) {
       return value === alg;
     });
   }
@@ -74,10 +75,10 @@ class Box {
     */
     for (let alg in this.algorithms) {
       if (alg.getTurnsUntilShow() <= 0) {
-        return True;
+        return true;
       }
     }
-    return False;
+    return false;
   }
   passRound() {
     /*

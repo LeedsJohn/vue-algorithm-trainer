@@ -5,8 +5,8 @@ algorithm.js
 Contains a class Algorithm
 */
 
-class Algorithm {
-  constructor(name, scrambles, turnsUntilShow = false) {
+export default class Algorithm {
+  constructor(name, scrambles) {
     /* 
     Constructor
     Receives the name of the algorithm (string)
@@ -39,7 +39,7 @@ class Algorithm {
     }
   }
 
-  reset(wrongAns = True) {
+  reset(wrongAns = true) {
     /*
     Sets streak to 0 and turnsUntilShow to a random number between
     1 and 3

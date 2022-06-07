@@ -28,7 +28,7 @@ var REVIEW_COUNT = 8;
 // what percent of the time to pick from box 2 if there are algorithms in both box 2 and 3
 var BOX_2_PERCENTAGE = 0.7;
 
-class AlgTrainer {
+export default class AlgTrainer {
   constructor(file_path) {
     this.boxes = this._createBoxes(file_path);
     this._initialAlgs();
@@ -39,7 +39,7 @@ class AlgTrainer {
     /*
     playRound
     Tests the user on one algorithm
-    Returns True if the user has learned every algorithm
+    Returns true if the user has learned every algorithm
     */
     console.log("Box lengths: ");
     let i = 0;
@@ -50,7 +50,7 @@ class AlgTrainer {
     const box = info[0];
     const alg = info[1];
     if (box == -1) {
-      return True;
+      return true;
     }
     if (box == 4) {
       return self._reviewSession();
@@ -58,7 +58,7 @@ class AlgTrainer {
     console.log(alg.getScramble());
     const incorrect = window.prompt("uhhhh");
     if (incorrect === "X") {
-      return True;
+      return true;
     }
     if (incorrect) {
       this.boxes[box].erase(alg);
@@ -67,7 +67,7 @@ class AlgTrainer {
     } else {
       alg.incrementStreak();
       if (box === 1 || box === 2) {
-        alg.reset((wrongAns = False));
+        alg.reset(false);
         this._move(alg, box, box + 1);
       } else if (box === 3 && alg.getStreak() === 3) {
         this._move(alg, 3, 4);
@@ -111,19 +111,19 @@ class AlgTrainer {
     algorithms in it other than 4)
     */
     if (this.boxes[4].length() === REVIEW_COUNT) {
-      return True;
+      return true;
     }
     let i = 0;
     while (i < 4) {
       if (this.boxes[i].length() !== 0) {
-        return False;
+        return false;
       }
       i += 1;
     }
     if (self.boxes[4].length() != 0) {
-      return True;
+      return true;
     }
-    return False;
+    return false;
   }
 
   _noAlgsLeft() {
@@ -135,11 +135,11 @@ class AlgTrainer {
     let i = 0;
     while (i < 5) {
       if (self.boxes[i].length() != 0) {
-        return False;
+        return false;
       }
       i += 1;
     }
-    return True;
+    return true;
   }
 
   _algsInCycle() {
@@ -158,7 +158,7 @@ class AlgTrainer {
     Receives an algorithm, the index of the box to remove it from,
     and the index of box to add it to
     */
-    alg.reset((wrongAns = False));
+    alg.reset(false);
     this.boxes[startBox].erase(alg);
     this.boxes[endBox].add(alg);
   }
@@ -206,13 +206,13 @@ class AlgTrainer {
     this.boxes[4].shuffle();
     let incorrectAlgs = [];
     while (this.boxes[4].length() !== 0) {
-      alg = this.boxes[4].pop();
+      const alg = this.boxes[4].pop();
       console.log(alg.getScramble());
-      incorrect = window.prompt(
+      const incorrect = window.prompt(
         "Enter any character if you got the algorithm wrong: "
       );
       if (incorrect === "X") {
-        return True;
+        return true;
       }
       if (incorrect) {
         incorrectAlgs.push(alg);
@@ -242,7 +242,7 @@ class AlgTrainer {
       i += 1;
     }
 
-    const scrambleInfo = require(file_path);
+    let scrambleInfo = require(file_path);
 
     for (let algName in scrambleInfo) {
       const newAlg = new Algorithm(algName, scrambleInfo[algName]);
