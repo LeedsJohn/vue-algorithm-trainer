@@ -5,14 +5,13 @@
 </template>
 
 <script>
-import WV from "../../assets/scrambles/WV.js";
 import AlgTrainer from '../../js/scramble_generator/algtrainer.js';
 
 export default {
   data() {
     return {
       algNames: null,
-      scrambles: WV,
+      scrambles: null,
       algName: "name",
       scramble: "scramble",
       testing: null,
@@ -29,6 +28,8 @@ export default {
     },
   },
   mounted() {
+    const { WV } = require("../../assets/scrambles/WV.js");
+    this.scrambles = WV;
     const names = Object.keys(this.scrambles);
     this.algNames = names;
     this.testing = new AlgTrainer("../../assets/scrambles/WV.js");

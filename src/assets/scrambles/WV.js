@@ -1,4 +1,4 @@
-export const test = {
+const WV = {
   "WV 1": [
     "R' D R2 U' R' U R2 D' R2",
     "R' D R2 U' R' U R2 D' R2 U2",
@@ -324,3 +324,5 @@ export const test = {
     "F' R2 F L F' R2 F' L' F2 U B2 D2 F2 D2 B2 U"
   ]
 }
+
+exports.WV = WV;

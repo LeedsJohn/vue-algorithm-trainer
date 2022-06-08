@@ -241,8 +241,10 @@ export default class AlgTrainer {
       boxes.push(newBox);
       i += 1;
     }
-
-    const scrambleInfo = require(file_path);
+    const { WV } = require(file_path);
+    // console.log(file_path);
+    // const { WV } = require("../../assets/scrambles/WV.js");
+    const scrambleInfo = WV;
 
     for (let algName in scrambleInfo) {
       const newAlg = new Algorithm(algName, scrambleInfo[algName]);
