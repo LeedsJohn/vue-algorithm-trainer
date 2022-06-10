@@ -1,7 +1,7 @@
 <template>
   <p>{{ algName }}</p>
   <p>{{ scramble }}</p>
-  <button @click="test">test</button>
+  <button @click="test">get alg</button>
   <button @click="wrong">wrong</button>
   <button @click="correct">correct</button>
 </template>
@@ -24,10 +24,10 @@ export default {
       this.scramble = this.algTrainer.curScramble;
     },
     wrong() {
-      console.log("hi");
+      this.algTrainer.wrongAnswer();
     },
     correct() {
-      console.log("bye");
+      this.algTrainer.correctAnswer();
     }
   },
   mounted() {

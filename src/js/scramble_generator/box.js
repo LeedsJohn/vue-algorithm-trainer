@@ -73,8 +73,8 @@ export default class Box {
     Returns true if there is an algorithm in the box
     where turnsUntilShow <= 0
     */
-    for (let alg in this.algorithms) {
-      if (alg.getTurnsUntilShow() <= 0) {
+    for (let i = 0; i<this.algorithms.length; i++) {
+      if (this.algorithms[i].getTurnsUntilShow() <= 0) {
         return true;
       }
     }
@@ -85,8 +85,8 @@ export default class Box {
     passRound
     Subtracts 1 from every algorithms turnsUNtilShow
     */
-    for (let alg in this.algorithms) {
-      alg.decrementTurnsUntilShow();
+    for (let i = 0; i<this.algorithms.length; i++) {
+      this.algorithms[i].decrementTurnsUntilShow();
     }
   }
 

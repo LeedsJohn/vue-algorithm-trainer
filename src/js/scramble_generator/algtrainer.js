@@ -35,6 +35,8 @@ export default class AlgTrainer {
     this.queuedAlgs = [];
     this.curAlgName = "";
     this.curScramble = "";
+    this.curAlg = null;
+    this.curBox = null;
     // this.lastAlg = "" TODO add in this
   }
   playRound() {
@@ -45,41 +47,23 @@ export default class AlgTrainer {
     */
     console.log("Box lengths: ");
     let i = 0;
-    while (i<6) {
+    while (i < 6) {
       console.log("Box " + i + ": " + this.boxes[i].length());
       i += 1;
     }
     const info = this.pickAlg();
-    const box = info[0];
+    this.curBox = info[0];
+    this.curAlg = info[1];
     const alg = info[1];
-    if (box == -1) {
+    if (this.curBox == -1) {
       return true;
     }
-    if (box == 4) {
+    if (this.curBox == 4) {
       return this._reviewSession();
     }
     console.log(alg.getScramble());
     this.curScramble = alg.getScramble();
     this.curAlgName = alg.getName();
-    const incorrect = window.prompt("uhhhh");
-    if (incorrect === "X") {
-      return true;
-    }
-    if (incorrect) {
-      this.boxes[box].erase(alg);
-      alg.reset();
-      this.boxes[1].add(alg);
-    } else {
-      alg.incrementStreak();
-      if (box === 1 || box === 2) {
-        alg.reset(false);
-        this._move(alg, box, box + 1);
-      } else if (box === 3 && alg.getStreak() === 3) {
-        this._move(alg, 3, 4);
-        this._addNewAlg();
-      }
-    }
-    this.boxes[1].passRound();
   }
   pickAlg() {
     /*
@@ -107,6 +91,38 @@ export default class AlgTrainer {
       return [2, this.boxes[2].getAlgorithm()];
     }
     return [3, this.boxes[3].getAlgorithm()];
+  }
+
+  wrongAnswer() {
+    /*
+    wrongAnswer()
+    Called after a user gets an algorithm wrong
+    Resets the streak and moves to box 1
+    */
+    const alg = this.curAlg;
+    this.boxes[this.curBox].erase(alg);
+    alg.reset();
+    this.boxes[1].add(alg);
+    this.boxes[1].passRound();
+  }
+
+  correctAnswer() {
+    /*
+    correctAnswer()
+    Called after a user gets an algorithm correctly
+    Increments the algorithm streak and moves it if necessary
+    */
+    const box = this.curBox;
+    const alg = this.curAlg;
+    alg.incrementStreak();
+    if (box === 1 || box === 2) {
+      alg.reset(false);
+      this._move(alg, box, box + 1);
+    } else if (box === 3 && alg.getStreak() === 3) {
+      this._move(alg, 3, 4);
+      this._addNewAlg();
+    }
+    this.boxes[1].passRound();
   }
 
   _triggerReview() {
