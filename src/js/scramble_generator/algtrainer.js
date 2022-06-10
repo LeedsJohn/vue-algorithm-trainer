@@ -23,8 +23,8 @@ Box 5:
 import Box from "./box.js";
 import Algorithm from "./algorithm.js";
 
-var CONCURRENT = 4;
-var REVIEW_COUNT = 8;
+var CONCURRENT = 3;
+var REVIEW_COUNT = 2;
 // what percent of the time to pick from box 2 if there are algorithms in both box 2 and 3
 var BOX_2_PERCENTAGE = 0.7;
 
@@ -35,6 +35,8 @@ export default class AlgTrainer {
     this.queuedAlgs = [];
     this.curAlg = null;
     this.curBox = null;
+    this.currentlyReviewing = false;
+    this.incorrectAlgs = [];
     // this.lastAlg = "" TODO add in this
   }
   playRound() {
@@ -57,9 +59,12 @@ export default class AlgTrainer {
       return true;
     }
     if (this.curBox == 4) {
+      if (!this.currentlyReviewing) {
+        this.boxes[4].shuffle(); // only shuffle the first time
+      }
+      this.currentlyReviewing = true;
       return this._reviewSession();
     }
-
   }
   pickAlg() {
     /*
@@ -71,7 +76,7 @@ export default class AlgTrainer {
     */
     if (this._noAlgsLeft()) {
       return [-1, 0];
-    } else if (this._triggerReview()) {
+    } else if (this.currentlyReviewing || this._triggerReview()) {
       return [4, 0];
     } else if (this.boxes[1].urgentShowExists()) {
       return [1, this.boxes[1].getMinAlgorithm()];
@@ -95,10 +100,17 @@ export default class AlgTrainer {
     Called after a user gets an algorithm wrong
     Resets the streak and moves to box 1
     */
-    this.boxes[this.curBox].erase(this.curAlg);
-    this.curAlg.reset();
-    this.boxes[1].add(this.curAlg);
-    this.boxes[1].passRound();
+    if (!this.currentlyReviewing) {
+      this.boxes[this.curBox].erase(this.curAlg);
+      this.curAlg.reset();
+      this.boxes[1].add(this.curAlg);
+      this.boxes[1].passRound();
+    } else {
+      this.incorrectAlgs.push(this.curAlg);
+      if (this.boxes[4].length() === 0) {
+        this._concludeReview();
+      }
+    }
   }
 
   correctAnswer() {
@@ -107,17 +119,24 @@ export default class AlgTrainer {
     Called after a user gets an algorithm correctly
     Increments the algorithm streak and moves it if necessary
     */
-    const box = this.curBox;
-    const alg = this.curAlg;
-    alg.incrementStreak();
-    if (box === 1 || box === 2) {
-      alg.reset(false);
-      this._move(alg, box, box + 1);
-    } else if (box === 3 && alg.getStreak() === 3) {
-      this._move(alg, 3, 4);
-      this._addNewAlg();
+    if (!this.currentlyReviewing) {
+      const box = this.curBox;
+      const alg = this.curAlg;
+      alg.incrementStreak();
+      if (box === 1 || box === 2) {
+        alg.reset(false);
+        this._move(alg, box, box + 1);
+      } else if (box === 3 && alg.getStreak() === 3) {
+        this._move(alg, 3, 4);
+        this._addNewAlg();
+      }
+      this.boxes[1].passRound();
+    } else {
+      this._move(this.curAlg, 4, 5);
+      if (this.boxes[4].length() === 0) {
+        this._concludeReview();
+      }
     }
-    this.boxes[1].passRound();
   }
 
   _triggerReview() {
@@ -204,9 +223,11 @@ export default class AlgTrainer {
     */
     let c = 0;
     while (c < count) {
-      for (let i in [2, 1, 3]) {
-        if (this.boxes[i].length() !== 0) {
-          this.queuedAlgs.append(this.boxes[i].pop());
+      const boxPreference = [2, 1, 3];
+      for (let i = 0; i < 3; i++) {
+        if (this.boxes[boxPreference[i]].length() !== 0) {
+          this.queuedAlgs.unshift(this.boxes[boxPreference[i]].pop());
+          console.log("REMOVED ALGORITHM FROM BOX ", boxPreference[i]);
           break;
         }
       }
@@ -221,30 +242,28 @@ export default class AlgTrainer {
     box 5 if answered correctly.
     */
     console.log("Review: ");
-    this.boxes[4].shuffle();
-    let incorrectAlgs = [];
-    while (this.boxes[4].length() !== 0) {
-      const alg = this.boxes[4].pop();
-      this.curBox = 4;
-      this.curAlg = alg;
-      const incorrect = window.prompt(
-        "Enter any character if you got the algorithm wrong: "
-      );
-      if (incorrect === "X") {
-        return true;
-      }
-      if (incorrect) {
-        incorrectAlgs.push(alg);
-      } else {
-        this._move(alg, 4, 5);
-      }
-    }
-    this._removeAlg(incorrectAlgs.length);
+    this.curAlg = this.boxes[4].pop();
+    this.curBox = 4;
+  }
 
-    for (let i = 0; i < incorrectAlgs.length; i++) {
-      incorrectAlgs[i].reset();
-      this.boxes[1].add(incorrectAlgs[i]);
+  _concludeReview() {
+    /*
+    concludeReview()
+    Ends the review session by resetting
+    every algorithm in incorrectAlgs and adding them
+    to box 1
+    */
+    console.log("CONCLUDING");
+    this.currentlyReviewing = false;
+    const curInCycle = this._algsInCycle();
+    const removeCount = curInCycle - (CONCURRENT - this.incorrectAlgs.length);
+    this._removeAlg(removeCount);
+
+    for (let i = 0; i < this.incorrectAlgs.length; i++) {
+      this.incorrectAlgs[i].reset();
+      this.boxes[1].add(this.incorrectAlgs[i]);
     }
+    this.incorrectAlgs = [];
   }
 
   _createBoxes(file_path) {
