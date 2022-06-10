@@ -187,7 +187,7 @@ export default class AlgTrainer {
     Picks from queuedAlgorithms if there are any in that box
     Else, picks one from box 0
     */
-    if (this.queuedAlgs) {
+    if (this.queuedAlgs.length !== 0) {
       this.boxes[2].add(this.queuedAlgs.pop());
     } else if (this.boxes[0].length() !== 0) {
       const moveAlg = this.boxes[0].getAlgorithm();
@@ -225,7 +225,8 @@ export default class AlgTrainer {
     let incorrectAlgs = [];
     while (this.boxes[4].length() !== 0) {
       const alg = this.boxes[4].pop();
-      console.log(alg.getScramble());
+      this.curBox = 4;
+      this.curAlg = alg;
       const incorrect = window.prompt(
         "Enter any character if you got the algorithm wrong: "
       );
