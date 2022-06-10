@@ -46,7 +46,7 @@ export default class Algorithm {
     */
     this.streak = 0;
     if (wrongAns) {
-      this.turnsUntilShow = Math.random() * (5 - 2) + 2;
+      this.turnsUntilShow = Math.floor(Math.random() * (5 - 2 + 1) + 2);
     } else {
       self.turnsUntilShow = null;
     }

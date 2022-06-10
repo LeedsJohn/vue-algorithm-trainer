@@ -33,8 +33,6 @@ export default class AlgTrainer {
     this.boxes = this._createBoxes(file_path);
     this._initialAlgs();
     this.queuedAlgs = [];
-    this.curAlgName = "";
-    this.curScramble = "";
     this.curAlg = null;
     this.curBox = null;
     // this.lastAlg = "" TODO add in this
@@ -52,18 +50,16 @@ export default class AlgTrainer {
       i += 1;
     }
     const info = this.pickAlg();
+    console.log(info);
     this.curBox = info[0];
     this.curAlg = info[1];
-    const alg = info[1];
     if (this.curBox == -1) {
       return true;
     }
     if (this.curBox == 4) {
       return this._reviewSession();
     }
-    console.log(alg.getScramble());
-    this.curScramble = alg.getScramble();
-    this.curAlgName = alg.getName();
+
   }
   pickAlg() {
     /*
@@ -84,7 +80,7 @@ export default class AlgTrainer {
     } else if (this.boxes[3].length() !== 0 && this.boxes[2].length() === 0) {
       return [3, this.boxes[3].getAlgorithm()];
     } else if (this.boxes[2].length() === 0 && this.boxes[3].length() === 0) {
-      return 1, this.boxes[1].getMinAlgorithm();
+      return [1, this.boxes[1].getMinAlgorithm()];
     }
     const whichBox = Math.random();
     if (whichBox < BOX_2_PERCENTAGE) {
@@ -99,10 +95,9 @@ export default class AlgTrainer {
     Called after a user gets an algorithm wrong
     Resets the streak and moves to box 1
     */
-    const alg = this.curAlg;
-    this.boxes[this.curBox].erase(alg);
-    alg.reset();
-    this.boxes[1].add(alg);
+    this.boxes[this.curBox].erase(this.curAlg);
+    this.curAlg.reset();
+    this.boxes[1].add(this.curAlg);
     this.boxes[1].passRound();
   }
 
@@ -195,7 +190,8 @@ export default class AlgTrainer {
     if (this.queuedAlgs) {
       this.boxes[2].add(this.queuedAlgs.pop());
     } else if (this.boxes[0].length() !== 0) {
-      this._move(this.boxes[0].getAlgorithm(), 0, 2);
+      const moveAlg = this.boxes[0].getAlgorithm();
+      this._move(moveAlg, 0, 2);
     }
   }
 
@@ -244,9 +240,9 @@ export default class AlgTrainer {
     }
     this._removeAlg(incorrectAlgs.length);
 
-    for (let alg in incorrectAlgs) {
-      alg.reset();
-      this.boxes[1].add(alg);
+    for (let i = 0; i < incorrectAlgs.length; i++) {
+      incorrectAlgs[i].reset();
+      this.boxes[1].add(incorrectAlgs[i]);
     }
   }
 

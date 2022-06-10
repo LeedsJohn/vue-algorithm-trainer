@@ -1,13 +1,13 @@
 <template>
   <p>{{ algName }}</p>
   <p>{{ scramble }}</p>
-  <button @click="test">get alg</button>
-  <button @click="wrong">wrong</button>
+  <button @click="newScramble">get alg</button>
   <button @click="correct">correct</button>
+  <button @click="wrong">wrong</button>
 </template>
 
 <script>
-import AlgTrainer from '../../js/scramble_generator/algtrainer.js';
+import AlgTrainer from "../../js/scramble_generator/algtrainer.js";
 
 export default {
   data() {
@@ -18,20 +18,21 @@ export default {
     };
   },
   methods: {
-    test() {
+    newScramble() {
       this.algTrainer.playRound();
-      this.algName = this.algTrainer.curAlgName;
-      this.scramble = this.algTrainer.curScramble;
+      this.algName = this.algTrainer.curAlg.getName();
+      this.scramble = this.algTrainer.curAlg.getScramble();
     },
     wrong() {
       this.algTrainer.wrongAnswer();
     },
     correct() {
       this.algTrainer.correctAnswer();
-    }
+    },
   },
   mounted() {
     this.algTrainer = new AlgTrainer("../../assets/scrambles/WV.js");
+    this.newScramble();
   },
 };
 </script>
