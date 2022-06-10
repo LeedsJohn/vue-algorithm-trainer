@@ -33,7 +33,9 @@ export default class AlgTrainer {
     this.boxes = this._createBoxes(file_path);
     this._initialAlgs();
     this.queuedAlgs = [];
-    // self.lastAlg = "" TODO add in this
+    this.curAlgName = "";
+    this.curScramble = "";
+    // this.lastAlg = "" TODO add in this
   }
   playRound() {
     /*
@@ -43,19 +45,22 @@ export default class AlgTrainer {
     */
     console.log("Box lengths: ");
     let i = 0;
-    for (let box in this.boxes) {
-      console.log("Box " + i + ": " + box.length());
+    while (i<6) {
+      console.log("Box " + i + ": " + this.boxes[i].length());
+      i += 1;
     }
-    const info = self.pickAlg();
+    const info = this.pickAlg();
     const box = info[0];
     const alg = info[1];
     if (box == -1) {
       return true;
     }
     if (box == 4) {
-      return self._reviewSession();
+      return this._reviewSession();
     }
     console.log(alg.getScramble());
+    this.curScramble = alg.getScramble();
+    this.curAlgName = alg.getName();
     const incorrect = window.prompt("uhhhh");
     if (incorrect === "X") {
       return true;
@@ -82,25 +87,26 @@ export default class AlgTrainer {
     Picks an algorithm to test the user on
     Returns the box and algorithm
     (box, algorithm)
+    Returns -1 if there are no algs left
     */
-    if (self._noAlgsLeft()) {
+    if (this._noAlgsLeft()) {
       return [-1, 0];
-    } else if (self._triggerReview()) {
+    } else if (this._triggerReview()) {
       return [4, 0];
     } else if (this.boxes[1].urgentShowExists()) {
-      return [1, self.boxes[1].getMinAlgorithm()];
-    } else if (self.boxes[2].length() !== 0 && self.boxes[3].length() === 0) {
-      return [2, self.boxes[2].getAlgorithm()];
-    } else if (self.boxes[3].length() !== 0 && self.boxes[2].length() === 0) {
-      return [3, self.boxes[3].getAlgorithm()];
-    } else if (self.boxes[2].length() === 0 && self.boxes[3].length() === 0) {
-      return 1, self.boxes[1].getMinAlgorithm();
+      return [1, this.boxes[1].getMinAlgorithm()];
+    } else if (this.boxes[2].length() !== 0 && this.boxes[3].length() === 0) {
+      return [2, this.boxes[2].getAlgorithm()];
+    } else if (this.boxes[3].length() !== 0 && this.boxes[2].length() === 0) {
+      return [3, this.boxes[3].getAlgorithm()];
+    } else if (this.boxes[2].length() === 0 && this.boxes[3].length() === 0) {
+      return 1, this.boxes[1].getMinAlgorithm();
     }
     const whichBox = Math.random();
     if (whichBox < BOX_2_PERCENTAGE) {
-      return [2, self.boxes[2].getAlgorithm()];
+      return [2, this.boxes[2].getAlgorithm()];
     }
-    return [3, self.boxes[3].getAlgorithm()];
+    return [3, this.boxes[3].getAlgorithm()];
   }
 
   _triggerReview() {
@@ -120,7 +126,7 @@ export default class AlgTrainer {
       }
       i += 1;
     }
-    if (self.boxes[4].length() != 0) {
+    if (this.boxes[4].length() != 0) {
       return true;
     }
     return false;
@@ -134,7 +140,7 @@ export default class AlgTrainer {
     */
     let i = 0;
     while (i < 5) {
-      if (self.boxes[i].length() != 0) {
+      if (this.boxes[i].length() != 0) {
         return false;
       }
       i += 1;
@@ -171,9 +177,9 @@ export default class AlgTrainer {
     Else, picks one from box 0
     */
     if (this.queuedAlgs) {
-      this.boxes[2].add(self.queuedAlgs.pop());
-    } else if (self.boxes[0].length() !== 0) {
-      this._move(self.boxes[0].getAlgorithm(), 0, 2);
+      this.boxes[2].add(this.queuedAlgs.pop());
+    } else if (this.boxes[0].length() !== 0) {
+      this._move(this.boxes[0].getAlgorithm(), 0, 2);
     }
   }
 
@@ -224,7 +230,7 @@ export default class AlgTrainer {
 
     for (let alg in incorrectAlgs) {
       alg.reset();
-      self.boxes[1].add(alg);
+      this.boxes[1].add(alg);
     }
   }
 
@@ -241,7 +247,8 @@ export default class AlgTrainer {
       boxes.push(newBox);
       i += 1;
     }
-    const { WV } = require(file_path);
+    console.log(file_path);
+    const { WV } = require("../../assets/scrambles/WV.js");
     // console.log(file_path);
     // const { WV } = require("../../assets/scrambles/WV.js");
     const scrambleInfo = WV;
@@ -267,6 +274,7 @@ export default class AlgTrainer {
     let i = 0;
     while (i < minCount) {
       this._move(this.boxes[0].getAlgorithm(), 0, 2);
+      i += 1;
     }
   }
 }
