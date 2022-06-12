@@ -3,14 +3,14 @@
 </template>
 
 <script>
-import TheScramble from './components/scramble/TheScramble.vue';
+import TheScramble from "./components/scramble/TheScramble.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     TheScramble,
-  }
-}
+  },
+};
 </script>
 
 <style>

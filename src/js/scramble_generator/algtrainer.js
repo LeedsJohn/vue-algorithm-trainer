@@ -19,6 +19,8 @@ Box 4:
     algorithms waiting for review
 Box 5:
     algorithms that the user got correctly during review
+Box 6:
+    Ignored algorithms - algorithms that the user does not want to learn
 */
 import Box from "./box.js";
 import Algorithm from "./algorithm.js";
@@ -37,6 +39,7 @@ export default class AlgTrainer {
     this.curBox = null;
     this.currentlyReviewing = false;
     this.incorrectAlgs = [];
+    this.ignored = [];
     // this.lastAlg = "" TODO add in this
   }
   playRound() {
@@ -139,6 +142,40 @@ export default class AlgTrainer {
     }
   }
 
+  ignoreAlg(alg) {
+    /*
+    ignoreAlg
+    Moves an algorithm into the box 6 (the ignored algorithms box)
+    */
+    const box = this._findAlgBox(alg);
+    if (box !== -1) {
+      this._move(alg, box, 6);
+      console.log("MOVEd ALGORGITHM", alg.getName());
+    }
+  }
+
+  unignoreAlg(alg) {
+    /*
+    unignoreAlg(alg)
+    Moves an algorithm from box 6 back into box 1
+    */
+    self._move(alg, 6, 1);
+  }
+
+  getAllAlgs() {
+    /*
+    getAllAlgs()
+    Returns an array of all algorithms regardless of if they are ignored or not.
+    */
+    let allAlgs = [];
+    for (let i = 0; i<this.boxes.length; i++){
+      for (let j = 0; j<this.boxes[i].length(); j++){
+        allAlgs.push(this.boxes[i].algorithms[j]);
+      }
+    }
+    return allAlgs;
+  }
+
   _triggerReview() {
     /*
     _triggerReview
@@ -197,6 +234,20 @@ export default class AlgTrainer {
     alg.reset(false);
     this.boxes[startBox].erase(alg);
     this.boxes[endBox].add(alg);
+  }
+
+  _findAlgBox(alg) {
+    /*
+    _findAlgbox
+    Returns the box that an algorithm is in
+    Returns -1 if the algorithm is not found
+    */
+    for (let box = 0; box < 7; box++) {
+      if (this.boxes[box].exists(alg)) {
+        return box;
+      }
+    }
+    return -1;
   }
 
   _addNewAlg() {
@@ -274,7 +325,7 @@ export default class AlgTrainer {
     */
     let boxes = [];
     let i = 0;
-    while (i < 6) {
+    while (i < 7) {
       let newBox = new Box();
       boxes.push(newBox);
       i += 1;

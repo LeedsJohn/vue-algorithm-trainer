@@ -104,4 +104,16 @@ export default class Box {
       ];
     }
   }
+  exists(alg) {
+    /*
+    exists(alg)
+    Returns true if an algorithm exists in the box
+    */
+    for (let i = 0; i<this.algorithms.length; i++){
+      if (this.algorithms[i] === alg) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
