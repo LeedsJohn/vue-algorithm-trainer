@@ -2,11 +2,17 @@
   <base-button @click="toggleSelectAlgScreen" class="topRight"
     >Select Algorithms
   </base-button>
-  <div v-if="selectAlgScreen">
+  <div v-if="!selectAlgScreen && !finished">
     <p class="name">{{ algName }}</p>
     <p class="scramble">{{ scramble }}</p>
   </div>
-  <TheAlgSelector v-else :algTrainer="algTrainer"></TheAlgSelector>
+  <keep-alive v-else-if="selectAlgScreen">
+    <TheAlgSelector :algTrainer="algTrainer"></TheAlgSelector>
+  </keep-alive>
+  <div v-else-if="finished">
+    <p class="finish">Good job!</p>
+    <base-button @click="restart"> Restart </base-button>
+  </div>
 </template>
 
 <script>
@@ -19,9 +25,9 @@ export default {
   },
   created() {
     window.addEventListener("keydown", (e) => {
-      if (e.key === " ") {
+      if (e.key === " " && !this.selectAlgScreen) {
         this.correct();
-      } else if (e.key === "x") {
+      } else if (e.key === "x" && !this.selectAlgScreen) {
         this.wrong();
       }
     });
@@ -35,12 +41,17 @@ export default {
       algName: "",
       scramble: "",
       algTrainer: null,
-      selectAlgScreen: true,
+      selectAlgScreen: false,
+      finished: false,
     };
   },
   methods: {
     getScramble() {
       this.algTrainer.playRound();
+      if (this.algTrainer.finished) {
+        this.finished = true;
+        return;
+      }
       this.algName = this.algTrainer.curAlg.getName();
       this.scramble = this.algTrainer.curAlg.getScramble();
     },
@@ -54,6 +65,10 @@ export default {
     },
     toggleSelectAlgScreen() {
       this.selectAlgScreen = !this.selectAlgScreen;
+    },
+    restart() {
+      this.algTrainer.reset();
+      this.getScramble();
     },
   },
 };
@@ -72,6 +87,12 @@ p {
 .scramble {
   font-size: 3.5vw;
   font-weight: 500;
+}
+
+.finished {
+  font-size: 4vw;
+  font-weight: 700;
+  font-style: italic;
 }
 
 .topRight {

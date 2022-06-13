@@ -40,6 +40,7 @@ export default class AlgTrainer {
     this.currentlyReviewing = false;
     this.incorrectAlgs = [];
     this.ignored = [];
+    this.finished = false;
     // this.lastAlg = "" TODO add in this
   }
   playRound() {
@@ -59,7 +60,8 @@ export default class AlgTrainer {
     this.curBox = info[0];
     this.curAlg = info[1];
     if (this.curBox == -1) {
-      return true;
+      this.finished = true;
+      return;
     }
     if (this.curBox == 4) {
       if (!this.currentlyReviewing) {
@@ -150,7 +152,6 @@ export default class AlgTrainer {
     const box = this._findAlgBox(alg);
     if (box !== -1) {
       this._move(alg, box, 6);
-      console.log("MOVEd ALGORGITHM", alg.getName());
     }
   }
 
@@ -159,7 +160,7 @@ export default class AlgTrainer {
     unignoreAlg(alg)
     Moves an algorithm from box 6 back into box 1
     */
-    self._move(alg, 6, 1);
+    this._move(alg, 6, 1);
   }
 
   getAllAlgs() {
@@ -174,6 +175,18 @@ export default class AlgTrainer {
       }
     }
     return allAlgs;
+  }
+
+  reset() {
+    /*
+    reset()
+    Moves all algorithms from box 5 to box 0
+    Draws algorithms from box 0 to box 1
+    */
+    for (let i = 0; i<this.boxes[5].length; i++){
+      this._move(this.boxes[0], 5, 0);
+    }
+    this._initialAlgs();
   }
 
   _triggerReview() {
