@@ -25,8 +25,8 @@ Box 6:
 import Box from "./box.js";
 import Algorithm from "./algorithm.js";
 
-var CONCURRENT = 3;
-var REVIEW_COUNT = 2;
+var CONCURRENT = 4;
+var REVIEW_COUNT = 6;
 // what percent of the time to pick from box 2 if there are algorithms in both box 2 and 3
 var BOX_2_PERCENTAGE = 0.7;
 

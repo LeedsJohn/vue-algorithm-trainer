@@ -1,19 +1,21 @@
 <template>
-  <button @click="toggleSelectAlgScreen">Select Algorithms</button>
+  <base-button @click="toggleSelectAlgScreen" class="topRight"
+    >Select Algorithms
+  </base-button>
   <div v-if="selectAlgScreen">
-    <p>{{ algName }}</p>
-    <p>{{ scramble }}</p>
+    <p class="name">{{ algName }}</p>
+    <p class="scramble">{{ scramble }}</p>
   </div>
   <TheAlgSelector v-else :algTrainer="algTrainer"></TheAlgSelector>
 </template>
 
 <script>
 import AlgTrainer from "../../js/scramble_generator/algtrainer.js";
-import TheAlgSelector from "../select_algs/TheAlgSelector.vue"
+import TheAlgSelector from "../select_algs/TheAlgSelector.vue";
 
 export default {
   components: {
-    TheAlgSelector
+    TheAlgSelector,
   },
   created() {
     window.addEventListener("keydown", (e) => {
@@ -56,3 +58,25 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+p {
+  color: #30dfe9;
+}
+
+.name {
+  font-size: 4vw;
+  font-weight: 700;
+}
+
+.scramble {
+  font-size: 3.5vw;
+  font-weight: 500;
+}
+
+.topRight {
+  position: absolute;
+  top: 1%;
+  right: 2%;
+}
+</style>

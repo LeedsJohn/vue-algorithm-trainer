@@ -1,5 +1,4 @@
 <template>
-  <p>HI!!!</p>
   <ul v-for="alg in allAlgs" :key="alg.name">
     <li v-if="!ignored.includes(alg.name)" @click="addToIgnored(alg)">learning: {{alg.name}}</li>
     <li v-else @click="removeFromIgnored(alg)">NOT learning: {{alg.name}}</li>
