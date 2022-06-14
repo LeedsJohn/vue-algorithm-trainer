@@ -174,7 +174,15 @@ export default class AlgTrainer {
         allAlgs.push(this.boxes[i].algorithms[j]);
       }
     }
-    return allAlgs;
+    if (!isNaN(allAlgs[0].getName().slice(-1))){
+      return allAlgs.sort((a, b) => {
+        const aNum = parseInt(a.getName().substring(a.getName().length - 2).trim());
+        const bNum = parseInt(b.getName().substring(b.getName().length - 2).trim());
+        return aNum - bNum;
+      })
+    }
+    // TODO check this
+    return allAlgs.sort((a, b) => a.getName().localCompare(b.firstName()));
   }
 
   reset() {
