@@ -169,17 +169,27 @@ export default class AlgTrainer {
     Returns an array of all algorithms regardless of if they are ignored or not.
     */
     let allAlgs = [];
-    for (let i = 0; i<this.boxes.length; i++){
-      for (let j = 0; j<this.boxes[i].length(); j++){
+    for (let i = 0; i < this.boxes.length; i++) {
+      for (let j = 0; j < this.boxes[i].length(); j++) {
         allAlgs.push(this.boxes[i].algorithms[j]);
       }
     }
-    if (!isNaN(allAlgs[0].getName().slice(-1))){
+    if (!isNaN(allAlgs[0].getName().slice(-1))) {
       return allAlgs.sort((a, b) => {
-        const aNum = parseInt(a.getName().substring(a.getName().length - 2).trim());
-        const bNum = parseInt(b.getName().substring(b.getName().length - 2).trim());
+        const aNum = parseInt(
+          a
+            .getName()
+            .substring(a.getName().length - 2)
+            .trim()
+        );
+        const bNum = parseInt(
+          b
+            .getName()
+            .substring(b.getName().length - 2)
+            .trim()
+        );
         return aNum - bNum;
-      })
+      });
     }
     // TODO check this
     return allAlgs.sort((a, b) => a.getName().localCompare(b.firstName()));
@@ -191,7 +201,7 @@ export default class AlgTrainer {
     Moves all algorithms from box 5 to box 0
     Draws algorithms from box 0 to box 1
     */
-    for (let i = 0; i<this.boxes[5].length; i++){
+    for (let i = 0; i < this.boxes[5].length; i++) {
       this._move(this.boxes[0], 5, 0);
     }
     this._initialAlgs();
