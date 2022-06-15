@@ -33,7 +33,7 @@ var BOX_2_PERCENTAGE = 0.7;
 export default class AlgTrainer {
   constructor(file_path) {
     this.boxes = this._createBoxes(file_path);
-    this._initialAlgs();
+    this.getAlgs();
     this.queuedAlgs = [];
     this.curAlg = null;
     this.curBox = null;
@@ -201,10 +201,11 @@ export default class AlgTrainer {
     Moves all algorithms from box 5 to box 0
     Draws algorithms from box 0 to box 1
     */
-    for (let i = 0; i < this.boxes[5].length; i++) {
-      this._move(this.boxes[0], 5, 0);
+    this.finished = false;
+    while (this.boxes[5].length() !== 0){
+      this._move(this.boxes[5].algorithms[0], 5, 0);
     }
-    this._initialAlgs();
+    this.getAlgs();
   }
 
   _triggerReview() {
@@ -375,18 +376,16 @@ export default class AlgTrainer {
     return boxes;
   }
 
-  _initialAlgs() {
+  getAlgs() {
     /*
-    _initialAlgs
-    Picks the initial algorithms.
-    Chooses up to CONCURRENT algorithms to move from box 0 to box 2
+    getAlgs
+    Ensures there are the proper number of algs
+    in cycle
     */
-    let minCount = CONCURRENT;
-    if (this.boxes[0].length() < minCount) {
-      minCount = this.boxes[0].length();
-    }
+    const startCount = this._algsInCycle();
+    let drawCount = CONCURRENT - startCount;
     let i = 0;
-    while (i < minCount) {
+    while (i < drawCount && this.boxes[0].length() !== 0) {
       this._move(this.boxes[0].getAlgorithm(), 0, 2);
       i += 1;
     }

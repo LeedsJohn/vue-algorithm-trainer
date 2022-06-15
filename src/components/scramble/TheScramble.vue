@@ -9,7 +9,7 @@
   <TheAlgSelector v-else-if="selectAlgScreen" :algTrainer="algTrainer"></TheAlgSelector>
   <div v-else-if="finished">
     <p class="finish">Good job!</p>
-    <base-button @click="restart"> Restart </base-button>
+    <base-button @click="restart">Restart</base-button>
   </div>
 </template>
 
@@ -62,10 +62,13 @@ export default {
       this.getScramble();
     },
     toggleSelectAlgScreen() {
+      this.algTrainer.getAlgs();
+      this.getScramble();
       this.selectAlgScreen = !this.selectAlgScreen;
     },
-    restart() {
-      this.algTrainer.reset();
+    async restart() {
+      this.finished = false;
+      await this.algTrainer.reset();
       this.getScramble();
     },
   },
@@ -88,7 +91,7 @@ p {
 }
 
 .finished {
-  font-size: 4vw;
+  font-size: 10vw;
   font-weight: 700;
   font-style: italic;
 }
