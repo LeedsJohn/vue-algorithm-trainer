@@ -19,21 +19,29 @@ Box 4:
     algorithms waiting for review
 Box 5:
     algorithms that the user got correctly during review
+Box 6:
+    Ignored algorithms - algorithms that the user does not want to learn
 */
 import Box from "./box.js";
 import Algorithm from "./algorithm.js";
 
 var CONCURRENT = 4;
-var REVIEW_COUNT = 8;
+var REVIEW_COUNT = 6;
 // what percent of the time to pick from box 2 if there are algorithms in both box 2 and 3
 var BOX_2_PERCENTAGE = 0.7;
 
 export default class AlgTrainer {
   constructor(file_path) {
     this.boxes = this._createBoxes(file_path);
-    this._initialAlgs();
+    this.getAlgs();
     this.queuedAlgs = [];
-    // self.lastAlg = "" TODO add in this
+    this.curAlg = null;
+    this.curBox = null;
+    this.currentlyReviewing = false;
+    this.incorrectAlgs = [];
+    this.ignored = [];
+    this.finished = false;
+    // this.lastAlg = "" TODO add in this
   }
   playRound() {
     /*
@@ -43,28 +51,82 @@ export default class AlgTrainer {
     */
     console.log("Box lengths: ");
     let i = 0;
-    for (let box in this.boxes) {
-      console.log("Box " + i + ": " + box.length());
+    while (i < 6) {
+      console.log("Box " + i + ": " + this.boxes[i].length());
+      i += 1;
     }
-    const info = self.pickAlg();
-    const box = info[0];
-    const alg = info[1];
-    if (box == -1) {
-      return true;
+    const info = this.pickAlg();
+    console.log(info);
+    this.curBox = info[0];
+    this.curAlg = info[1];
+    if (this.curBox == -1) {
+      this.finished = true;
+      return;
     }
-    if (box == 4) {
-      return self._reviewSession();
+    if (this.curBox == 4) {
+      if (!this.currentlyReviewing) {
+        this.boxes[4].shuffle(); // only shuffle the first time
+      }
+      this.currentlyReviewing = true;
+      return this._reviewSession();
     }
-    console.log(alg.getScramble());
-    const incorrect = window.prompt("uhhhh");
-    if (incorrect === "X") {
-      return true;
+  }
+  pickAlg() {
+    /*
+    pickAlg
+    Picks an algorithm to test the user on
+    Returns the box and algorithm
+    (box, algorithm)
+    Returns -1 if there are no algs left
+    */
+    if (this._noAlgsLeft()) {
+      return [-1, 0];
+    } else if (this.currentlyReviewing || this._triggerReview()) {
+      return [4, 0];
+    } else if (this.boxes[1].urgentShowExists()) {
+      return [1, this.boxes[1].getMinAlgorithm()];
+    } else if (this.boxes[2].length() !== 0 && this.boxes[3].length() === 0) {
+      return [2, this.boxes[2].getAlgorithm()];
+    } else if (this.boxes[3].length() !== 0 && this.boxes[2].length() === 0) {
+      return [3, this.boxes[3].getAlgorithm()];
+    } else if (this.boxes[2].length() === 0 && this.boxes[3].length() === 0) {
+      return [1, this.boxes[1].getMinAlgorithm()];
     }
-    if (incorrect) {
-      this.boxes[box].erase(alg);
-      alg.reset();
-      this.boxes[1].add(alg);
+    const whichBox = Math.random();
+    if (whichBox < BOX_2_PERCENTAGE) {
+      return [2, this.boxes[2].getAlgorithm()];
+    }
+    return [3, this.boxes[3].getAlgorithm()];
+  }
+
+  wrongAnswer() {
+    /*
+    wrongAnswer()
+    Called after a user gets an algorithm wrong
+    Resets the streak and moves to box 1
+    */
+    if (!this.currentlyReviewing) {
+      this.boxes[this.curBox].erase(this.curAlg);
+      this.curAlg.reset();
+      this.boxes[1].add(this.curAlg);
+      this.boxes[1].passRound();
     } else {
+      this.incorrectAlgs.push(this.curAlg);
+      if (this.boxes[4].length() === 0) {
+        this._concludeReview();
+      }
+    }
+  }
+
+  correctAnswer() {
+    /*
+    correctAnswer()
+    Called after a user gets an algorithm correctly
+    Increments the algorithm streak and moves it if necessary
+    */
+    if (!this.currentlyReviewing) {
+      const box = this.curBox;
+      const alg = this.curAlg;
       alg.incrementStreak();
       if (box === 1 || box === 2) {
         alg.reset(false);
@@ -73,34 +135,77 @@ export default class AlgTrainer {
         this._move(alg, 3, 4);
         this._addNewAlg();
       }
+      this.boxes[1].passRound();
+    } else {
+      this._move(this.curAlg, 4, 5);
+      if (this.boxes[4].length() === 0) {
+        this._concludeReview();
+      }
     }
-    this.boxes[1].passRound();
   }
-  pickAlg() {
+
+  ignoreAlg(alg) {
     /*
-    pickAlg
-    Picks an algorithm to test the user on
-    Returns the box and algorithm
-    (box, algorithm)
+    ignoreAlg
+    Moves an algorithm into the box 6 (the ignored algorithms box)
     */
-    if (self._noAlgsLeft()) {
-      return [-1, 0];
-    } else if (self._triggerReview()) {
-      return [4, 0];
-    } else if (this.boxes[1].urgentShowExists()) {
-      return [1, self.boxes[1].getMinAlgorithm()];
-    } else if (self.boxes[2].length() !== 0 && self.boxes[3].length() === 0) {
-      return [2, self.boxes[2].getAlgorithm()];
-    } else if (self.boxes[3].length() !== 0 && self.boxes[2].length() === 0) {
-      return [3, self.boxes[3].getAlgorithm()];
-    } else if (self.boxes[2].length() === 0 && self.boxes[3].length() === 0) {
-      return 1, self.boxes[1].getMinAlgorithm();
+    const box = this._findAlgBox(alg);
+    if (box !== -1) {
+      this._move(alg, box, 6);
     }
-    const whichBox = Math.random();
-    if (whichBox < BOX_2_PERCENTAGE) {
-      return [2, self.boxes[2].getAlgorithm()];
+  }
+
+  unignoreAlg(alg) {
+    /*
+    unignoreAlg(alg)
+    Moves an algorithm from box 6 back into box 1
+    */
+    this._move(alg, 6, 1);
+  }
+
+  getAllAlgs() {
+    /*
+    getAllAlgs()
+    Returns an array of all algorithms regardless of if they are ignored or not.
+    */
+    let allAlgs = [];
+    for (let i = 0; i < this.boxes.length; i++) {
+      for (let j = 0; j < this.boxes[i].length(); j++) {
+        allAlgs.push(this.boxes[i].algorithms[j]);
+      }
     }
-    return [3, self.boxes[3].getAlgorithm()];
+    if (!isNaN(allAlgs[0].getName().slice(-1))) {
+      return allAlgs.sort((a, b) => {
+        const aNum = parseInt(
+          a
+            .getName()
+            .substring(a.getName().length - 2)
+            .trim()
+        );
+        const bNum = parseInt(
+          b
+            .getName()
+            .substring(b.getName().length - 2)
+            .trim()
+        );
+        return aNum - bNum;
+      });
+    }
+    // TODO check this
+    return allAlgs.sort((a, b) => a.getName().localCompare(b.firstName()));
+  }
+
+  reset() {
+    /*
+    reset()
+    Moves all algorithms from box 5 to box 0
+    Draws algorithms from box 0 to box 1
+    */
+    this.finished = false;
+    while (this.boxes[5].length() !== 0){
+      this._move(this.boxes[5].algorithms[0], 5, 0);
+    }
+    this.getAlgs();
   }
 
   _triggerReview() {
@@ -120,7 +225,7 @@ export default class AlgTrainer {
       }
       i += 1;
     }
-    if (self.boxes[4].length() != 0) {
+    if (this.boxes[4].length() != 0) {
       return true;
     }
     return false;
@@ -134,7 +239,7 @@ export default class AlgTrainer {
     */
     let i = 0;
     while (i < 5) {
-      if (self.boxes[i].length() != 0) {
+      if (this.boxes[i].length() != 0) {
         return false;
       }
       i += 1;
@@ -163,6 +268,20 @@ export default class AlgTrainer {
     this.boxes[endBox].add(alg);
   }
 
+  _findAlgBox(alg) {
+    /*
+    _findAlgbox
+    Returns the box that an algorithm is in
+    Returns -1 if the algorithm is not found
+    */
+    for (let box = 0; box < 7; box++) {
+      if (this.boxes[box].exists(alg)) {
+        return box;
+      }
+    }
+    return -1;
+  }
+
   _addNewAlg() {
     /*
     _addNewAlg
@@ -170,10 +289,11 @@ export default class AlgTrainer {
     Picks from queuedAlgorithms if there are any in that box
     Else, picks one from box 0
     */
-    if (this.queuedAlgs) {
-      this.boxes[2].add(self.queuedAlgs.pop());
-    } else if (self.boxes[0].length() !== 0) {
-      this._move(self.boxes[0].getAlgorithm(), 0, 2);
+    if (this.queuedAlgs.length !== 0) {
+      this.boxes[2].add(this.queuedAlgs.pop());
+    } else if (this.boxes[0].length() !== 0) {
+      const moveAlg = this.boxes[0].getAlgorithm();
+      this._move(moveAlg, 0, 2);
     }
   }
 
@@ -186,9 +306,11 @@ export default class AlgTrainer {
     */
     let c = 0;
     while (c < count) {
-      for (let i in [2, 1, 3]) {
-        if (this.boxes[i].length() !== 0) {
-          this.queuedAlgs.append(this.boxes[i].pop());
+      const boxPreference = [2, 1, 3];
+      for (let i = 0; i < 3; i++) {
+        if (this.boxes[boxPreference[i]].length() !== 0) {
+          this.queuedAlgs.unshift(this.boxes[boxPreference[i]].pop());
+          console.log("REMOVED ALGORITHM FROM BOX ", boxPreference[i]);
           break;
         }
       }
@@ -203,29 +325,28 @@ export default class AlgTrainer {
     box 5 if answered correctly.
     */
     console.log("Review: ");
-    this.boxes[4].shuffle();
-    let incorrectAlgs = [];
-    while (this.boxes[4].length() !== 0) {
-      const alg = this.boxes[4].pop();
-      console.log(alg.getScramble());
-      const incorrect = window.prompt(
-        "Enter any character if you got the algorithm wrong: "
-      );
-      if (incorrect === "X") {
-        return true;
-      }
-      if (incorrect) {
-        incorrectAlgs.push(alg);
-      } else {
-        this._move(alg, 4, 5);
-      }
-    }
-    this._removeAlg(incorrectAlgs.length);
+    this.curAlg = this.boxes[4].pop();
+    this.curBox = 4;
+  }
 
-    for (let alg in incorrectAlgs) {
-      alg.reset();
-      self.boxes[1].add(alg);
+  _concludeReview() {
+    /*
+    concludeReview()
+    Ends the review session by resetting
+    every algorithm in incorrectAlgs and adding them
+    to box 1
+    */
+    console.log("CONCLUDING");
+    this.currentlyReviewing = false;
+    const curInCycle = this._algsInCycle();
+    const removeCount = curInCycle - (CONCURRENT - this.incorrectAlgs.length);
+    this._removeAlg(removeCount);
+
+    for (let i = 0; i < this.incorrectAlgs.length; i++) {
+      this.incorrectAlgs[i].reset();
+      this.boxes[1].add(this.incorrectAlgs[i]);
     }
+    this.incorrectAlgs = [];
   }
 
   _createBoxes(file_path) {
@@ -236,13 +357,16 @@ export default class AlgTrainer {
     */
     let boxes = [];
     let i = 0;
-    while (i < 6) {
+    while (i < 7) {
       let newBox = new Box();
       boxes.push(newBox);
       i += 1;
     }
-
-    const scrambleInfo = require(file_path);
+    console.log(file_path);
+    const { WV } = require("../../assets/scrambles/WV.js");
+    // console.log(file_path);
+    // const { WV } = require("../../assets/scrambles/WV.js");
+    const scrambleInfo = WV;
 
     for (let algName in scrambleInfo) {
       const newAlg = new Algorithm(algName, scrambleInfo[algName]);
@@ -252,19 +376,18 @@ export default class AlgTrainer {
     return boxes;
   }
 
-  _initialAlgs() {
+  getAlgs() {
     /*
-    _initialAlgs
-    Picks the initial algorithms.
-    Chooses up to CONCURRENT algorithms to move from box 0 to box 2
+    getAlgs
+    Ensures there are the proper number of algs
+    in cycle
     */
-    let minCount = CONCURRENT;
-    if (this.boxes[0].length() < minCount) {
-      minCount = this.boxes[0].length();
-    }
+    const startCount = this._algsInCycle();
+    let drawCount = CONCURRENT - startCount;
     let i = 0;
-    while (i < minCount) {
+    while (i < drawCount && this.boxes[0].length() !== 0) {
       this._move(this.boxes[0].getAlgorithm(), 0, 2);
+      i += 1;
     }
   }
 }

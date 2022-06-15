@@ -1,37 +1,104 @@
 <template>
-  <p>{{ algName }}</p>
-  <p>{{ scramble }}</p>
-  <button @click="test">test</button>
+  <base-button @click="toggleSelectAlgScreen" class="topRight"
+    >Select Algorithms
+  </base-button>
+  <div v-if="!selectAlgScreen && !finished">
+    <p class="name">{{ algName }}</p>
+    <p class="scramble">{{ scramble }}</p>
+  </div>
+  <TheAlgSelector v-else-if="selectAlgScreen" :algTrainer="algTrainer"></TheAlgSelector>
+  <div v-else-if="finished">
+    <p class="finish">Good job!</p>
+    <base-button @click="restart">Restart</base-button>
+  </div>
 </template>
 
 <script>
-import WV from "../../assets/scrambles/WV.js";
-import AlgTrainer from '../../js/scramble_generator/algtrainer.js';
+import AlgTrainer from "../../js/scramble_generator/algtrainer.js";
+import TheAlgSelector from "../select_algs/TheAlgSelector.vue";
 
 export default {
+  components: {
+    TheAlgSelector,
+  },
+  created() {
+    window.addEventListener("keydown", (e) => {
+      if (e.key === " " && !this.selectAlgScreen) {
+        this.correct();
+      } else if (e.key === "x" && !this.selectAlgScreen) {
+        this.wrong();
+      }
+    });
+  },
+  mounted() {
+    this.algTrainer = new AlgTrainer("../../assets/scrambles/WV.js");
+    this.getScramble();
+  },
   data() {
     return {
-      algNames: null,
-      scrambles: WV,
-      algName: "name",
-      scramble: "scramble",
-      testing: null,
+      algName: "",
+      scramble: "",
+      algTrainer: null,
+      selectAlgScreen: false,
+      finished: false,
     };
   },
   methods: {
-    test() {
-      this.testing.playRound();
-      this.algName =
-        this.algNames[Math.floor(Math.random() * this.algNames.length)];
-      const scrambleList = this.scrambles[this.algName];
-      this.scramble =
-        scrambleList[Math.floor(Math.random() * scrambleList.length)];
+    getScramble() {
+      this.algTrainer.playRound();
+      if (this.algTrainer.finished) {
+        this.finished = true;
+        return;
+      }
+      this.algName = this.algTrainer.curAlg.getName();
+      this.scramble = this.algTrainer.curAlg.getScramble();
     },
-  },
-  mounted() {
-    const names = Object.keys(this.scrambles);
-    this.algNames = names;
-    this.testing = new AlgTrainer("../../assets/scrambles/WV.js");
+    wrong() {
+      this.algTrainer.wrongAnswer();
+      this.getScramble();
+    },
+    correct() {
+      this.algTrainer.correctAnswer();
+      this.getScramble();
+    },
+    toggleSelectAlgScreen() {
+      this.algTrainer.getAlgs();
+      this.getScramble();
+      this.selectAlgScreen = !this.selectAlgScreen;
+    },
+    async restart() {
+      this.finished = false;
+      await this.algTrainer.reset();
+      this.getScramble();
+    },
   },
 };
 </script>
+
+<style scoped>
+p {
+  color: #30dfe9;
+}
+
+.name {
+  font-size: 4vw;
+  font-weight: 700;
+}
+
+.scramble {
+  font-size: 3.5vw;
+  font-weight: 500;
+}
+
+.finished {
+  font-size: 10vw;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.topRight {
+  position: absolute;
+  top: 1%;
+  right: 2%;
+}
+</style>

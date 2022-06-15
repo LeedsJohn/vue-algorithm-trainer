@@ -3,14 +3,14 @@
 </template>
 
 <script>
-import TheScramble from './components/scramble/TheScramble.vue';
+import TheScramble from "./components/scramble/TheScramble.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     TheScramble,
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -21,5 +21,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+html {
+  background-color: #0081A7;
 }
 </style>

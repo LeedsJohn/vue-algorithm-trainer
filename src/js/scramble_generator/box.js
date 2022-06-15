@@ -18,8 +18,8 @@ export default class Box {
     */
     // TODO: maybe should be value.getName === alg.getName etc
     // TODO: maybe should be this.algorithms.filter(function (value, index, arr)
-    this.algorithms.filter(function (value) {
-      return value === alg;
+    this.algorithms = this.algorithms.filter(function (value) {
+      return value !== alg;
     });
   }
 
@@ -59,10 +59,10 @@ export default class Box {
     let minTurns = this.algorithms[0].getTurnsUntilShow();
     let minAlg = this.algorithms[0];
 
-    for (let alg in this.algorithms) {
-      if (alg.getTurnsUntilShow() < minTurns) {
-        minTurns = alg.getTurnsUntilShow();
-        minAlg = alg;
+    for (let i = 0; i < this.algorithms.length; i++) {
+      if (this.algorithms[i].getTurnsUntilShow() < minTurns) {
+        minTurns = this.algorithms[i].getTurnsUntilShow();
+        minAlg = this.algorithms[i];
       }
     }
     return minAlg;
@@ -73,8 +73,8 @@ export default class Box {
     Returns true if there is an algorithm in the box
     where turnsUntilShow <= 0
     */
-    for (let alg in this.algorithms) {
-      if (alg.getTurnsUntilShow() <= 0) {
+    for (let i = 0; i < this.algorithms.length; i++) {
+      if (this.algorithms[i].getTurnsUntilShow() <= 0) {
         return true;
       }
     }
@@ -85,8 +85,8 @@ export default class Box {
     passRound
     Subtracts 1 from every algorithms turnsUNtilShow
     */
-    for (let alg in this.algorithms) {
-      alg.decrementTurnsUntilShow();
+    for (let i = 0; i < this.algorithms.length; i++) {
+      this.algorithms[i].decrementTurnsUntilShow();
     }
   }
 
@@ -103,5 +103,17 @@ export default class Box {
         this.algorithms[i],
       ];
     }
+  }
+  exists(alg) {
+    /*
+    exists(alg)
+    Returns true if an algorithm exists in the box
+    */
+    for (let i = 0; i<this.algorithms.length; i++){
+      if (this.algorithms[i] === alg) {
+        return true;
+      }
+    }
+    return false;
   }
 }
