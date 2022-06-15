@@ -6,9 +6,7 @@
     <p class="name">{{ algName }}</p>
     <p class="scramble">{{ scramble }}</p>
   </div>
-  <keep-alive v-else-if="selectAlgScreen">
-    <TheAlgSelector :algTrainer="algTrainer"></TheAlgSelector>
-  </keep-alive>
+  <TheAlgSelector v-else-if="selectAlgScreen" :algTrainer="algTrainer"></TheAlgSelector>
   <div v-else-if="finished">
     <p class="finish">Good job!</p>
     <base-button @click="restart"> Restart </base-button>

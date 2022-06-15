@@ -11,7 +11,10 @@
 export default {
   props: ["algTrainer"],
   mounted() {
-    this.allAlgs = this.algTrainer.getAllAlgs()
+    this.allAlgs = this.algTrainer.getAllAlgs();
+    for (let i = 0; i < this.algTrainer.boxes[6].length(); i++) {
+      this.ignored.push(this.algTrainer.boxes[6].algorithms[i].getName());
+    }
   },
   data() {
     return {
