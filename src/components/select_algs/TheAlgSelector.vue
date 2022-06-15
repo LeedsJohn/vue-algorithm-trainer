@@ -1,9 +1,11 @@
 <template>
   <ul v-for="alg in allAlgs" :key="alg.name">
     <li v-if="!ignored.includes(alg.name)" @click="addToIgnored(alg)">
-      learning: {{ alg.name }}
+      <base-button class="test">learning: {{ alg.name }}</base-button>
     </li>
-    <li v-else @click="removeFromIgnored(alg)">NOT learning: {{ alg.name }}</li>
+    <li v-else @click="removeFromIgnored(alg)">
+      <base-button>NOT learning: {{ alg.name }}</base-button>
+    </li>
   </ul>
 </template>
 
@@ -34,3 +36,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+li {
+  list-style-type: none;
+  float: left;
+}
+
+li .test {
+  display: block;
+}
+
+</style>

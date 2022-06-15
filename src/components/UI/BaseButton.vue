@@ -1,5 +1,5 @@
 <template>
-  <button>
+  <button class="button-9">
     <slot></slot>
   </button>
 </template>
@@ -20,9 +20,9 @@ button {
   cursor: pointer;
   font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
   font-size: 100%;
-  height: 44px;
+  height: 4vw;
   line-height: 1.15;
-  margin: 12px 0 0;
+  margin: 12px;
   outline: none;
   overflow: hidden;
   padding: 0 25px;
@@ -34,7 +34,7 @@ button {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 10%;
+  width: 12vw;
 }
 
 .button-9:disabled {
