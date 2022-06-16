@@ -1,14 +1,32 @@
 <template>
-  <the-scramble></the-scramble>
+  <div v-if="!showAbout">
+    <the-scramble></the-scramble>
+    <base-button @click="toggleAbout">About</base-button>
+  </div>
+  <base-foreground v-else @close="toggleAbout"
+    ><the-about></the-about
+  ></base-foreground>
 </template>
 
 <script>
 import TheScramble from "./components/scramble/TheScramble.vue";
+import TheAbout from "./components/about/TheAbout.vue";
 
 export default {
   name: "App",
   components: {
     TheScramble,
+    TheAbout,
+  },
+  data() {
+    return {
+      showAbout: false,
+    };
+  },
+  methods: {
+    toggleAbout() {
+      this.showAbout = !this.showAbout;
+    },
   },
 };
 </script>
@@ -24,6 +42,6 @@ export default {
 }
 
 html {
-  background-color: #0081A7;
+  background-color: #0081a7;
 }
 </style>

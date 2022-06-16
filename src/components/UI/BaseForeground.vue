@@ -1,0 +1,49 @@
+<template>
+  <div class="background">
+    <div class="content">
+      <base-button class="close" @click="close">Hide</base-button>
+      <slot></slot>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    close() {
+      this.$emit("close");
+    },
+  },
+};
+</script>
+
+<style scoped>
+.background {
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.content {
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  height: 80%;
+  width: 80%;
+  background-color: #00a1d7;
+  border-radius: 20px;
+}
+
+.close {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+}
+</style>
