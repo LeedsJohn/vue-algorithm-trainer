@@ -8,7 +8,7 @@
   </div>
   <TheAlgSelector v-else-if="selectAlgScreen" :algTrainer="algTrainer"></TheAlgSelector>
   <div v-else-if="finished">
-    <p class="finish">Good job!</p>
+    <p class="finished">Good job!</p>
     <base-button @click="restart">Restart</base-button>
   </div>
 </template>
@@ -23,9 +23,9 @@ export default {
   },
   created() {
     window.addEventListener("keydown", (e) => {
-      if (e.key === " " && !this.selectAlgScreen) {
+      if (e.key === " " && !this.selectAlgScreen && !this.finished) {
         this.correct();
-      } else if (e.key === "x" && !this.selectAlgScreen) {
+      } else if (e.key === "x" && !this.selectAlgScreen && !this.finished) {
         this.wrong();
       }
     });
