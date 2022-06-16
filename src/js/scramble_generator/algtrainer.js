@@ -195,6 +195,24 @@ export default class AlgTrainer {
     return allAlgs.sort((a, b) => a.getName().localCompare(b.firstName()));
   }
 
+  getAlgFromName(algName) {
+    /*
+    getAlgFromName(algName)
+    Receives the name of an algorithm
+    Returns the algorithm associated with that name
+    If there is no algorithm, returns -1
+    */
+    console.log("LOOKING FOR: ", algName)
+    for (let boxIndex = 0; boxIndex<this.boxes.length; boxIndex++){
+      for (let alg = 0; alg<this.boxes[boxIndex].length(); alg++ ){
+        if (this.boxes[boxIndex].algorithms[alg].getName() === algName) {
+          return this.boxes[boxIndex].algorithms[alg];
+        }
+      }
+    }
+    return -1;
+  }
+
   reset() {
     /*
     reset()
@@ -207,7 +225,7 @@ export default class AlgTrainer {
     }
     this.getAlgs();
   }
-
+  
   _triggerReview() {
     /*
     _triggerReview

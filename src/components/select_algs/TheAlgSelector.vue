@@ -45,12 +45,15 @@ export default {
     toggleSet(set) {
       if (this.ignoredSets.includes(set.name)) {
         this.ignoredSets = this.ignoredSets.filter((e) => e !== set.name);
-        set.cases.forEach((alg) => {
+        set.cases.forEach((algName) => {
+          const alg = this.algTrainer.getAlgFromName(algName);
           this.removeFromIgnored(alg);
         });
       } else {
         this.ignoredSets.push(set.name);
-        set.cases.forEach((alg) => {
+        set.cases.forEach((algName) => {
+          const alg = this.algTrainer.getAlgFromName(algName);
+          console.log(alg.name);
           this.addToIgnored(alg);
         });
       }
