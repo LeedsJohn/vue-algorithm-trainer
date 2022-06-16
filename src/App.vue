@@ -1,17 +1,25 @@
 <template>
-  <div v-if="!chosenSet">
-    <base-button v-if="!selectingAlgset" @click="toggleSelectingAlgset"
-      >Select Algorithm Set</base-button
-    >
-    <the-algset-selector v-else @selectSet="selectSet"></the-algset-selector>
-  </div>
-  <div v-else-if="!showAbout">
+  <div v-if="!showAbout && !selectingAlgset && chosenSet">
     <the-scramble></the-scramble>
     <base-button @click="toggleAbout">About</base-button>
+    <base-button @click="toggleSelectingAlgset"
+      >Select Algorithm Set</base-button
+    >
   </div>
-  <base-foreground v-else @close="toggleAbout"
+  <base-button
+    v-else-if="!chosenSet && !selectingAlgset"
+    @click="toggleSelectingAlgset"
+    >Select Algorithm Set</base-button
+  >
+  <base-foreground
+    v-else-if="showAbout && !selectingAlgset"
+    @close="toggleAbout"
     ><the-about></the-about
   ></base-foreground>
+  <the-algset-selector
+    v-else-if="!showAbout && selectingAlgset"
+    @selectSet="selectSet"
+  ></the-algset-selector>
 </template>
 
 <script>
@@ -41,6 +49,7 @@ export default {
       this.selectingAlgset = !this.selectingAlgset;
     },
     selectSet(fileName) {
+      this.toggleSelectingAlgset();
       this.chosenSet = fileName;
       console.log(this.chosenSet);
     },
