@@ -12,6 +12,7 @@
     >Select Algorithm Set</base-button
   >
   <base-foreground
+    type="screen"
     v-else-if="showAbout && !selectingAlgset"
     @close="toggleAbout"
     ><the-about></the-about

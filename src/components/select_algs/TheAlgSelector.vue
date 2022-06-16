@@ -53,11 +53,9 @@ export default {
         this.ignoredSets.push(set.name);
         set.cases.forEach((algName) => {
           const alg = this.algTrainer.getAlgFromName(algName);
-          console.log(alg.name);
           this.addToIgnored(alg);
         });
       }
-      console.log(this.ignored);
     },
   },
 };

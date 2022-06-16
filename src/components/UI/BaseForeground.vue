@@ -1,6 +1,6 @@
 <template>
   <div class="background">
-    <div class="content">
+    <div :class="['content', type]">
       <base-button class="close" @click="close">Hide</base-button>
       <slot></slot>
     </div>
@@ -9,8 +9,16 @@
 
 <script>
 export default {
+  props: ["type"],
+  data() {
+    return {
+      className: this.type,
+    }
+  },
   methods: {
     close() {
+      console.log(this.className);
+      console.log(this.type)
       this.$emit("close");
     },
   },
@@ -35,10 +43,18 @@ export default {
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
-  height: 80%;
-  width: 80%;
   background-color: #00a1d7;
   border-radius: 20px;
+}
+
+.screen {
+  height: 80%;
+  width: 80%;
+}
+
+.alert {
+  height: 20%;
+  width: 30%;
 }
 
 .close {

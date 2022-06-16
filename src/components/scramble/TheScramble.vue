@@ -6,11 +6,20 @@
     <p class="name">{{ algName }}</p>
     <p class="scramble">{{ scramble }}</p>
   </div>
-  <TheAlgSelector v-else-if="selectAlgScreen" :algTrainer="algTrainer"></TheAlgSelector>
+  <TheAlgSelector
+    v-else-if="selectAlgScreen"
+    :algTrainer="algTrainer"
+  ></TheAlgSelector>
   <div v-else-if="finished">
     <p class="finished">Good job!</p>
     <base-button @click="restart">Restart</base-button>
   </div>
+  <base-foreground
+    v-if="algCountWarning"
+    @click="toggleAlgCountWarning"
+    type="alert"
+    >Please select at least one algorithm.</base-foreground
+  >
 </template>
 
 <script>
@@ -41,6 +50,7 @@ export default {
       algTrainer: null,
       selectAlgScreen: false,
       finished: false,
+      algCountWarning: false,
     };
   },
   methods: {
@@ -63,8 +73,17 @@ export default {
     },
     toggleSelectAlgScreen() {
       this.algTrainer.getAlgs();
+      if (this.algTrainer.algsInCycle() === 0 + this.algTrainer.boxes[0].length()) {
+        this.toggleAlgCountWarning();
+        console.log("it should be showing");
+        return;
+      }
       this.getScramble();
       this.selectAlgScreen = !this.selectAlgScreen;
+    },
+    toggleAlgCountWarning() {
+      this.algCountWarning = !this.algCountWarning;
+      console.log(this.algCountWarning);
     },
     async restart() {
       this.finished = false;
