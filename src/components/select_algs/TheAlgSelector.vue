@@ -1,4 +1,11 @@
 <template>
+  <ul v-for="set in groupings" :key="set.name">
+    <li @click="toggleSet(set)">
+      <base-button class="test">{{
+        set.name
+      }}</base-button>
+    </li>
+  </ul>
   <ul v-for="alg in allAlgs" :key="alg.name">
     <li v-if="!ignored.includes(alg.name)" @click="addToIgnored(alg)">
       <base-button class="test">learning: {{ alg.name }}</base-button>
@@ -11,7 +18,7 @@
 
 <script>
 export default {
-  props: ["algTrainer"],
+  props: ["algTrainer", "algset"],
   mounted() {
     this.allAlgs = this.algTrainer.getAllAlgs();
     for (let i = 0; i < this.algTrainer.boxes[6].length(); i++) {
@@ -22,6 +29,8 @@ export default {
     return {
       allAlgs: null,
       ignored: [],
+      groupings: require("../../assets/scrambles/Groupings").groupings.WV,
+      ignoredSets: [],
     };
   },
   methods: {
@@ -32,6 +41,20 @@ export default {
     removeFromIgnored(alg) {
       this.ignored = this.ignored.filter((e) => e !== alg.name);
       this.algTrainer.unignoreAlg(alg);
+    },
+    toggleSet(set) {
+      if (this.ignoredSets.includes(set.name)) {
+        this.ignoredSets = this.ignoredSets.filter((e) => e !== set.name);
+        set.cases.forEach((alg) => {
+          this.removeFromIgnored(alg);
+        });
+      } else {
+        this.ignoredSets.push(set.name);
+        set.cases.forEach((alg) => {
+          this.addToIgnored(alg);
+        });
+      }
+      console.log(this.ignored);
     },
   },
 };
@@ -46,5 +69,4 @@ li {
 li .test {
   display: block;
 }
-
 </style>
