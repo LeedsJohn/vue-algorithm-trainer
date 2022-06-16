@@ -1,5 +1,11 @@
 <template>
-  <div v-if="!showAbout">
+  <div v-if="!chosenSet">
+    <base-button v-if="!selectingAlgset" @click="toggleSelectingAlgset"
+      >Select Algorithm Set</base-button
+    >
+    <the-algset-selector v-else @selectSet="selectSet"></the-algset-selector>
+  </div>
+  <div v-else-if="!showAbout">
     <the-scramble></the-scramble>
     <base-button @click="toggleAbout">About</base-button>
   </div>
@@ -11,21 +17,32 @@
 <script>
 import TheScramble from "./components/scramble/TheScramble.vue";
 import TheAbout from "./components/about/TheAbout.vue";
+import TheAlgsetSelector from "./components/select_algset/TheAlgsetSelector.vue";
 
 export default {
   name: "App",
   components: {
     TheScramble,
     TheAbout,
+    TheAlgsetSelector,
   },
   data() {
     return {
       showAbout: false,
+      chosenSet: null,
+      selectingAlgset: false,
     };
   },
   methods: {
     toggleAbout() {
       this.showAbout = !this.showAbout;
+    },
+    toggleSelectingAlgset() {
+      this.selectingAlgset = !this.selectingAlgset;
+    },
+    selectSet(fileName) {
+      this.chosenSet = fileName;
+      console.log(this.chosenSet);
     },
   },
 };
