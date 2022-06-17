@@ -1,7 +1,7 @@
 <template>
-  <ul v-for="set in algSets" :key="set.file">
+  <ul v-for="algSet in algSets" :key="algSet">
     <li>
-      <base-button @click="selectSet(set.name)">{{ set.name }}</base-button>
+      <base-button @click="pickSet(algSet)">{{ algSet }}</base-button>
     </li>
   </ul>
 </template>
@@ -11,17 +11,28 @@ export default {
   data() {
     return {
       algSets: [
-        {
-          name: "Winter Variation",
-          file: "WV.js",
-        },
+        "CMLL",
+        "COLL",
+        "ELL",
+        "OLL",
+        "PLL",
+        "WVLS FL",
+        "WVLS",
+        "ZBLL AS",
+        "ZBLL H",
+        "ZBLL L",
+        "ZBLL Pi",
+        "ZBLL S",
+        "ZBLL T",
+        "ZBLL U",
       ],
     };
   },
   methods: {
-    selectSet(fileName) {
-      this.$emit('selectSet', fileName);
-    }
-  }
+    pickSet(algSet) {
+      const underscore = algSet.replace(" ", "_");
+      this.$emit("pickSet(underscore)");
+    },
+  },
 };
 </script>
