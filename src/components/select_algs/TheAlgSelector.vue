@@ -43,6 +43,9 @@ export default {
       this.algTrainer.unignoreAlg(alg);
     },
     toggleSet(set) {
+      if (!set.cases) {
+          set.cases = this.algTrainer.getAllAlgs(true);
+        }
       if (this.ignoredSets.includes(set.name)) {
         this.ignoredSets = this.ignoredSets.filter((e) => e !== set.name);
         set.cases.forEach((algName) => {
