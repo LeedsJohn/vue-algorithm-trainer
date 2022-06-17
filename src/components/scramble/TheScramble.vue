@@ -40,9 +40,10 @@ export default {
     });
   },
   mounted() {
-    this.algTrainer = new AlgTrainer("WVLS");
+    this.algTrainer = new AlgTrainer(this.algSet);
     this.getScramble();
   },
+  props: ["algSet"],
   data() {
     return {
       algName: "",

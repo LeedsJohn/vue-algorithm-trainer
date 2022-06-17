@@ -1,7 +1,7 @@
 <template>
   <ul v-for="algSet in algSets" :key="algSet">
     <li>
-      <base-button @click="pickSet(algSet)">{{ algSet }}</base-button>
+      <base-button @click="selectSet(algSet)">{{ algSet }}</base-button>
     </li>
   </ul>
 </template>
@@ -29,9 +29,9 @@ export default {
     };
   },
   methods: {
-    pickSet(algSet) {
+    selectSet(algSet) {
       const underscore = algSet.replace(" ", "_");
-      this.$emit("pickSet(underscore)");
+      this.$emit("selectSet", underscore);
     },
   },
 };

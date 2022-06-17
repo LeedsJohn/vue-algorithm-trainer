@@ -1,6 +1,6 @@
 <template>
   <div v-if="!showAbout && !selectingAlgset && chosenSet">
-    <the-scramble></the-scramble>
+    <the-scramble :algSet="chosenSet"></the-scramble>
     <base-button @click="toggleAbout">About</base-button>
     <base-button @click="toggleSelectingAlgset"
       >Select Algorithm Set</base-button
@@ -49,9 +49,9 @@ export default {
     toggleSelectingAlgset() {
       this.selectingAlgset = !this.selectingAlgset;
     },
-    selectSet(fileName) {
+    selectSet(algSet) {
       this.toggleSelectingAlgset();
-      this.chosenSet = fileName;
+      this.chosenSet = algSet;
       console.log(this.chosenSet);
     },
   },
