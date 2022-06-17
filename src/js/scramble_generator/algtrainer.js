@@ -173,13 +173,14 @@ export default class AlgTrainer {
     for (let i = 0; i < this.boxes.length; i++) {
       for (let j = 0; j < this.boxes[i].length(); j++) {
         if (name) {
-          allAlgs.push(this.boxes[i].algorithms[j]).getName();
+          allAlgs.push(this.boxes[i].algorithms[j].getName());
         } else {
           allAlgs.push(this.boxes[i].algorithms[j]);
         }
       }
     }
     if ( name ) {
+      console.log(allAlgs);
       return allAlgs;
     }
     if (!isNaN(allAlgs[0].getName().slice(-1))) {

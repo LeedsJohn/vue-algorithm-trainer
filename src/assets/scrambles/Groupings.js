@@ -2,7 +2,7 @@ const groupings = {
   WVLS: [
     {
       name: "All",
-      cases: [],
+      cases: ["all"],
     },
     {
       name: "3 corners",
