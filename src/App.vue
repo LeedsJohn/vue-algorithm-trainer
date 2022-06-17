@@ -1,14 +1,59 @@
 <template>
-  <the-scramble></the-scramble>
+  <div v-if="!showAbout && !selectingAlgset && chosenSet">
+    <the-scramble></the-scramble>
+    <base-button @click="toggleAbout">About</base-button>
+    <base-button @click="toggleSelectingAlgset"
+      >Select Algorithm Set</base-button
+    >
+  </div>
+  <base-button
+    v-else-if="!chosenSet && !selectingAlgset"
+    @click="toggleSelectingAlgset"
+    >Select Algorithm Set</base-button
+  >
+  <base-foreground
+    type="screen"
+    v-else-if="showAbout && !selectingAlgset"
+    @close="toggleAbout"
+    ><the-about></the-about
+  ></base-foreground>
+  <the-algset-selector
+    v-else-if="!showAbout && selectingAlgset"
+    @selectSet="selectSet"
+  ></the-algset-selector>
 </template>
 
 <script>
 import TheScramble from "./components/scramble/TheScramble.vue";
+import TheAbout from "./components/about/TheAbout.vue";
+import TheAlgsetSelector from "./components/select_algset/TheAlgsetSelector.vue";
 
 export default {
   name: "App",
   components: {
     TheScramble,
+    TheAbout,
+    TheAlgsetSelector,
+  },
+  data() {
+    return {
+      showAbout: false,
+      chosenSet: null,
+      selectingAlgset: false,
+    };
+  },
+  methods: {
+    toggleAbout() {
+      this.showAbout = !this.showAbout;
+    },
+    toggleSelectingAlgset() {
+      this.selectingAlgset = !this.selectingAlgset;
+    },
+    selectSet(fileName) {
+      this.toggleSelectingAlgset();
+      this.chosenSet = fileName;
+      console.log(this.chosenSet);
+    },
   },
 };
 </script>
@@ -24,6 +69,6 @@ export default {
 }
 
 html {
-  background-color: #0081A7;
+  background-color: #0081a7;
 }
 </style>

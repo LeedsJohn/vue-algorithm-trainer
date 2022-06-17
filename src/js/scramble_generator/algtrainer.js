@@ -195,6 +195,23 @@ export default class AlgTrainer {
     return allAlgs.sort((a, b) => a.getName().localCompare(b.firstName()));
   }
 
+  getAlgFromName(algName) {
+    /*
+    getAlgFromName(algName)
+    Receives the name of an algorithm
+    Returns the algorithm associated with that name
+    If there is no algorithm, returns -1
+    */
+    for (let boxIndex = 0; boxIndex<this.boxes.length; boxIndex++){
+      for (let alg = 0; alg<this.boxes[boxIndex].length(); alg++ ){
+        if (this.boxes[boxIndex].algorithms[alg].getName() === algName) {
+          return this.boxes[boxIndex].algorithms[alg];
+        }
+      }
+    }
+    return -1;
+  }
+
   reset() {
     /*
     reset()
@@ -207,7 +224,7 @@ export default class AlgTrainer {
     }
     this.getAlgs();
   }
-
+  
   _triggerReview() {
     /*
     _triggerReview
@@ -247,9 +264,9 @@ export default class AlgTrainer {
     return true;
   }
 
-  _algsInCycle() {
+  algsInCycle() {
     /*
-    _algsInCycle
+    algsInCycle
     Finds the number of algorithms currently in boxes 1-3 (algorithm that are currently being learned)
     */
     return (
@@ -310,7 +327,6 @@ export default class AlgTrainer {
       for (let i = 0; i < 3; i++) {
         if (this.boxes[boxPreference[i]].length() !== 0) {
           this.queuedAlgs.unshift(this.boxes[boxPreference[i]].pop());
-          console.log("REMOVED ALGORITHM FROM BOX ", boxPreference[i]);
           break;
         }
       }
@@ -338,7 +354,7 @@ export default class AlgTrainer {
     */
     console.log("CONCLUDING");
     this.currentlyReviewing = false;
-    const curInCycle = this._algsInCycle();
+    const curInCycle = this.algsInCycle();
     const removeCount = curInCycle - (CONCURRENT - this.incorrectAlgs.length);
     this._removeAlg(removeCount);
 
@@ -382,7 +398,7 @@ export default class AlgTrainer {
     Ensures there are the proper number of algs
     in cycle
     */
-    const startCount = this._algsInCycle();
+    const startCount = this.algsInCycle();
     let drawCount = CONCURRENT - startCount;
     let i = 0;
     while (i < drawCount && this.boxes[0].length() !== 0) {
