@@ -31,7 +31,7 @@ export default {
     });
   },
   mounted() {
-    this.algTrainer = new AlgTrainer("../../assets/scrambles/WV.js");
+    this.algTrainer = new AlgTrainer("WVLS");
     this.getScramble();
   },
   data() {

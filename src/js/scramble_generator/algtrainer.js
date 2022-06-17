@@ -31,8 +31,8 @@ var REVIEW_COUNT = 6;
 var BOX_2_PERCENTAGE = 0.7;
 
 export default class AlgTrainer {
-  constructor(file_path) {
-    this.boxes = this._createBoxes(file_path);
+  constructor(algSet) {
+    this.boxes = this._createBoxes(algSet);
     this.getAlgs();
     this.queuedAlgs = [];
     this.curAlg = null;
@@ -202,7 +202,7 @@ export default class AlgTrainer {
     Draws algorithms from box 0 to box 1
     */
     this.finished = false;
-    while (this.boxes[5].length() !== 0){
+    while (this.boxes[5].length() !== 0) {
       this._move(this.boxes[5].algorithms[0], 5, 0);
     }
     this.getAlgs();
@@ -349,7 +349,7 @@ export default class AlgTrainer {
     this.incorrectAlgs = [];
   }
 
-  _createBoxes(file_path) {
+  _createBoxes(algSet) {
     /*
     _createBoxes(self)
     Loads the algorithms from file_path
@@ -362,8 +362,8 @@ export default class AlgTrainer {
       boxes.push(newBox);
       i += 1;
     }
-    console.log(file_path);
-    const { WV } = require("../../assets/scrambles/WV.js");
+    console.log(algSet);
+    const WV = require(`../../assets/scrambles/${algSet}.json`);
     // console.log(file_path);
     // const { WV } = require("../../assets/scrambles/WV.js");
     const scrambleInfo = WV;
