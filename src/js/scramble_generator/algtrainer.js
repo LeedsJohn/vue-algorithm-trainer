@@ -163,16 +163,24 @@ export default class AlgTrainer {
     this._move(alg, 6, 1);
   }
 
-  getAllAlgs() {
+  getAllAlgs(name = false) {
     /*
     getAllAlgs()
     Returns an array of all algorithms regardless of if they are ignored or not.
+    If name, returns array of algorithm names instead of algs
     */
     let allAlgs = [];
     for (let i = 0; i < this.boxes.length; i++) {
       for (let j = 0; j < this.boxes[i].length(); j++) {
-        allAlgs.push(this.boxes[i].algorithms[j]);
+        if (name) {
+          allAlgs.push(this.boxes[i].algorithms[j]);
+        } else {
+          allAlgs.push(this.boxes[i].algorithms[j]);
+        }
       }
+    }
+    if ( name ) {
+      return allAlgs;
     }
     if (!isNaN(allAlgs[0].getName().slice(-1))) {
       return allAlgs.sort((a, b) => {
@@ -202,8 +210,8 @@ export default class AlgTrainer {
     Returns the algorithm associated with that name
     If there is no algorithm, returns -1
     */
-    for (let boxIndex = 0; boxIndex<this.boxes.length; boxIndex++){
-      for (let alg = 0; alg<this.boxes[boxIndex].length(); alg++ ){
+    for (let boxIndex = 0; boxIndex < this.boxes.length; boxIndex++) {
+      for (let alg = 0; alg < this.boxes[boxIndex].length(); alg++) {
         if (this.boxes[boxIndex].algorithms[alg].getName() === algName) {
           return this.boxes[boxIndex].algorithms[alg];
         }
@@ -224,7 +232,7 @@ export default class AlgTrainer {
     }
     this.getAlgs();
   }
-  
+
   _triggerReview() {
     /*
     _triggerReview
