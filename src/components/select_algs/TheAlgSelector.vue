@@ -29,7 +29,7 @@ export default {
     return {
       allAlgs: null,
       ignored: [],
-      groupings: require("../../assets/scrambles/Groupings").groupings.WV,
+      groupings: require("../../assets/scrambles/Groupings").groupings[this.algset],
       ignoredSets: [],
     };
   },

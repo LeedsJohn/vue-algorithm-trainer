@@ -9,6 +9,7 @@
   <TheAlgSelector
     v-else-if="selectAlgScreen"
     :algTrainer="algTrainer"
+    :algset="algSet"
   ></TheAlgSelector>
   <div v-else-if="finished">
     <p class="finished">Good job!</p>

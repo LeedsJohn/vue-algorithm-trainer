@@ -1,5 +1,9 @@
 const groupings = {
-  WV: [
+  WVLS: [
+    {
+      name: "All",
+      cases: [],
+    },
     {
       name: "3 corners",
       cases: ["WV 1"],
