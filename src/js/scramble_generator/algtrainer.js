@@ -180,7 +180,6 @@ export default class AlgTrainer {
       }
     }
     if ( name ) {
-      console.log(allAlgs);
       return allAlgs;
     }
     if (!isNaN(allAlgs[0].getName().slice(-1))) {
@@ -361,7 +360,7 @@ export default class AlgTrainer {
     every algorithm in incorrectAlgs and adding them
     to box 1
     */
-    console.log("CONCLUDING");
+    console.log("Concluding");
     this.currentlyReviewing = false;
     const curInCycle = this.algsInCycle();
     const removeCount = curInCycle - (CONCURRENT - this.incorrectAlgs.length);
@@ -389,8 +388,6 @@ export default class AlgTrainer {
     }
     console.log(algSet);
     const WV = require(`../../assets/scrambles/${algSet}.json`);
-    // console.log(file_path);
-    // const { WV } = require("../../assets/scrambles/WV.js");
     const scrambleInfo = WV;
 
     for (let algName in scrambleInfo) {
