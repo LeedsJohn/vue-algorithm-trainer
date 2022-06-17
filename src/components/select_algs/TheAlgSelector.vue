@@ -1,9 +1,9 @@
 <template>
-  <ul v-for="set in groupings" :key="set.name">
-    <li @click="toggleSet(set)">
-      <base-button class="test">{{
-        set.name
-      }}</base-button>
+  <ul v-for="(value, key) in groupings" :key="key">
+    <li @click="toggleSet(key, value)">
+      <base-button class="test">
+        {{ key }} 
+      </base-button>
     </li>
   </ul>
   <ul v-for="alg in allAlgs" :key="alg.name">
@@ -29,12 +29,13 @@ export default {
     return {
       allAlgs: null,
       ignored: [],
-      groupings: require("../../assets/scrambles/Groupings").groupings[this.algset.substring(0, 4)],
+      groupings: require("../../assets/groupings.json")[this.algset],
       ignoredSets: [],
     };
   },
   methods: {
     addToIgnored(alg) {
+      console.log(this.groupings);
       this.ignored.push(alg.name);
       this.algTrainer.ignoreAlg(alg);
     },
@@ -42,19 +43,19 @@ export default {
       this.ignored = this.ignored.filter((e) => e !== alg.name);
       this.algTrainer.unignoreAlg(alg);
     },
-    toggleSet(set) {
-      if (set.cases[0] === "all") {
-          set.cases = this.algTrainer.getAllAlgs(true);
+    toggleSet(name, values) {
+      if (values[0] === "all") {
+          values = this.algTrainer.getAllAlgs(true);
         }
-      if (this.ignoredSets.includes(set.name)) {
-        this.ignoredSets = this.ignoredSets.filter((e) => e !== set.name);
-        set.cases.forEach((algName) => {
+      if (this.ignoredSets.includes(name)) {
+        this.ignoredSets = this.ignoredSets.filter((e) => e !== name);
+        values.forEach((algName) => {
           const alg = this.algTrainer.getAlgFromName(algName);
           this.removeFromIgnored(alg);
         });
       } else {
-        this.ignoredSets.push(set.name);
-        set.cases.forEach((algName) => {
+        this.ignoredSets.push(name);
+        values.forEach((algName) => {
           const alg = this.algTrainer.getAlgFromName(algName);
           this.addToIgnored(alg);
         });
