@@ -182,10 +182,9 @@ export default class AlgTrainer {
     if ( name ) {
       return allAlgs;
     }
-    if (!isNaN(allAlgs[0].getName().slice(-1))) {
+    if (this._containsDoubleDigitNumber(allAlgs)) {
       return this._sortByNumber(allAlgs);
     }
-    // TODO check this
     return this._sortAlphabetically(allAlgs);
   }
 
@@ -413,7 +412,22 @@ export default class AlgTrainer {
     Receives an array of algorithms
     Returns an alphabetized version of the array
     */
-    return arr.sort((a, b) => a.getName().localCompare(b.firstName()));
+    return arr.sort((a, b) => a.getName().localeCompare(b.getName()));
+  }
+
+  _containsDoubleDigitNumber(arr) {
+    /*
+    _getMaxNumber(arr)
+    Receives an array of algorithms
+    Returns true if there is an algorithm containing a double digit number
+    Used to determine whether an algorithm set can be sorted alphabetically
+    */
+    for (let i = 0; i<arr.length; i++){
+      if (!isNaN(arr[0].getName().slice(-2, -1))) {
+        return true;
+      }
+    }
+    return false;
   }
 
   getAlgs() {
