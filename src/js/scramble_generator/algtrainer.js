@@ -183,24 +183,10 @@ export default class AlgTrainer {
       return allAlgs;
     }
     if (!isNaN(allAlgs[0].getName().slice(-1))) {
-      return allAlgs.sort((a, b) => {
-        const aNum = parseInt(
-          a
-            .getName()
-            .substring(a.getName().length - 2)
-            .trim()
-        );
-        const bNum = parseInt(
-          b
-            .getName()
-            .substring(b.getName().length - 2)
-            .trim()
-        );
-        return aNum - bNum;
-      });
+      return this._sortByNumber(allAlgs);
     }
     // TODO check this
-    return allAlgs.sort((a, b) => a.getName().localCompare(b.firstName()));
+    return this._sortAlphabetically(allAlgs);
   }
 
   getAlgFromName(algName) {
@@ -396,6 +382,38 @@ export default class AlgTrainer {
     }
     boxes[0].shuffle();
     return boxes;
+  }
+
+  _sortByNumber(arr) {
+    /*
+    _sortByNumber(arr)
+    Receives an array of algorithms
+    Returns a sorted version of an array by the trailing number
+    */
+    return arr.sort((a, b) => {
+      const aNum = parseInt(
+        a
+          .getName()
+          .substring(a.getName().length - 2)
+          .trim()
+      );
+      const bNum = parseInt(
+        b
+          .getName()
+          .substring(b.getName().length - 2)
+          .trim()
+      );
+      return aNum - bNum;
+    });
+  }
+
+  _sortAlphabetically(arr) {
+    /*
+    _sortAlphabetically(arr)
+    Receives an array of algorithms
+    Returns an alphabetized version of the array
+    */
+    return arr.sort((a, b) => a.getName().localCompare(b.firstName()));
   }
 
   getAlgs() {
