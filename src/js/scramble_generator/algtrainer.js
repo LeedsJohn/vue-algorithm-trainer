@@ -179,10 +179,11 @@ export default class AlgTrainer {
         }
       }
     }
-    if ( name ) {
+    if (name) {
       return allAlgs;
     }
     if (this._containsDoubleDigitNumber(allAlgs)) {
+      console.log("Sorting by number");
       return this._sortByNumber(allAlgs);
     }
     return this._sortAlphabetically(allAlgs);
@@ -422,8 +423,11 @@ export default class AlgTrainer {
     Returns true if there is an algorithm containing a double digit number
     Used to determine whether an algorithm set can be sorted alphabetically
     */
-    for (let i = 0; i<arr.length; i++){
-      if (!isNaN(arr[0].getName().slice(-2, -1))) {
+    for (let i = 0; i < arr.length; i++) {
+      const name = arr[i].getName().slice(-2);
+      if (
+        !isNaN(name) && name.slice(0, 1) !== " "
+      ) {
         return true;
       }
     }
