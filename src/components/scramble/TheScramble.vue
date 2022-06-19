@@ -108,6 +108,7 @@ p {
 .scramble {
   font-size: 3.5vw;
   font-weight: 500;
+  margin-top: 10%;
 }
 
 .finished {
