@@ -3,7 +3,6 @@
     >Select Algorithms
   </base-button>
   <div v-if="!selectAlgScreen && !finished">
-    <p class="name">{{ algName }}</p>
     <p class="scramble">{{ scramble }}</p>
   </div>
   <TheAlgSelector
