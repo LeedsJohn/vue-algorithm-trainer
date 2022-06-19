@@ -1,18 +1,18 @@
 <template>
   <ul v-for="(value, key) in groupings" :key="key">
     <li @click="toggleSet(key, value)">
-      <base-button class="test">
+      <base-button>
         {{ key }}
       </base-button>
     </li>
   </ul>
   <ul>
     <li v-for="alg in allAlgs" :key="alg.name">
+      {{ alg.name }}
       <img
-        :class="[ ignored.includes(alg.name) ? 'learning' : 'not learning' ]"
-        v-if="!ignored.includes(alg.name)"
-        @click="addToIgnored(alg)"
-        :src="require(`../../assets/scramble_icons/${algset}/${alg.name}.png`)"
+        :class="[ ignored.includes(alg.name) ? 'poo' : 'learning' ]"
+        @click="toggleIgnored(alg)"
+        :src="require(`../../assets/scramble_icons/${algset}/${replaceSpace(alg.name)}.png`)"
       />
     </li>
   </ul>
@@ -36,8 +36,14 @@ export default {
     };
   },
   methods: {
+    toggleIgnored(alg) {
+      if (this.ignored.includes(alg.name)) {
+        this.removeFromIgnored(alg);
+      } else {
+        this.addToIgnored(alg);
+      }
+    },
     addToIgnored(alg) {
-      console.log(`../../assets/scramble_icons/${this.algset}/${this.alg.name}.png`)
       this.ignored.push(alg.name);
       this.algTrainer.ignoreAlg(alg);
     },
@@ -63,17 +69,19 @@ export default {
         });
       }
     },
+    replaceSpace(name) {
+      return name.replace(" ", "_");
+    }
   },
 };
 </script>
 
 <style scoped>
-li {
-  list-style-type: none;
-  float: left;
+.learning {
+  border: 20px solid;
 }
 
-li .test {
-  display: block;
+.poo {
+  border: 10px solid;
 }
 </style>
