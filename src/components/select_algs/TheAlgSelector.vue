@@ -2,16 +2,18 @@
   <ul v-for="(value, key) in groupings" :key="key">
     <li @click="toggleSet(key, value)">
       <base-button class="test">
-        {{ key }} 
+        {{ key }}
       </base-button>
     </li>
   </ul>
-  <ul v-for="alg in allAlgs" :key="alg.name">
-    <li v-if="!ignored.includes(alg.name)" @click="addToIgnored(alg)">
-      <base-button class="test">learning: {{ alg.name }}</base-button>
-    </li>
-    <li v-else @click="removeFromIgnored(alg)">
-      <base-button>NOT learning: {{ alg.name }}</base-button>
+  <ul>
+    <li v-for="alg in allAlgs" :key="alg.name">
+      <img
+        :class="[ ignored.includes(alg.name) ? 'learning' : 'not learning' ]"
+        v-if="!ignored.includes(alg.name)"
+        @click="addToIgnored(alg)"
+        :src="require(`../../assets/scramble_icons/${algset}/${alg.name}.png`)"
+      />
     </li>
   </ul>
 </template>
@@ -35,7 +37,7 @@ export default {
   },
   methods: {
     addToIgnored(alg) {
-      console.log(this.groupings);
+      console.log(`../../assets/scramble_icons/${this.algset}/${this.alg.name}.png`)
       this.ignored.push(alg.name);
       this.algTrainer.ignoreAlg(alg);
     },
@@ -45,8 +47,8 @@ export default {
     },
     toggleSet(name, values) {
       if (values[0] === "all") {
-          values = this.algTrainer.getAllAlgs(true);
-        }
+        values = this.algTrainer.getAllAlgs(true);
+      }
       if (this.ignoredSets.includes(name)) {
         this.ignoredSets = this.ignoredSets.filter((e) => e !== name);
         values.forEach((algName) => {
