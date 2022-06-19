@@ -1,7 +1,7 @@
 <template>
   <div v-if="!showAbout && !selectingAlgset && chosenSet">
     <the-scramble :algSet="chosenSet"></the-scramble>
-    <base-button @click="toggleAbout">About</base-button>
+    <base-button @click="toggleAbout" type="helpbutton"></base-button>
     <base-button @click="toggleSelectingAlgset"
       >Select Algorithm Set</base-button
     >
