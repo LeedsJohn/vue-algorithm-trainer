@@ -1,4 +1,5 @@
 <template>
+  <h2>Select Algorithm Set</h2>
   <ul v-for="algSet in algSets" :key="algSet">
     <li>
       <base-button @click="selectSet(algSet)">{{ algSet }}</base-button>

@@ -39,7 +39,7 @@ export default {
     return {
       showAbout: false,
       chosenSet: null,
-      selectingAlgset: false,
+      selectingAlgset: true,
     };
   },
   methods: {
