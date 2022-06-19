@@ -1,8 +1,9 @@
 <template>
   <h2>Select Algorithm Set</h2>
-  <ul v-for="algSet in algSets" :key="algSet">
-    <li>
-      <base-button @click="selectSet(algSet)">{{ algSet }}</base-button>
+  <ul>
+    <li v-for="algSet in algSets" :key="algSet">
+      <!-- {{ algSet }} -->
+      <button @click="selectSet(algSet)">{{ algSet }}</button>
     </li>
   </ul>
 </template>
@@ -38,3 +39,38 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h2 {
+  font-size: 3.5rem;
+}
+
+ul {
+  margin: 0 auto;
+  text-align: center;
+}
+
+li {
+  display: inline-block;
+  vertical-align: top;
+  margin: 1% 2%;
+}
+
+button {
+  display: inline;
+  background: none;
+  border: 3px solid;
+  text-align: center;
+  height: 8vw;
+  width: 16vw;
+  font-size: 1.5rem;
+  font-weight: 400;
+  border-radius: 16px;
+}
+
+button:hover {
+  cursor:pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+</style>
