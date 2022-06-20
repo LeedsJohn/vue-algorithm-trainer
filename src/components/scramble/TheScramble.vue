@@ -120,6 +120,6 @@ p {
 .topRight {
   position: absolute;
   top: 1%;
-  right: 2%;
+  right: 1%;
 }
 </style>
