@@ -2,7 +2,7 @@
   <div v-if="!showAbout && !selectingAlgset && chosenSet">
     <the-scramble :algSet="chosenSet"></the-scramble>
     <base-button @click="toggleAbout" type="helpbutton"></base-button>
-    <base-button @click="toggleSelectingAlgset"
+    <base-button @click="toggleSelectingAlgset" class="topLeft" type="menu"
       >Select Algorithm Set</base-button
     >
   </div>
@@ -70,5 +70,11 @@ export default {
 
 html {
   background-color: #0081a7;
+}
+
+.topLeft {
+  position: absolute;
+  top: 1%;
+  left: 1%;
 }
 </style>
