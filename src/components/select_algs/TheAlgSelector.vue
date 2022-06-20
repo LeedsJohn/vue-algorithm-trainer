@@ -8,9 +8,9 @@
   </ul>
   <ul>
     <li v-for="alg in allAlgs" :key="alg.name">
-      {{ alg.name }}
+      <span class="algName">{{ alg.name }}</span>
       <img
-        :class="[ ignored.includes(alg.name) ? 'poo' : 'learning' ]"
+        :class="[ ignored.includes(alg.name) ? 'not-learning' : 'learning' ]"
         @click="toggleIgnored(alg)"
         :src="require(`../../assets/scramble_icons/${algset}/${replaceSpace(alg.name)}.png`)"
       />
@@ -77,11 +77,35 @@ export default {
 </script>
 
 <style scoped>
-.learning {
-  border: 20px solid;
+ul {
+  margin: 0 5%;
+  text-align: center;
 }
 
-.poo {
-  border: 10px solid;
+li {
+  display: inline-block;
+  vertical-align: top;
+  margin: 1% 2%;
+}
+
+.algName {
+  display: block;
+  color: #000;
+  font-size: 30px;
+  text-align: center;
+}
+
+img {
+  height: 130%;
+  width: 130%;
+  cursor: pointer;
+}
+
+.learning {
+  filter: grayscale(0%);
+}
+
+.not-learning {
+  filter: grayscale(70%);
 }
 </style>
