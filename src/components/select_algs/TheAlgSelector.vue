@@ -8,12 +8,20 @@
   </ul>
   <ul class="grid-container">
     <li v-for="alg in allAlgs" :key="alg.name">
-      <span class="algName">{{ alg.name }}</span>
-      <img
-        :class="[ ignored.includes(alg.name) ? 'not-learning' : 'learning' ]"
+      <div
+        class="alg-container"
+        :class="[ignored.includes(alg.name) ? 'not-learning' : 'learning']"
         @click="toggleIgnored(alg)"
-        :src="require(`../../assets/scramble_icons/${algset}/${replaceSpace(alg.name)}.png`)"
-      />
+      >
+        <span class="algName">{{ alg.name }}</span>
+        <img
+          :src="
+            require(`../../assets/scramble_icons/${algset}/${replaceSpace(
+              alg.name
+            )}.png`)
+          "
+        />
+      </div>
     </li>
   </ul>
 </template>
@@ -71,7 +79,7 @@ export default {
     },
     replaceSpace(name) {
       return name.replace(/ /g, "_");
-    }
+    },
   },
 };
 </script>
@@ -84,32 +92,46 @@ ul {
 
 .grid-container {
   display: grid;
-  /* justify-content: space-evenly; */
+  gap: 10px 10px;
   grid-template-columns: auto auto auto auto auto;
 }
 
 li {
   list-style: none;
+  padding: 0px;
 }
 
 .algName {
   display: block;
   color: #000;
-  font-size: 2rem;
+  font-size: 2vw;
   text-align: center;
 }
 
 img {
   height: 60%;
   width: 60%;
-  cursor: pointer;
 }
 
-.learning {
+.alg-container {
+  cursor: pointer;
+  border: #000 solid;
+  border-radius: 10px;
+}
+
+.alg-container.learning {
+  background-color: rgba(0, 255, 0, 0.1);
+}
+
+.alg-container.not-learning {
+  background-color: rgba(255, 0, 0, 0.3);
+}
+
+.learning img {
   filter: grayscale(0%);
 }
 
-.not-learning {
-  filter: grayscale(70%);
+.not-learning img {
+  filter: grayscale(90%);
 }
 </style>
