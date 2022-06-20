@@ -6,7 +6,7 @@
       </base-button>
     </li>
   </ul>
-  <ul>
+  <ul class="grid-container">
     <li v-for="alg in allAlgs" :key="alg.name">
       <span class="algName">{{ alg.name }}</span>
       <img
@@ -78,26 +78,30 @@ export default {
 
 <style scoped>
 ul {
-  margin: 0 5%;
+  margin: 0 10%;
   text-align: center;
 }
 
+.grid-container {
+  display: grid;
+  /* justify-content: space-evenly; */
+  grid-template-columns: auto auto auto auto auto;
+}
+
 li {
-  display: inline-block;
-  vertical-align: top;
-  margin: 1% 2%;
+  list-style: none;
 }
 
 .algName {
   display: block;
   color: #000;
-  font-size: 30px;
+  font-size: 2rem;
   text-align: center;
 }
 
 img {
-  height: 130%;
-  width: 130%;
+  height: 60%;
+  width: 60%;
   cursor: pointer;
 }
 
