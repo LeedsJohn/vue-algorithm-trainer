@@ -1,11 +1,12 @@
 <template>
-  <ul v-for="(value, key) in groupings" :key="key">
-    <li @click="toggleSet(key, value)">
-      <base-button>
-        {{ key }}
-      </base-button>
-    </li>
-  </ul>
+  <the-alg-group
+    v-if="showGroups"
+    :algset="algset"
+    @closeSide="toggleShowGroups"
+    @ignoreAlgs="toggleSet(key, value, false)"
+    @includeAlgs="toggleSet(key, value, true)"
+  ></the-alg-group>
+  <base-button @click="toggleShowGroups">Toggle Groups</base-button>
   <ul class="grid-container">
     <li v-for="alg in allAlgs" :key="alg.name">
       <div
@@ -27,7 +28,10 @@
 </template>
 
 <script>
+import TheAlgGroup from "./TheAlgGroup.vue";
+
 export default {
+  components: { TheAlgGroup },
   props: ["algTrainer", "algset"],
   mounted() {
     this.allAlgs = this.algTrainer.getAllAlgs();
@@ -40,7 +44,7 @@ export default {
       allAlgs: null,
       ignored: [],
       groupings: require("../../assets/groupings.json")[this.algset],
-      ignoredSets: [],
+      showGroups: false,
     };
   },
   methods: {
@@ -59,23 +63,25 @@ export default {
       this.ignored = this.ignored.filter((e) => e !== alg.name);
       this.algTrainer.unignoreAlg(alg);
     },
-    toggleSet(name, values) {
+    toggleSet(name, values, include) {
       if (values[0] === "all") {
         values = this.algTrainer.getAllAlgs(true);
       }
-      if (this.ignoredSets.includes(name)) {
+      if (!include) {
         this.ignoredSets = this.ignoredSets.filter((e) => e !== name);
         values.forEach((algName) => {
           const alg = this.algTrainer.getAlgFromName(algName);
           this.removeFromIgnored(alg);
         });
       } else {
-        this.ignoredSets.push(name);
         values.forEach((algName) => {
           const alg = this.algTrainer.getAlgFromName(algName);
           this.addToIgnored(alg);
         });
       }
+    },
+    toggleShowGroups() {
+      this.showGroups = !this.showGroups;
     },
     replaceSpace(name) {
       return name.replace(/ /g, "_");
