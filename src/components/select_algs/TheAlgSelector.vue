@@ -70,7 +70,7 @@ export default {
       }
     },
     replaceSpace(name) {
-      return name.replace(" ", "_");
+      return name.replace(/ /g, "_");
     }
   },
 };
