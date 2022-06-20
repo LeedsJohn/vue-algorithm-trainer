@@ -1,7 +1,7 @@
 <template>
   <div class="background">
     <div :class="['content', type]">
-      <base-button class="close" @click="close">Hide</base-button>
+      <base-button class="close" @click="close" type="close"></base-button>
       <slot></slot>
     </div>
   </div>
@@ -17,8 +17,6 @@ export default {
   },
   methods: {
     close() {
-      console.log(this.className);
-      console.log(this.type)
       this.$emit("close");
     },
   },

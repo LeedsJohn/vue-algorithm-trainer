@@ -57,7 +57,19 @@ button {
 }
 
 .helpbutton:hover {
-  /* filter: opacity(50%); */
   filter: opacity(100%);
+}
+
+.close {
+  background: url("../../assets/icons/close.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
+  height: 3vw;
+  width: 3vw;
+}
+
+.close:hover {
+  background-color: rgba(255, 0, 0, 0.3);
 }
 </style>
