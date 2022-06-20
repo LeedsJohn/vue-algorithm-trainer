@@ -104,7 +104,7 @@ li {
 .algName {
   display: block;
   color: #000;
-  font-size: 2vw;
+  font-size: 1.5vw;
   text-align: center;
 }
 
