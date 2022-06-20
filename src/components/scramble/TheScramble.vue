@@ -12,7 +12,7 @@
   ></TheAlgSelector>
   <div v-else-if="finished">
     <p class="finished">Good job!</p>
-    <base-button @click="restart">Restart</base-button>
+    <base-button @click="restart" type="restart">Restart</base-button>
   </div>
   <base-foreground
     v-if="algCountWarning"

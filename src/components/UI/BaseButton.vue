@@ -29,6 +29,20 @@ button {
   filter: opacity(100%);
 }
 
+.restart {
+  background-color: rgba(0, 0, 0, 0);
+  border: #222 solid 6px;
+  border-radius: 10px;
+  font-size: 3vw;
+  height: 6vw;
+  /* color: #bbc; */
+  color: #30dfe9;
+}
+
+.restart:hover {
+  background-color: rgba(0, 200, 0, 0.4);
+}
+
 .helpbutton {
   background: url("../../assets/icons/help.png");
   background-repeat: no-repeat;
