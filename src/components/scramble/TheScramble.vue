@@ -1,5 +1,5 @@
 <template>
-  <base-button @click="toggleSelectAlgScreen" class="topRight" type="menu"
+  <base-button @click="toggleSelectAlgScreen" class="topRight"  :type="selectAlgScreen ? 'close' : 'menu'"
     >Select Algorithms
   </base-button>
   <div v-if="!selectAlgScreen && !finished">

@@ -104,6 +104,7 @@ button {
   border: none;
   height: 3vw;
   width: 3vw;
+  color: rgba(0,0,0,0)
 }
 
 .close:hover {
