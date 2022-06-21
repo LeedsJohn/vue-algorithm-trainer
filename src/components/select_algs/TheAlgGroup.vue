@@ -5,8 +5,8 @@
       <ul>
         <li v-for="(value, key) in groupings" :key="key">
           <span class="groupName">{{ key }}</span>
-          <base-button @click="emitIncludeAlgs(value)">all</base-button>
-          <base-button @click="emitIgnoreAlgs(value)">ignore</base-button>
+          <base-button @click="emitIncludeAlgs(value)" type="include">include</base-button>
+          <base-button @click="emitIgnoreAlgs(value)" type="ignore">ignore</base-button>
         </li>
       </ul>
     </div>
@@ -54,6 +54,7 @@ export default {
 }
 
 li {
+  margin: 10px 0px;
   list-style: none;
   display: grid;
   gap: 10px;

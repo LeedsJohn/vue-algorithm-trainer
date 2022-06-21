@@ -6,7 +6,7 @@
     @includeAlgs="(value) => this.toggleSet(value, true)"
     @ignoreAlgs="(value) => this.toggleSet(value, false)"
   ></the-alg-group>
-  <base-button @click="toggleShowGroups">Toggle Groups</base-button>
+  <base-button @click="toggleShowGroups" type="toggleAlgGroups">Toggle Groups</base-button>
   <ul class="grid-container">
     <li v-for="alg in allAlgs" :key="alg.name">
       <div
