@@ -5,8 +5,8 @@
       <ul>
         <li v-for="(value, key) in groupings" :key="key">
           <span class="groupName">{{ key }}</span>
-          <base-button @click="$emit('includeAlgs', '{{ key }}', '{{ value }}')">all</base-button>
-          <base-button @click="$emit('ignoreAlgs', key, value)">ignore</base-button>
+          <base-button @click="emitIncludeAlgs(key, value)">all</base-button>
+          <base-button @click="emitIgnoreAlgs(key, value)">ignore</base-button>
         </li>
       </ul>
     </div>
@@ -22,6 +22,14 @@ export default {
       groupings: require("../../assets/groupings.json")[this.algset],
     };
   },
+  methods: {
+    emitIncludeAlgs(name, values) {
+      this.$emit('includeAlgs', name, values);
+    },
+    emitIgnoreAlgs(name, values) {
+      this.$emit('ignoreAlgs', name, values);
+    }
+  }
 };
 </script>
 
