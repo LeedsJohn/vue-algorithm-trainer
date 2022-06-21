@@ -3,8 +3,8 @@
     v-if="showGroups"
     :algset="algset"
     @closeSide="toggleShowGroups"
-    @includeAlgs="(key, value) => this.toggleSet(key, value, true)"
-    @ignoreAlgs="(key, value) => this.toggleSet(key, value, false)"
+    @includeAlgs="(value) => this.toggleSet(value, true)"
+    @ignoreAlgs="(value) => this.toggleSet(value, false)"
   ></the-alg-group>
   <base-button @click="toggleShowGroups">Toggle Groups</base-button>
   <ul class="grid-container">
@@ -63,7 +63,7 @@ export default {
       this.ignored = this.ignored.filter((e) => e !== alg.name);
       this.algTrainer.unignoreAlg(alg);
     },
-    toggleSet(name, values, include) {
+    toggleSet(values, include) {
       if (values[0] === "all") {
         values = this.algTrainer.getAllAlgs(true);
       }

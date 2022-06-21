@@ -5,8 +5,8 @@
       <ul>
         <li v-for="(value, key) in groupings" :key="key">
           <span class="groupName">{{ key }}</span>
-          <base-button @click="emitIncludeAlgs(key, value)">all</base-button>
-          <base-button @click="emitIgnoreAlgs(key, value)">ignore</base-button>
+          <base-button @click="emitIncludeAlgs(value)">all</base-button>
+          <base-button @click="emitIgnoreAlgs(value)">ignore</base-button>
         </li>
       </ul>
     </div>
@@ -23,11 +23,11 @@ export default {
     };
   },
   methods: {
-    emitIncludeAlgs(name, values) {
-      this.$emit('includeAlgs', name, values);
+    emitIncludeAlgs(values) {
+      this.$emit('includeAlgs', values);
     },
-    emitIgnoreAlgs(name, values) {
-      this.$emit('ignoreAlgs', name, values);
+    emitIgnoreAlgs(values) {
+      this.$emit('ignoreAlgs', values);
     }
   }
 };
