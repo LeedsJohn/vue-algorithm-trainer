@@ -1,12 +1,16 @@
 <template>
-  <the-alg-group
-    v-if="showGroups"
-    :algset="algset"
-    @closeSide="toggleShowGroups"
-    @includeAlgs="(value) => this.toggleSet(value, true)"
-    @ignoreAlgs="(value) => this.toggleSet(value, false)"
-  ></the-alg-group>
-  <base-button @click="toggleShowGroups" type="toggleAlgGroups">Toggle Groups</base-button>
+  <Transition>
+    <the-alg-group
+      v-if="showGroups"
+      :algset="algset"
+      @closeSide="toggleShowGroups"
+      @includeAlgs="(value) => this.toggleSet(value, true)"
+      @ignoreAlgs="(value) => this.toggleSet(value, false)"
+    ></the-alg-group
+  ></Transition>
+  <base-button @click="toggleShowGroups" type="toggleAlgGroups"
+    >Toggle Groups</base-button
+  >
   <ul class="grid-container">
     <li v-for="alg in allAlgs" :key="alg.name">
       <div
@@ -138,5 +142,13 @@ img {
 
 .not-learning img {
   filter: grayscale(90%);
+}
+
+.v-enter-active, .v-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.v-enter-from, .v-leave-to {
+  transform: translateX(20vw);
 }
 </style>
