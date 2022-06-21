@@ -43,6 +43,7 @@ export default {
 <style scoped>
 h2 {
   font-size: 3.5rem;
+  color: #30dfe9;
 }
 
 ul {
