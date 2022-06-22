@@ -40,6 +40,7 @@ button {
   height: 4vw;
   padding: 10px;
   margin: 20px;
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.5);
 }
 
 .toggleAlgGroups:hover {
@@ -76,6 +77,7 @@ button {
   font-size: 3vw;
   height: 6vw;
   color: #30dfe9;
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.5);
 }
 
 .restart:hover {
@@ -106,7 +108,7 @@ button {
   border: none;
   height: 3vw;
   width: 3vw;
-  color: rgba(0,0,0,0)
+  color: rgba(0,0,0,0);
 }
 
 .close:hover {
