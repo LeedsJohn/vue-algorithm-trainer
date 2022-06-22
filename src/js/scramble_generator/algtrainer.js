@@ -175,7 +175,7 @@ export default class AlgTrainer {
     let boxCount = this.boxes.length;
     if (box) {
       start = box;
-      boxCount = box+1;
+      boxCount = box + 1;
     }
     for (let i = start; i < boxCount; i++) {
       for (let j = 0; j < this.boxes[i].length(); j++) {
@@ -186,11 +186,11 @@ export default class AlgTrainer {
         }
       }
     }
-    if (this._containsDoubleDigitNumber(allAlgs)) {
+    if (this._containsDoubleDigitNumber(allAlgs, name)) {
       console.log("Sorting by number");
-      return this._sortByNumber(allAlgs);
+      return this._sortByNumber(allAlgs, name);
     }
-    return this._sortAlphabetically(allAlgs);
+    return this._sortAlphabetically(allAlgs, name);
   }
 
   getAlgFromName(algName) {
@@ -429,18 +429,20 @@ export default class AlgTrainer {
     return arr.sort((a, b) => a.getName().localeCompare(b.getName()));
   }
 
-  _containsDoubleDigitNumber(arr) {
+  _containsDoubleDigitNumber(arr, names = false) {
     /*
     _getMaxNumber(arr)
-    Receives an array of algorithms
+    Receives an array of algorithms or strings
+    Set name to true if strings
     Returns true if there is an algorithm containing a double digit number
     Used to determine whether an algorithm set can be sorted alphabetically
     */
     for (let i = 0; i < arr.length; i++) {
-      const name = arr[i].getName().slice(-2);
-      if (
-        !isNaN(name) && name.slice(0, 1) !== " "
-      ) {
+      let name = arr[i].slice(-2);
+      if (!names) {
+        name = arr[i].getName().slice(-2);
+      }
+      if (!isNaN(name) && name.slice(0, 1) !== " ") {
         return true;
       }
     }
