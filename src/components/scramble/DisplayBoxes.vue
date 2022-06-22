@@ -21,6 +21,7 @@ export default {
       arr.push(this.algTrainer.getAllAlgs(true, 2, 3));
       arr.push(this.algTrainer.getAllAlgs(true, 4));
       arr.push(this.algTrainer.getAllAlgs(true, 5));
+      console.log("Recomputing boxes");
       console.log(arr);
       return arr;
     },

@@ -12,28 +12,23 @@
 <script>
 export default {
   props: ["initAlgNames"],
-  // mounted() {
-  //   const firstFour = this.initAlgNames[0].slice(0, 4);
-  //   if (firstFour === "CMLL" || firstFour === "ZBLL") {
-  //     console.log("HELLO UHHHHH");
-  //     this.algNames = this.initAlgNames.map((name) => name.slice(6));
-  //   }
-  // },
-  data() {
-    return {
-      algNames: this.initAlgNames.map(name => {
+  computed: {
+    algNames() {
+      const arr = this.initAlgNames.map((name) => {
         const firstFour = name.slice(0, 4);
         if (firstFour === "CMLL" || firstFour === "ZBLL") {
           return name.slice(5);
         } else {
           return name;
         }
-      }),
-    };
-  },
-  computed: {
+      });
+      return arr;
+    },
     numAlgs() {
-      return Math.min(this.algNames.length, 10);
+      if (this.algNames) {
+        return Math.min(this.algNames.length, 10);
+      }
+      return 10;
     },
   },
 };
