@@ -113,7 +113,7 @@ li {
 .algName {
   display: block;
   color: #000;
-  font-size: 1.5vw;
+  font-size: 150%;
   text-align: center;
 }
 
@@ -126,6 +126,11 @@ img {
   cursor: pointer;
   border: #000 solid;
   border-radius: 10px;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.alg-container:hover {
+  filter: opacity(80%);
 }
 
 .alg-container.learning {
