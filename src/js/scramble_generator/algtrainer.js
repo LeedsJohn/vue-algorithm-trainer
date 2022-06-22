@@ -163,7 +163,7 @@ export default class AlgTrainer {
     this._move(alg, 6, 0);
   }
 
-  getAllAlgs(name = false, box = null) {
+  getAllAlgs(name = false, startBox = null, endBox = null) {
     /*
     getAllAlgs()
     Returns an array of all algorithms regardless of if they are ignored or not.
@@ -173,9 +173,12 @@ export default class AlgTrainer {
     let allAlgs = [];
     let start = 0;
     let boxCount = this.boxes.length;
-    if (box) {
-      start = box;
-      boxCount = box + 1;
+    if (startBox) {
+      start = startBox;
+      boxCount = startBox + 1;
+    }
+    if (endBox) {
+      boxCount = endBox + 1;
     }
     for (let i = start; i < boxCount; i++) {
       for (let j = 0; j < this.boxes[i].length(); j++) {
