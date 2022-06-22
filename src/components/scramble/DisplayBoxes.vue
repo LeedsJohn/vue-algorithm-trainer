@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li v-for="i in 5" :key="i">
-      <display-box :algNames="this.boxes[i-1]"></display-box>
+      <display-box :initAlgNames="this.boxes[i-1]"></display-box>
     </li>
   </ul>
 </template>
