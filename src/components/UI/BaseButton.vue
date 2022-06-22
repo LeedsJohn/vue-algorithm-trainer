@@ -19,10 +19,12 @@ button {
   background-color: rgba(0, 0, 0, 0);
   border: #000 solid;
   border-radius: 10px;
-  font-size: 1vw;
-  height: 3vw;
+  font-size: 1rem;
+  font-weight: 550;
+  height: 6%;
   filter: opacity(50%);
-  color: #30dfe9;
+  color: #dbf2f3;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 .menu:hover {
