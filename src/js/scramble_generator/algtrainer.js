@@ -396,20 +396,18 @@ export default class AlgTrainer {
     Returns a sorted version of an array by the trailing number
     */
     return arr.sort((a, b) => {
-      if (name) {
+      if (!name) {
         a = a.getName();
         b = b.getName();
       }
       const aNum = parseInt(
         a
-          .getName()
-          .substring(a.getName().length - 2)
+          .substring(a.length - 2)
           .trim()
       );
       const bNum = parseInt(
         b
-          .getName()
-          .substring(b.getName().length - 2)
+          .substring(b.length - 2)
           .trim()
       );
       return aNum - bNum;
