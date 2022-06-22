@@ -20,15 +20,18 @@
     type="alert"
     >Please select at least one algorithm.</base-foreground
   >
+  <display-boxes v-if="scramble && !selectAlgScreen && !algCountWarning && !finished" :algTrainer="algTrainer"></display-boxes>
 </template>
 
 <script>
 import AlgTrainer from "../../js/scramble_generator/algtrainer.js";
 import TheAlgSelector from "../select_algs/TheAlgSelector.vue";
+import DisplayBoxes from "./DisplayBoxes.vue";
 
 export default {
   components: {
     TheAlgSelector,
+    DisplayBoxes,
   },
   created() {
     window.addEventListener("keydown", (e) => {
