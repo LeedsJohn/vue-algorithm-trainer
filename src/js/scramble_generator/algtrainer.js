@@ -163,14 +163,21 @@ export default class AlgTrainer {
     this._move(alg, 6, 0);
   }
 
-  getAllAlgs(name = false) {
+  getAllAlgs(name = false, box = null) {
     /*
     getAllAlgs()
     Returns an array of all algorithms regardless of if they are ignored or not.
     If name, returns array of algorithm names instead of algs
+    If box is provided an integer value, only takes algorithms from that box
     */
     let allAlgs = [];
-    for (let i = 0; i < this.boxes.length; i++) {
+    let start = 0;
+    let boxCount = this.boxes.length;
+    if (box) {
+      start = box;
+      boxCount = box+1;
+    }
+    for (let i = start; i < boxCount; i++) {
       for (let j = 0; j < this.boxes[i].length(); j++) {
         if (name) {
           allAlgs.push(this.boxes[i].algorithms[j].getName());
@@ -178,9 +185,6 @@ export default class AlgTrainer {
           allAlgs.push(this.boxes[i].algorithms[j]);
         }
       }
-    }
-    if (name) {
-      return allAlgs;
     }
     if (this._containsDoubleDigitNumber(allAlgs)) {
       console.log("Sorting by number");
@@ -384,13 +388,18 @@ export default class AlgTrainer {
     return boxes;
   }
 
-  _sortByNumber(arr) {
+  _sortByNumber(arr, name = false) {
     /*
     _sortByNumber(arr)
-    Receives an array of algorithms
+    Receives an array of algorithms or strings
+    Sorts by string if name == true
     Returns a sorted version of an array by the trailing number
     */
     return arr.sort((a, b) => {
+      if (name) {
+        a = a.getName();
+        b = b.getName();
+      }
       const aNum = parseInt(
         a
           .getName()
@@ -407,12 +416,16 @@ export default class AlgTrainer {
     });
   }
 
-  _sortAlphabetically(arr) {
+  _sortAlphabetically(arr, name = false) {
     /*
     _sortAlphabetically(arr)
-    Receives an array of algorithms
+    Receives an array of algorithms or strings
+    Sorts by string if name == true
     Returns an alphabetized version of the array
     */
+    if (name) {
+      return arr.sort((a, b) => a.localeCompare(b));
+    }
     return arr.sort((a, b) => a.getName().localeCompare(b.getName()));
   }
 
