@@ -403,16 +403,8 @@ export default class AlgTrainer {
         a = a.getName();
         b = b.getName();
       }
-      const aNum = parseInt(
-        a
-          .substring(a.length - 2)
-          .trim()
-      );
-      const bNum = parseInt(
-        b
-          .substring(b.length - 2)
-          .trim()
-      );
+      const aNum = parseInt(a.substring(a.length - 2).trim());
+      const bNum = parseInt(b.substring(b.length - 2).trim());
       return aNum - bNum;
     });
   }
@@ -439,8 +431,10 @@ export default class AlgTrainer {
     Used to determine whether an algorithm set can be sorted alphabetically
     */
     for (let i = 0; i < arr.length; i++) {
-      let name = arr[i].slice(-2);
-      if (!names) {
+      let name;
+      if (names) {
+        name = arr[i].slice(-2);
+      } else {
         name = arr[i].getName().slice(-2);
       }
       if (!isNaN(name) && name.slice(0, 1) !== " ") {
