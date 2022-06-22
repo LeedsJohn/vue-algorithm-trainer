@@ -173,7 +173,7 @@ export default class AlgTrainer {
     let allAlgs = [];
     let start = 0;
     let boxCount = this.boxes.length;
-    if (startBox) {
+    if (startBox || startBox === 0) {
       start = startBox;
       boxCount = startBox + 1;
     }
@@ -190,7 +190,6 @@ export default class AlgTrainer {
       }
     }
     if (this._containsDoubleDigitNumber(allAlgs, name)) {
-      console.log("Sorting by number");
       return this._sortByNumber(allAlgs, name);
     }
     return this._sortAlphabetically(allAlgs, name);
