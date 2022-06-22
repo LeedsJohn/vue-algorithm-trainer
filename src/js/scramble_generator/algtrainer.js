@@ -33,7 +33,6 @@ var BOX_2_PERCENTAGE = 0.7;
 export default class AlgTrainer {
   constructor(algSet) {
     this.boxes = this._createBoxes(algSet);
-    this.getAlgs();
     this.queuedAlgs = [];
     this.curAlg = null;
     this.curBox = null;
@@ -41,6 +40,7 @@ export default class AlgTrainer {
     this.incorrectAlgs = [];
     this.ignored = [];
     this.finished = false;
+    this.getAlgs();
     // this.lastAlg = "" TODO add in this
   }
   playRound() {
@@ -158,9 +158,9 @@ export default class AlgTrainer {
   unignoreAlg(alg) {
     /*
     unignoreAlg(alg)
-    Moves an algorithm from box 6 back into box 1
+    Moves an algorithm from box 6 back into box 0
     */
-    this._move(alg, 6, 1);
+    this._move(alg, 6, 0);
   }
 
   getAllAlgs(name = false) {
@@ -444,7 +444,7 @@ export default class AlgTrainer {
     let drawCount = CONCURRENT - startCount;
     let i = 0;
     while (i < drawCount && this.boxes[0].length() !== 0) {
-      this._move(this.boxes[0].getAlgorithm(), 0, 2);
+      this._addNewAlg();
       i += 1;
     }
   }
