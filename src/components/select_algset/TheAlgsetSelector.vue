@@ -41,7 +41,7 @@ export default {
 
 <style scoped>
 h2 {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   color: #30dfe9;
 }
 
@@ -56,6 +56,18 @@ h2 {
 @media screen and (min-width: 800px) {
   .grid-container {
     grid-template-columns: auto auto auto auto;
+  }
+  h2 {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: 1250px) {
+  .grid-container {
+    grid-template-columns: auto auto auto auto auto;
+  }
+  h2 {
+    font-size: 3.5rem;
   }
 }
 

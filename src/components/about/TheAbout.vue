@@ -33,6 +33,10 @@ div {
   font-size: 0.9rem;
 }
 
+h1 {
+  margin: 20px 2.5rem;
+}
+
 h2, p, li {
   text-align: left;
 }

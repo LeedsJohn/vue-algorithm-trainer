@@ -2,7 +2,7 @@
   <base-button @click="toggleSelectAlgScreen" class="topRight"  :type="selectAlgScreen ? 'close' : 'menu'"
     >Select Algorithms
   </base-button>
-  <div v-if="!selectAlgScreen && !finished">
+  <div v-if="!selectAlgScreen && !finished" class="scramble-container">
     <p class="scramble">{{ scramble }}</p>
   </div>
   <TheAlgSelector
@@ -109,9 +109,17 @@ p {
 }
 
 .scramble {
+  text-align: center;
   font-size: 2.5rem;
   font-weight: 500;
-  margin-top: 10%;
+  margin-top: 16vh;
+  padding: 0 20px;
+}
+
+@media (orientation: landscape) {
+  .scramble {
+    margin-top: 20vh;
+  }
 }
 
 .finished {
