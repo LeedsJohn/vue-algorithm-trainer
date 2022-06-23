@@ -105,6 +105,7 @@ export default class AlgTrainer {
     Called after a user gets an algorithm wrong
     Resets the streak and moves to box 1
     */
+    this.curAlg.seen = true;
     if (!this.currentlyReviewing) {
       this.boxes[this.curBox].erase(this.curAlg);
       this.curAlg.reset();
@@ -124,6 +125,7 @@ export default class AlgTrainer {
     Called after a user gets an algorithm correctly
     Increments the algorithm streak and moves it if necessary
     */
+    this.curAlg.seen = true;
     if (!this.currentlyReviewing) {
       const box = this.curBox;
       const alg = this.curAlg;
@@ -281,6 +283,12 @@ export default class AlgTrainer {
     and the index of box to add it to
     */
     alg.reset(false);
+    if (!alg.seen) {
+      alg.streak = 2;
+    }
+    if (endBox === 6) {
+      this.seen = false;
+    }
     this.boxes[startBox].erase(alg);
     this.boxes[endBox].add(alg);
   }
@@ -310,7 +318,7 @@ export default class AlgTrainer {
       this.boxes[2].add(this.queuedAlgs.pop());
     } else if (this.boxes[0].length() !== 0) {
       const moveAlg = this.boxes[0].getAlgorithm();
-      this._move(moveAlg, 0, 2);
+      this._move(moveAlg, 0, 3);
     }
   }
 
