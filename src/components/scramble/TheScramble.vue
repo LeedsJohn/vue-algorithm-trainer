@@ -29,8 +29,14 @@
     :algTrainer="algTrainer"
     class="display-box"
   ></display-boxes>
-  <base-button type="incorrect" class="touchscreen">Wrong</base-button>
-  <base-button type="correct" class="touchscreen">Correct</base-button>
+  <div v-if="!finished && !selectAlgScreen">
+    <base-button @click="wrong()" type="wrong" class="touchscreen wrong"
+      ></base-button
+    >
+    <base-button @click="correct()" type="correct" class="touchscreen correct"
+      ></base-button
+    >
+  </div>
 </template>
 
 <script>
@@ -163,6 +169,14 @@ p {
     display: inline;
     position: fixed;
     bottom: 0;
+  }
+
+  .wrong {
+    left: 0;
+  }
+
+  .correct {
+    right: 0;
   }
 }
 </style>

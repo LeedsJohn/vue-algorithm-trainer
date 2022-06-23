@@ -71,6 +71,31 @@ button {
   background-color: rgba(255, 0, 0, 0.6);
 }
 
+.correct, .wrong {
+  border: #000 solid;
+  height: 20vh;
+}
+
+.correct {
+  background-color: rgba(30, 192, 110, 0.8);
+  width: 60vw;
+}
+
+.correct:active {
+  background-color: rgba(30, 192, 110, 0.4);
+}
+
+.wrong {
+  background-color: rgba(214, 59, 49, 0.8);
+  border: #000 solid;
+  height:20vh;
+  width: 40vw;
+}
+
+.wrong:active {
+  background-color: rgba(214, 59, 49, 0.4);
+}
+
 .restart {
   background-color: rgba(0, 0, 0, 0);
   border: #222 solid 6px;
