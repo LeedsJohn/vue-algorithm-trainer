@@ -1,15 +1,18 @@
 <template>
-  <base-button @click="toggleSelectAlgScreen" class="topRight"  :type="selectAlgScreen ? 'close' : 'menu'"
+  <base-button
+    @click="toggleSelectAlgScreen"
+    class="topRight"
+    :type="selectAlgScreen ? 'close' : 'menu'"
     >Select Algorithms
   </base-button>
-  <div v-if="!selectAlgScreen && !finished" class="scramble-container">
+  <div v-if="!selectAlgScreen && !finished">
     <p class="scramble">{{ scramble }}</p>
   </div>
-  <TheAlgSelector
+  <the-alg-selector
     v-else-if="selectAlgScreen"
     :algTrainer="algTrainer"
     :algset="algSet"
-  ></TheAlgSelector>
+  ></the-alg-selector>
   <div v-else-if="finished">
     <p class="finished">Good job!</p>
     <base-button @click="restart" type="restart">Restart</base-button>
@@ -20,7 +23,13 @@
     type="alert"
     >Please select at least one algorithm.</base-foreground
   >
-  <display-boxes v-if="scramble && !selectAlgScreen && !algCountWarning && !finished" :algTrainer="algTrainer"></display-boxes>
+  <display-boxes
+    v-if="scramble && !selectAlgScreen && !algCountWarning && !finished"
+    :algTrainer="algTrainer"
+    class="display-box"
+  ></display-boxes>
+  <base-button type="incorrect" class="touchscreen">Wrong</base-button>
+  <base-button type="correct" class="touchscreen">Correct</base-button>
 </template>
 
 <script>
@@ -77,7 +86,10 @@ export default {
     },
     toggleSelectAlgScreen() {
       this.algTrainer.getAlgs();
-      if (this.algTrainer.algsInCycle() === 0 + this.algTrainer.boxes[0].length()) {
+      if (
+        this.algTrainer.algsInCycle() ===
+        0 + this.algTrainer.boxes[0].length()
+      ) {
         this.toggleAlgCountWarning();
         console.log("it should be showing");
         return;
@@ -116,6 +128,14 @@ p {
   padding: 0 20px;
 }
 
+.touchscreen {
+  display: none;
+}
+
+.display-box {
+  margin-top: 30vh;
+}
+
 @media (orientation: landscape) {
   .scramble {
     margin-top: 20vh;
@@ -132,5 +152,16 @@ p {
   position: absolute;
   top: 1%;
   right: 1%;
+}
+
+@media (pointer: coarse) {
+  .display-box {
+    margin-top: 0;
+  }
+  .touchscreen {
+    display: inline;
+    position: fixed;
+    bottom: 0;
+  }
 }
 </style>

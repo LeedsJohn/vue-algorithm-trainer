@@ -31,9 +31,7 @@ export default {
 
 <style scoped>
 ul {
-  /* position: absolute;
-  bottom: 10%; */
-  margin-top: 30vh;
+  /* margin-top: 30vh; */
   display: grid;
   grid-template-columns: 25vw 25vw;
   grid-template-rows: 25vw 25vw 25vw;
