@@ -54,11 +54,11 @@ export default {
 }
 
 li {
-  margin: 10px 0px;
+  margin: 10px 15px;
   list-style: none;
   display: grid;
   gap: 10px;
-  grid-template-columns: 50% 20% 20%;
+  grid-template-columns: 40% 25% 25%;
 }
 
 .groupName {

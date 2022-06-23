@@ -43,6 +43,7 @@ export default {
   border-radius: 10%;
   display: inline-block;
   box-shadow: 3px 3px rgba(0, 0, 0, 0.5);
+  padding: 3px;
 }
 ul {
   display: inline;
