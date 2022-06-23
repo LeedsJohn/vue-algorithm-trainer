@@ -35,11 +35,11 @@ button {
   background-color: rgba(255, 255, 255, 0.4);
   border: #000 solid;
   border-radius: 10px;
-  font-size: 2vw;
+  font-size: 1rem;
   color: #000;
   height: 100%;
   padding: 10px;
-  margin: 20px;
+  margin: 30px auto 10px auto;
   box-shadow: 3px 3px rgba(0, 0, 0, 0.5);
 }
 

@@ -11,24 +11,26 @@
   <base-button @click="toggleShowGroups" type="toggleAlgGroups"
     >Toggle Groups</base-button
   >
-  <ul class="grid-container">
-    <li v-for="alg in allAlgs" :key="alg.name">
-      <div
-        class="alg-container"
-        :class="[ignored.includes(alg.name) ? 'not-learning' : 'learning']"
-        @click="toggleIgnored(alg)"
-      >
-        <span class="algName">{{ alg.name }}</span>
-        <img
-          :src="
-            require(`../../assets/scramble_icons/${algset}/${replaceSpace(
-              alg.name
-            )}.png`)
-          "
-        />
-      </div>
-    </li>
-  </ul>
+  <div class="center">
+    <ul class="grid-container">
+      <li v-for="alg in allAlgs" :key="alg.name">
+        <div
+          class="alg-container"
+          :class="[ignored.includes(alg.name) ? 'not-learning' : 'learning']"
+          @click="toggleIgnored(alg)"
+        >
+          <span class="algName">{{ alg.name }}</span>
+          <img
+            :src="
+              require(`../../assets/scramble_icons/${algset}/${replaceSpace(
+                alg.name
+              )}.png`)
+            "
+          />
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -94,18 +96,36 @@ export default {
 </script>
 
 <style scoped>
-ul {
-  margin: 0 10%;
-  text-align: center;
+.center {
+  margin-right: auto;
+  margin-left: auto;
+  width: 90vw;
 }
 
 .grid-container {
   display: grid;
   gap: 10px 10px;
-  grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: 25vw 25vw 25vw;
+  justify-content: center;
+}
+
+@media screen and (min-width: 700px) {
+  .grid-container {
+    grid-template-columns: 20vw 20vw 20vw 20vw;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .grid-container {
+    grid-template-columns: 15vw 15vw 15vw 15vw 15vw;
+  }
 }
 
 li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   list-style: none;
   padding: 0px;
 }
@@ -113,16 +133,21 @@ li {
 .algName {
   display: block;
   color: #000;
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   text-align: center;
 }
 
 img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 5px;
   height: 60%;
   width: 60%;
 }
 
 .alg-container {
+  width: 100%;
   cursor: pointer;
   border: #000 solid;
   border-radius: 10px;
@@ -149,11 +174,13 @@ img {
   filter: grayscale(90%);
 }
 
-.v-enter-active, .v-leave-active {
+.v-enter-active,
+.v-leave-active {
   transition: all 0.3s ease-in-out;
 }
 
-.v-enter-from, .v-leave-to {
+.v-enter-from,
+.v-leave-to {
   transform: translateX(300px);
 }
 </style>
