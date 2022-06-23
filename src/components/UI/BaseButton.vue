@@ -21,7 +21,7 @@ button {
   border-radius: 10px;
   font-size: 1rem;
   font-weight: 550;
-  height: 6%;
+  height: 3rem;
   filter: opacity(50%);
   color: #dbf2f3;
   box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
@@ -35,7 +35,7 @@ button {
   background-color: rgba(255, 255, 255, 0.4);
   border: #000 solid;
   border-radius: 10px;
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: #000;
   height: 100%;
   padding: 10px;
