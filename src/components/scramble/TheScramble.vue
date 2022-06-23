@@ -1,5 +1,6 @@
 <template>
   <base-button
+    v-if="!finished"
     @click="toggleSelectAlgScreen"
     class="topRight"
     :type="selectAlgScreen ? 'close' : 'menu'"
