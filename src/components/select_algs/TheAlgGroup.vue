@@ -36,7 +36,7 @@ export default {
 <style scoped>
 .sidebar {
   height: 100%;
-  width: 20vw;
+  width: 300px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -48,7 +48,7 @@ export default {
 .groups {
   position: absolute;
   right: 0px;
-  width: 20vw;
+  width: 300px;
   display: grid;
   margin-top: 18%;
 }
@@ -63,7 +63,7 @@ li {
 
 .groupName {
   color: black;
-  font-size: 1.5vw;
+  font-size: 150%;
 }
 
 .topLeft {

@@ -37,7 +37,7 @@ button {
   border-radius: 10px;
   font-size: 2vw;
   color: #000;
-  height: 4vw;
+  height: 100%;
   padding: 10px;
   margin: 20px;
   box-shadow: 3px 3px rgba(0, 0, 0, 0.5);
@@ -50,8 +50,9 @@ button {
 .include, .ignore {
   border: #000 solid;
   border-radius: 10px;
-  height: 5vh;
-  width: 7.5vh;
+  height: 120%;
+  width: 110%;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 .include {
@@ -74,8 +75,8 @@ button {
   background-color: rgba(0, 0, 0, 0);
   border: #222 solid 6px;
   border-radius: 10px;
-  font-size: 3vw;
-  height: 6vw;
+  font-size: 3em;
+  height: 2.2em;
   color: #30dfe9;
   box-shadow: 3px 3px rgba(0, 0, 0, 0.5);
 }
@@ -89,8 +90,8 @@ button {
   background-repeat: no-repeat;
   background-size: contain;
   border: none;
-  width: 6vw;
-  height: 6vw;
+  width: 8em;
+  height: 8em;
   position: fixed;
   bottom: 2%;
   right: 2%;

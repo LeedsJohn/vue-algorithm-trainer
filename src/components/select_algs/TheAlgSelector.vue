@@ -154,6 +154,6 @@ img {
 }
 
 .v-enter-from, .v-leave-to {
-  transform: translateX(20vw);
+  transform: translateX(300px);
 }
 </style>

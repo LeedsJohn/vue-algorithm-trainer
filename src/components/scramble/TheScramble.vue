@@ -109,13 +109,13 @@ p {
 }
 
 .scramble {
-  font-size: 3.5vw;
+  font-size: 350%;
   font-weight: 500;
   margin-top: 10%;
 }
 
 .finished {
-  font-size: 10vw;
+  font-size: 1000%;
   font-weight: 700;
   font-style: italic;
 }

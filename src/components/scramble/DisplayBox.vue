@@ -51,7 +51,7 @@ li {
   list-style: none;
   display: inline;
   font-weight: 600;
-  font-size: 1.1vw;
+  font-size: 110%;
   float: left;
   margin: 0 3px;
 }
