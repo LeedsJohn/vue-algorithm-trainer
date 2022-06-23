@@ -30,6 +30,7 @@
 <style scoped>
 div {
   padding: 1% 3%;
+  font-size: 0.9rem;
 }
 
 h2, p, li {

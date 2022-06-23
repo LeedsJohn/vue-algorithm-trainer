@@ -75,8 +75,8 @@ button {
   background-color: rgba(0, 0, 0, 0);
   border: #222 solid 6px;
   border-radius: 10px;
-  font-size: 3em;
-  height: 2.2em;
+  font-size: 2.5rem;
+  padding: 1% 0.5%;
   color: #30dfe9;
   box-shadow: 3px 3px rgba(0, 0, 0, 0.5);
 }
@@ -90,8 +90,8 @@ button {
   background-repeat: no-repeat;
   background-size: contain;
   border: none;
-  width: 8em;
-  height: 8em;
+  width: 4rem;
+  height: 4rem;
   position: fixed;
   bottom: 2%;
   right: 2%;
@@ -107,8 +107,8 @@ button {
   background-repeat: no-repeat;
   background-size: contain;
   border: none;
-  height: 3vw;
-  width: 3vw;
+  height: 2.4rem;
+  width: 2.4rem;
   color: rgba(0,0,0,0);
 }
 

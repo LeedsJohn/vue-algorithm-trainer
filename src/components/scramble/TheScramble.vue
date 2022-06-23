@@ -104,18 +104,18 @@ p {
 }
 
 .name {
-  font-size: 4vw;
+  font-size: 3.5rem;
   font-weight: 700;
 }
 
 .scramble {
-  font-size: 350%;
+  font-size: 2.5rem;
   font-weight: 500;
   margin-top: 10%;
 }
 
 .finished {
-  font-size: 1000%;
+  font-size: 5rem;
   font-weight: 700;
   font-style: italic;
 }

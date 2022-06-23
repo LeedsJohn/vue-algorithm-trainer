@@ -63,7 +63,7 @@ li {
 
 .groupName {
   color: black;
-  font-size: 150%;
+  font-size: 1.25rem;
 }
 
 .topLeft {

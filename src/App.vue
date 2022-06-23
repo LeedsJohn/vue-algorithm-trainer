@@ -70,6 +70,7 @@ export default {
 
 html {
   background-color: #0081a7;
+  font-size: 24px;
 }
 
 .topLeft {
