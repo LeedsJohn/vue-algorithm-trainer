@@ -70,7 +70,7 @@ export default {
 
 html {
   background-color: #0081a7;
-  font-size: 24px;
+  font-size: calc(15px + 0.390625vw);
 }
 
 .topLeft {
