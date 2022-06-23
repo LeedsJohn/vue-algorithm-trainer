@@ -1,8 +1,7 @@
 <template>
   <h2>Select Algorithm Set</h2>
-  <ul>
+  <ul class="grid-container">
     <li v-for="algSet in algSets" :key="algSet">
-      <!-- {{ algSet }} -->
       <button @click="selectSet(algSet)">{{ algSet }}</button>
     </li>
   </ul>
@@ -46,6 +45,20 @@ h2 {
   color: #30dfe9;
 }
 
+.grid-container {
+  margin: 0 10% 5% 10%;
+  display: grid;
+  gap: 20px 20px;
+  grid-template-columns: auto auto auto;
+  grid-auto-rows: 5rem;
+}
+
+@media screen and (min-width: 800px) {
+  .grid-container {
+    grid-template-columns: auto auto auto auto;
+  }
+}
+
 ul {
   margin: 0 auto;
   text-align: center;
@@ -54,16 +67,17 @@ ul {
 li {
   display: inline-block;
   vertical-align: top;
-  margin: 1% 2%;
+  height: 100%;
+  width: 100%;
+  margin: auto;
 }
 
 button {
-  display: inline;
   background: none;
   border: 3px solid;
   text-align: center;
-  height: 8vw;
-  width: 16vw;
+  height: 100%;
+  width: 100%;
   font-size: 1.5rem;
   font-weight: 400;
   border-radius: 16px;
