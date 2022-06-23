@@ -34,9 +34,24 @@ ul {
   position: absolute;
   bottom: 10%;
   display: grid;
-  grid-template-columns: 10vw 10vw 10vw 10vw 10vw;
-  grid-template-rows: 10vw;
-  column-gap: 2%;
+  grid-template-columns: 25vw 25vw;
+  grid-template-rows: 25vw 25vw 25vw;
+  gap: 10px 10px;
+}
+
+@media screen and (min-width: 600px) {
+  ul {
+    grid-template-columns: 16vw 16vw 16vw;
+    grid-template-rows: 16vw 16vw;
+    gap: 10px 20px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  ul {
+    grid-template-columns: 12vw 12vw 12vw 12vw 12vw;
+    grid-template-rows: 12vw;
+  }
 }
 
 li {
