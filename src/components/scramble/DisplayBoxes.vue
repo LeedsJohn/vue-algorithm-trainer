@@ -35,7 +35,7 @@ ul {
   display: grid;
   grid-template-columns: 25vw 25vw;
   grid-template-rows: 25vw 25vw 25vw;
-  gap: 10px 10px;
+  gap: 18px 18px;
 }
 
 @media screen and (min-width: 600px) {

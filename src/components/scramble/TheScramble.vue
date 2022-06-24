@@ -30,12 +30,16 @@
     class="display-box"
   ></display-boxes>
   <div v-if="!finished && !selectAlgScreen">
-    <base-button @click="wrong()" type="wrong" class="touchscreen wrong"
-      ></base-button
-    >
-    <base-button @click="correct()" type="correct" class="touchscreen correct"
-      ></base-button
-    >
+    <base-button
+      @click="wrong()"
+      type="wrong"
+      class="touchscreen wrong"
+    ></base-button>
+    <base-button
+      @click="correct()"
+      type="correct"
+      class="touchscreen correct"
+    ></base-button>
   </div>
 </template>
 

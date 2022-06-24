@@ -87,7 +87,6 @@ button {
 
 .wrong {
   background-color: rgba(214, 59, 49, 0.8);
-  border: #000 solid;
   height:20vh;
   width: 40vw;
 }
