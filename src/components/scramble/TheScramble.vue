@@ -29,7 +29,7 @@
     :algTrainer="algTrainer"
     class="display-box"
   ></display-boxes>
-  <div v-if="!finished && !selectAlgScreen">
+  <div v-if="!finished && !selectAlgScreen && isMobile()">
     <base-button
       @click="wrong()"
       type="wrong"
@@ -117,6 +117,11 @@ export default {
       await this.algTrainer.reset();
       this.getScramble();
     },
+    isMobile() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+    },
   },
 };
 </script>
@@ -137,10 +142,6 @@ p {
   font-weight: 500;
   margin-top: 16vh;
   padding: 0 20px;
-}
-
-.touchscreen {
-  display: none;
 }
 
 .display-box {
@@ -165,22 +166,21 @@ p {
   right: 1%;
 }
 
-@media (pointer: coarse) {
-  .display-box {
-    margin-top: 0;
-  }
-  .touchscreen {
-    display: inline;
-    position: fixed;
-    bottom: 0;
-  }
+.display-box {
+  margin-top: 0;
+}
 
-  .wrong {
-    left: 0;
-  }
+.touchscreen {
+  display: inline;
+  position: fixed;
+  bottom: 0;
+}
 
-  .correct {
-    right: 0;
-  }
+.wrong {
+  left: 0;
+}
+
+.correct {
+  right: 0;
 }
 </style>
