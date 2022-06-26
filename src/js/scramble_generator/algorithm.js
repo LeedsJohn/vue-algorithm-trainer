@@ -21,30 +21,28 @@ export default class Algorithm {
       this.turnsUntilShow = Math.random() * (5 - 2) + 2;
     }
   }
-
+  /**
+   * Increases algorithm's streak by 1.
+   */
   incrementStreak() {
-    /*
-    increment()
-    Increases streak by 1
-    */
     this.streak += 1;
   }
 
+  /**
+   * Decreases turnsUntilShow by 1
+   */
   decrementTurnsUntilShow() {
-    /*
-    decrementTurnsUntilShow
-    Decreases turnsUntilShow by 1
-    */
     if (this.turnsUntilShow) {
       this.turnsUntilShow -= 1;
     }
   }
 
+  /**
+   * Resets an algorithm after being answered incorrectly.
+   * Sets streak to 0 and (optionally) turnsUntilShow to a random number between 1 and 3.
+   * @param {bool} wrongAns Whether turnsUntilShow should be updated.
+   */
   reset(wrongAns = true) {
-    /*
-    Sets streak to 0 and turnsUntilShow to a random number between
-    1 and 3
-    */
     this.streak = 0;
     if (wrongAns) {
       this.turnsUntilShow = Math.floor(Math.random() * (5 - 2 + 1) + 2);
@@ -63,6 +61,11 @@ export default class Algorithm {
   getTurnsUntilShow() {
     return this.turnsUntilShow;
   }
+
+  /**
+   * Returns one randomly selected scramble
+   * @returns {string} The randomly selected scramble.
+   */
   getScramble() {
     /*
     getScramble()

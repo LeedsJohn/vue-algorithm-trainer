@@ -3,7 +3,7 @@ John Leeds
 6/6/2022
 algtrainer.py
 
-Contains five boxes of algorithms and helps the user learn them 
+Contains five boxes of algorithms and helps the user learn them
 using an algorithm based off of the Leitner system
 https://en.wikipedia.org/wiki/Leitner_system
 
@@ -43,6 +43,12 @@ export default class AlgTrainer {
     this.getAlgs();
     // this.lastAlg = "" TODO add in this
   }
+
+  /**
+   * Tests a user on one algorithm.
+   * Picks an algorithm and updates curAlg and curBox. Initiates an review session if necessary.
+   * @returns {bool} True if the user has learned every algorithm.
+   */
   playRound() {
     /*
     playRound
@@ -71,14 +77,15 @@ export default class AlgTrainer {
       return this._reviewSession();
     }
   }
+
+  /**
+   * Selects an algorithm to test the user on.
+   * First checks if there are no algorithms left and then if a review session is currently in progress.
+   * After this, check for algorithms that are due to be shown after being answered incorrectly.
+   * From here, attempt to select from either box 2 or 3.
+   * @returns {integer[]} [box, algorithm]. Returns [-1, 0] if there are no algorithms left.
+   */
   pickAlg() {
-    /*
-    pickAlg
-    Picks an algorithm to test the user on
-    Returns the box and algorithm
-    (box, algorithm)
-    Returns -1 if there are no algs left
-    */
     if (this._noAlgsLeft()) {
       return [-1, 0];
     } else if (this.currentlyReviewing || this._triggerReview()) {
@@ -99,12 +106,11 @@ export default class AlgTrainer {
     return [3, this.boxes[3].getAlgorithm()];
   }
 
+  /**
+   * Called when a user answers an algorithm incorrectly.
+   * Resets the streak and moves to box 1. Also documents the algorithm as seen.
+   */
   wrongAnswer() {
-    /*
-    wrongAnswer()
-    Called after a user gets an algorithm wrong
-    Resets the streak and moves to box 1
-    */
     this.curAlg.seen = true;
     if (!this.currentlyReviewing) {
       this.boxes[this.curBox].erase(this.curAlg);
@@ -119,12 +125,11 @@ export default class AlgTrainer {
     }
   }
 
+  /**
+   * Called when a user answers an algorithm correctly.
+   * Increments the algorithm streak and moves it if necessary. Also documents the algorithm as seen.
+   */
   correctAnswer() {
-    /*
-    correctAnswer()
-    Called after a user gets an algorithm correctly
-    Increments the algorithm streak and moves it if necessary
-    */
     this.curAlg.seen = true;
     if (!this.currentlyReviewing) {
       const box = this.curBox;
@@ -146,32 +151,33 @@ export default class AlgTrainer {
     }
   }
 
+  /**
+   * Moves an algorithm into box 6 (the ignored algorithms box).
+   * @param {Algorithm} alg The algorithm to be ignored.
+   */
   ignoreAlg(alg) {
-    /*
-    ignoreAlg
-    Moves an algorithm into the box 6 (the ignored algorithms box)
-    */
     const box = this._findAlgBox(alg);
     if (box !== -1) {
       this._move(alg, box, 6);
     }
   }
 
+  /**
+   * Moves an algorithm from box 6 back into box 0.
+   * @param {Algorithm} alg The algorithm to be unignored.
+   */
   unignoreAlg(alg) {
-    /*
-    unignoreAlg(alg)
-    Moves an algorithm from box 6 back into box 0
-    */
     this._move(alg, 6, 0);
   }
 
+  /**
+   * Gets all algorithmsin the boxes.
+   * @param   {bool}    name            (optional) True if an array of names should be returned.
+   * @param   {integer} startBox        (optional) The box to start selecting algorithms from. If not specified, selects from the beginning.
+   * @param   {integer} endBox          (optional) The box to end selecting algorithms at. If not specified, selects until the end.
+   * @returns {Algorithm[] OR string{}} Array of all requested algorithms or algorithm names.
+   */
   getAllAlgs(name = false, startBox = null, endBox = null) {
-    /*
-    getAllAlgs()
-    Returns an array of all algorithms regardless of if they are ignored or not.
-    If name, returns array of algorithm names instead of algs
-    If box is provided an integer value, only takes algorithms from that box
-    */
     let allAlgs = [];
     let start = 0;
     let boxCount = this.boxes.length;
@@ -197,13 +203,12 @@ export default class AlgTrainer {
     return this._sortAlphabetically(allAlgs, name);
   }
 
+  /**
+   * Finds an algorithm with a specified name.
+   * @param   {string} algName       The name of the algorithm to find.
+   * @returns {Algorithm OR integer} The algorithm with the specified name (or -1 if not found).
+   */
   getAlgFromName(algName) {
-    /*
-    getAlgFromName(algName)
-    Receives the name of an algorithm
-    Returns the algorithm associated with that name
-    If there is no algorithm, returns -1
-    */
     for (let boxIndex = 0; boxIndex < this.boxes.length; boxIndex++) {
       for (let alg = 0; alg < this.boxes[boxIndex].length(); alg++) {
         if (this.boxes[boxIndex].algorithms[alg].getName() === algName) {
@@ -214,12 +219,11 @@ export default class AlgTrainer {
     return -1;
   }
 
+  /**
+   * Resets the alg trainer.
+   * Moves all algorithms from box 5 to 0 and draws initial algs to box 1.
+   */
   reset() {
-    /*
-    reset()
-    Moves all algorithms from box 5 to box 0
-    Draws algorithms from box 0 to box 1
-    */
     this.finished = false;
     while (this.boxes[5].length() !== 0) {
       this._move(this.boxes[5].algorithms[0], 5, 0);
@@ -227,14 +231,13 @@ export default class AlgTrainer {
     this.getAlgs();
   }
 
+  /**
+   * Determines whether a review session should be triggered.
+   * This occurs when the length of box 4 >= REVIEW_COUNT or box 4 is the only box with algorithms in it.
+   * @returns {bool} True if a review session should be triggered; else, false
+   */
   _triggerReview() {
-    /*
-    _triggerReview
-    Returns true if a review session should be triggered
-    (len box 4 == REVIEW_COUNT, box 4 is the only box with
-    algorithms in it other than 4)
-    */
-    if (this.boxes[4].length() === REVIEW_COUNT) {
+    if (this.boxes[4].length() >= REVIEW_COUNT) {
       return true;
     }
     let i = 0;
@@ -250,12 +253,12 @@ export default class AlgTrainer {
     return false;
   }
 
+  /**
+   * Determines whether there are any algorithms in boxes 0-4.
+   * Used to figure out whether the user has completed the learning session.
+   * @returns {bool} True if there are no algorithms left; else, false.
+   */
   _noAlgsLeft() {
-    /*
-    _noAlgsLeft
-    Determines if there are no algorithms in boxes 0-4, implying that the user has completed the 
-    learning session.
-    */
     let i = 0;
     while (i < 5) {
       if (this.boxes[i].length() != 0) {
@@ -266,6 +269,11 @@ export default class AlgTrainer {
     return true;
   }
 
+  /**
+   * Finds the number of algorithms currently being learned.
+   * These are the algorithms in boxes 1-3.
+   * @returns {integer} the number of algorithms in boxes 1-3
+   */
   algsInCycle() {
     /*
     algsInCycle
@@ -276,12 +284,13 @@ export default class AlgTrainer {
     );
   }
 
+  /**
+   * Moves an algorithm from one box to another.
+   * @param {Algorithm} alg      The algorithm to move.
+   * @param {integer}   startBox The box to move the algorithm from.
+   * @param {integer}   endBox   The box to move the algorithm to.
+   */
   _move(alg, startBox, endBox) {
-    /*
-    _move
-    Receives an algorithm, the index of the box to remove it from,
-    and the index of box to add it to
-    */
     alg.reset(false);
     if (!alg.seen) {
       alg.streak = 2;
@@ -293,6 +302,11 @@ export default class AlgTrainer {
     this.boxes[endBox].add(alg);
   }
 
+  /**
+   * Finds the box containing a specified algorithm.
+   * @param   {Algorithm} alg The algorithm to search for.
+   * @returns {integer}       The box containing the specified algorithm. Returns -1 if the algorithm is not found.
+   */
   _findAlgBox(alg) {
     /*
     _findAlgbox
@@ -307,13 +321,11 @@ export default class AlgTrainer {
     return -1;
   }
 
+  /**
+   * Adds a new algorithm into the cycle.
+   * Picks from queuedAlgorithms if there are any algorithms in that box. Else, selects from box 0.
+   */
   _addNewAlg() {
-    /*
-    _addNewAlg
-    Adds a new algorithm into the rotation
-    Picks from queuedAlgorithms if there are any in that box
-    Else, picks one from box 0
-    */
     if (this.queuedAlgs.length !== 0) {
       this.boxes[2].add(this.queuedAlgs.pop());
     } else if (this.boxes[0].length() !== 0) {
@@ -322,13 +334,12 @@ export default class AlgTrainer {
     }
   }
 
+  /**
+   * Removes algorithms from the cycle and adds it to the queued algorithms.
+   * Prefers to take algorithms from box 2, then 1, then 3.
+   * @param {integer} count (optional) How many algorithms to remove - defaults to 1.
+   */
   _removeAlg(count = 1) {
-    /*
-    _removeAlg
-    Takes an algorithm out of cycle and adds it to queued algorithms
-    Optional: receives a number of algorithms to remove
-    Prefers to take an algorithm from box 2, then 1, then 3
-    */
     let c = 0;
     while (c < count) {
       const boxPreference = [2, 1, 3];
@@ -342,24 +353,21 @@ export default class AlgTrainer {
     }
   }
 
+  /**
+   * Simulates a review session.
+   * Shows every algorithm in box 4 and moves it to either box 5 or box 1 depending on whether the user answers correctly.
+   */
   _reviewSession() {
-    /*
-    _reviewSession
-    Goes through the algorithms in box 4. Moves to box 1 if answered incorrectly,
-    box 5 if answered correctly.
-    */
     console.log("Review: ");
     this.curAlg = this.boxes[4].pop();
     this.curBox = 4;
   }
 
+  /**
+   * Ends the review session.
+   * Resets every algorithm in incorrectAlgs and adds them to box 1.
+   */
   _concludeReview() {
-    /*
-    concludeReview()
-    Ends the review session by resetting
-    every algorithm in incorrectAlgs and adding them
-    to box 1
-    */
     console.log("Concluding");
     this.currentlyReviewing = false;
     const curInCycle = this.algsInCycle();
@@ -373,12 +381,13 @@ export default class AlgTrainer {
     this.incorrectAlgs = [];
   }
 
+  /**
+   * Creates the boxes
+   * Loads algorithms and fills box 2 with up to CONCURRENT algorithms.
+   * @param   {string} algSet The name of the algorithm set.
+   * @returns {Box[]}         The initial boxes.
+   */
   _createBoxes(algSet) {
-    /*
-    _createBoxes(self)
-    Loads the algorithms from file_path
-    Creates the boxes and fills box 2 with up to 8 algorithms
-    */
     let boxes = [];
     let i = 0;
     while (i < 7) {
@@ -398,13 +407,13 @@ export default class AlgTrainer {
     return boxes;
   }
 
+  /**
+   * Sorts an array by the last 2 trailing numbers.
+   * @param   {Algorithm[] OR string[]} arr  The array to sort
+   * @param   {bool}                    name True if it is an array of strings; else, false.
+   * @returns {Algorithm[] OR string[]}      The sorted array.
+   */
   _sortByNumber(arr, name = false) {
-    /*
-    _sortByNumber(arr)
-    Receives an array of algorithms or strings
-    Sorts by string if name == true
-    Returns a sorted version of an array by the trailing number
-    */
     return arr.sort((a, b) => {
       if (!name) {
         a = a.getName();
@@ -416,27 +425,27 @@ export default class AlgTrainer {
     });
   }
 
+  /**
+   * Sorts an array alphabetically.
+   * @param   {Algorithm[] OR string[]} arr  The array to sort
+   * @param   {bool}                    name True if it is an array of strings; else, false.
+   * @returns {Algorithm[] OR string[]}      The sorted array.
+   */
   _sortAlphabetically(arr, name = false) {
-    /*
-    _sortAlphabetically(arr)
-    Receives an array of algorithms or strings
-    Sorts by string if name == true
-    Returns an alphabetized version of the array
-    */
     if (name) {
       return arr.sort((a, b) => a.localeCompare(b));
     }
     return arr.sort((a, b) => a.getName().localeCompare(b.getName()));
   }
 
+  /**
+   * Determines if the array contains a double digit algorithm.
+   * Used to determine whether the array should be sorted alphabetically or by number.
+   * @param   {Algorithm[] OR string[]} arr  The array to sort
+   * @param   {bool}                    name True if it is an array of strings; else, false.
+   * @returns {bool}                         True if the array contains a double digit number; else, false.
+   */
   _containsDoubleDigitNumber(arr, names = false) {
-    /*
-    _getMaxNumber(arr)
-    Receives an array of algorithms or strings
-    Set name to true if strings
-    Returns true if there is an algorithm containing a double digit number
-    Used to determine whether an algorithm set can be sorted alphabetically
-    */
     for (let i = 0; i < arr.length; i++) {
       let name;
       if (names) {
@@ -451,12 +460,11 @@ export default class AlgTrainer {
     return false;
   }
 
+  /**
+   * Adds algorithms to the cycle if necessary.
+   * Maintains that CONCURRENT algorithms are always in cycle.
+   */
   getAlgs() {
-    /*
-    getAlgs
-    Ensures there are the proper number of algs
-    in cycle
-    */
     const startCount = this.algsInCycle();
     let drawCount = CONCURRENT - startCount;
     let i = 0;

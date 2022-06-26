@@ -5,57 +5,58 @@ box.py
 
 Contains datastructure Box which holds Algorithms
 */
-// import Algorithm from "./algorithm.js";
-
 export default class Box {
   constructor() {
     this.algorithms = [];
   }
+
+  /**
+   * Removes an algorithm from the box
+   * @param {Algorithm} alg The algorithm to remove.
+   */
   erase(alg) {
-    /*
-    erase()
-    Receives an algorithm to remove from the algorithms (list)
-    */
-    // TODO: maybe should be value.getName === alg.getName etc
-    // TODO: maybe should be this.algorithms.filter(function (value, index, arr)
     this.algorithms = this.algorithms.filter(function (value) {
       return value !== alg;
     });
   }
 
+  /**
+   * Adds an algorithm to the box.
+   * @param {Algorithm} algorithm The algorithm to add to the box.
+   */
   add(algorithm) {
-    /*
-    add()
-    Receives an algorithm to add to the list of algorithms (Algorithm)
-    */
     this.algorithms.push(algorithm);
   }
+
+  /**
+   * Removes and returns the last algorithm in the box.
+   * @returns {Algorithm} The last algorithm.
+   */
   pop() {
-    /*
-    pop()
-    Calls pop on algorithms
-    */
     return this.algorithms.pop();
   }
+
+  /**
+   * Gets the length of the box.
+   * @returns {integer} The number of algorithms in the box.
+   */
   length() {
-    /*
-    length
-    Returns the number of algorithms in the box
-    */
     return this.algorithms.length;
   }
+
+  /**
+   * Picks a randomly selected algorithm from the box.
+   * @returns {Algorithm} Randomly selected algorithm.
+   */
   getAlgorithm() {
-    /*
-    getAlgorithm
-    Returns a randomly selected algorithm
-    */
     return this.algorithms[Math.floor(Math.random() * this.algorithms.length)];
   }
+
+  /**
+   * Gets the algorithm in the box with the minimum turnsUntilShow.
+   * @returns {Algorithm} The algorithm with the minimum turnsUntilShow
+   */
   getMinAlgorithm() {
-    /*
-    getMinAlgorithm
-    Returns the algorithm with the minimum turnsUntilShow
-    */
     let minTurns = this.algorithms[0].getTurnsUntilShow();
     let minAlg = this.algorithms[0];
 
@@ -67,6 +68,11 @@ export default class Box {
     }
     return minAlg;
   }
+
+  /**
+   * Determines if there is an algorithm that is due to be shown.
+   * @returns {bool} Returns true if there is an algorithm in the box where turnsUntilShow <= 0.
+   */
   urgentShowExists() {
     /*
     urgentShowExists
@@ -80,22 +86,21 @@ export default class Box {
     }
     return false;
   }
+
+  /**
+   * Subtracts 1 from every algorithm's turnsUntilShow
+   */
   passRound() {
-    /*
-    passRound
-    Subtracts 1 from every algorithms turnsUNtilShow
-    */
     for (let i = 0; i < this.algorithms.length; i++) {
       this.algorithms[i].decrementTurnsUntilShow();
     }
   }
 
+  /**
+   * Shuffles the algorithms.
+   * Courtesy of https://stackoverflow.com/a/12646864
+   */
   shuffle() {
-    /*
-    shuffle
-    Shuffles the algorithms
-    Courtesy of https://stackoverflow.com/a/12646864
-    */
     for (let i = this.algorithms.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [this.algorithms[i], this.algorithms[j]] = [
@@ -104,12 +109,14 @@ export default class Box {
       ];
     }
   }
+
+  /**
+   * Determines if an algorithm exists in the box.
+   * @param   {Algorithm} alg The algorithm to check for.
+   * @returns {bool}          True if the algorithm is in the box; else, false.
+   */
   exists(alg) {
-    /*
-    exists(alg)
-    Returns true if an algorithm exists in the box
-    */
-    for (let i = 0; i<this.algorithms.length; i++){
+    for (let i = 0; i < this.algorithms.length; i++) {
       if (this.algorithms[i] === alg) {
         return true;
       }
