@@ -47,18 +47,21 @@ export default {
 
 .groups {
   position: absolute;
-  right: 0px;
   width: 300px;
-  display: grid;
   margin-top: 18%;
+}
+ul {
+  display: grid;
+  grid-template-columns: 100%;
+  row-gap: 20px;
 }
 
 li {
-  margin: 10px 15px;
   list-style: none;
   display: grid;
-  gap: 10px;
-  grid-template-columns: 40% 25% 25%;
+  justify-items: start;
+  column-gap: 5px;
+  grid-template-columns: 45% 25% 20%;
 }
 
 .groupName {

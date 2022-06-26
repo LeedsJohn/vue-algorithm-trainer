@@ -50,8 +50,8 @@ button {
 .include, .ignore {
   border: #000 solid;
   border-radius: 10px;
-  height: 120%;
-  width: 110%;
+  height: 125%;
+  width: 100%;
   box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
 }
 

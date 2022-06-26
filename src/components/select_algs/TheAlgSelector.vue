@@ -105,19 +105,19 @@ export default {
 .grid-container {
   display: grid;
   gap: 10px 10px;
-  grid-template-columns: 25vw 25vw 25vw;
+  grid-template-columns: 33% 33% 33%;
   justify-content: center;
 }
 
 @media screen and (min-width: 700px) {
   .grid-container {
-    grid-template-columns: 20vw 20vw 20vw 20vw;
+    grid-template-columns: 25% 25% 25% 25%;
   }
 }
 
 @media screen and (min-width: 1000px) {
   .grid-container {
-    grid-template-columns: 15vw 15vw 15vw 15vw 15vw;
+    grid-template-columns: 20% 20% 20% 20% 20%;
   }
 }
 
