@@ -31,18 +31,17 @@ export default {
 
 <style scoped>
 ul {
-  /* margin-top: 30vh; */
   display: grid;
   grid-template-columns: 25vw 25vw;
   grid-template-rows: 25vw 25vw 25vw;
-  gap: 18px 18px;
+  gap: 14px 14px;
 }
 
 @media screen and (min-width: 600px) {
   ul {
     grid-template-columns: 16vw 16vw 16vw;
     grid-template-rows: 16vw 16vw;
-    gap: 10px 20px;
+    gap: 20px 20px;
   }
 }
 
