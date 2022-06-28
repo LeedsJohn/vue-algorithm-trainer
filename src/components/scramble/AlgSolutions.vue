@@ -1,10 +1,10 @@
 <template>
   <base-foreground>
-    <ul>
+    <ol>
       <li v-for="solution in solutions" :key="solution">
         {{ solution }}
       </li>
-    </ul>
+    </ol>
   </base-foreground>
 </template>
 
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style scoped>
-ul {
+ol {
   height: 60vh;
   width: 60vw;
 }
