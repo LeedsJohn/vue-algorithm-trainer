@@ -153,6 +153,7 @@ p {
   font-weight: 500;
   margin-top: 16vh;
   padding: 0 20px;
+  cursor: pointer;
 }
 
 .display-box {
