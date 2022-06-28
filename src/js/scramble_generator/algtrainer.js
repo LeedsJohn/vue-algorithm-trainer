@@ -395,12 +395,14 @@ export default class AlgTrainer {
       boxes.push(newBox);
       i += 1;
     }
-    console.log(algSet);
-    const WV = require(`../../assets/scrambles/${algSet}.json`);
-    const scrambleInfo = WV;
+    const algs = require(`../../assets/scrambles/${algSet}.json`);
+    const scrambleInfo = algs;
+    const solutions = require(`../../assets/solutions/${algSet}.json`);
+    // console.log(`SOLUTION: ${solutions}`);
+    console.log(solutions);
 
     for (let algName in scrambleInfo) {
-      const newAlg = new Algorithm(algName, scrambleInfo[algName]);
+      const newAlg = new Algorithm(algName, scrambleInfo[algName], solutions[algName]);
       boxes[0].add(newAlg);
     }
     boxes[0].shuffle();

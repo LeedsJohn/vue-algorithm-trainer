@@ -6,18 +6,19 @@ Contains a class Algorithm
 */
 
 export default class Algorithm {
-  constructor(name, scrambles) {
+  constructor(name, scrambles, solutions) {
     /* 
     Constructor
     Receives the name of the algorithm (string)
     Receives scrambles that lead to that algorithm (array of strings)
     */
+    console.log(`${name}: ${solutions}`);
     this.seen = false;
     this.name = name;
     this.scrambles = scrambles;
     this.streak = 0;
     this.turnsUntilShow = null;
-    this.solutions = ["R U R'"];
+    this.solutions = solutions;
     if (this.turnsUntilShow) {
       this.turnsUntilShow = Math.random() * (5 - 2) + 2;
     }
