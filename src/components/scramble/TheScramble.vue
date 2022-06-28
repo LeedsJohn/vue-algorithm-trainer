@@ -6,8 +6,11 @@
     :type="selectAlgScreen ? 'close' : 'menu'"
     >Select Algorithms
   </base-button>
+  <div v-if="showSolutions">
+    <alg-solutions @close="toggleSolutions" :solutions="solutions"></alg-solutions>
+  </div>
   <div v-if="!selectAlgScreen && !finished">
-    <p class="scramble">{{ scramble }}</p>
+    <p class="scramble" @click="toggleSolutions">{{ scramble }}</p>
   </div>
   <the-alg-selector
     v-else-if="selectAlgScreen"
@@ -31,12 +34,12 @@
   ></display-boxes>
   <div v-if="!finished && !selectAlgScreen && isMobile()">
     <base-button
-      @click="wrong()"
+      @click="wrong"
       type="wrong"
       class="touchscreen wrong"
     ></base-button>
     <base-button
-      @click="correct()"
+      @click="correct"
       type="correct"
       class="touchscreen correct"
     ></base-button>
@@ -47,11 +50,13 @@
 import AlgTrainer from "../../js/scramble_generator/algtrainer.js";
 import TheAlgSelector from "../select_algs/TheAlgSelector.vue";
 import DisplayBoxes from "./DisplayBoxes.vue";
+import AlgSolutions from "./AlgSolutions.vue";
 
 export default {
   components: {
     TheAlgSelector,
     DisplayBoxes,
+    AlgSolutions,
   },
   created() {
     window.addEventListener("keydown", (e) => {
@@ -71,10 +76,12 @@ export default {
     return {
       algName: "",
       scramble: "",
+      solutions: [],
       algTrainer: null,
       selectAlgScreen: false,
       finished: false,
       algCountWarning: false,
+      showSolutions: false,
     };
   },
   methods: {
@@ -86,6 +93,7 @@ export default {
       }
       this.algName = this.algTrainer.curAlg.getName();
       this.scramble = this.algTrainer.curAlg.getScramble();
+      this.solutions = this.algTrainer.curAlg.getSolutions();
     },
     wrong() {
       this.algTrainer.wrongAnswer();
@@ -111,6 +119,9 @@ export default {
     toggleAlgCountWarning() {
       this.algCountWarning = !this.algCountWarning;
       console.log(this.algCountWarning);
+    },
+    toggleSolutions() {
+      this.showSolutions = !this.showSolutions;
     },
     async restart() {
       this.finished = false;

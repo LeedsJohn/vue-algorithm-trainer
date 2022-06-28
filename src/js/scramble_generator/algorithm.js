@@ -17,6 +17,7 @@ export default class Algorithm {
     this.scrambles = scrambles;
     this.streak = 0;
     this.turnsUntilShow = null;
+    this.solutions = ["R U R'"];
     if (this.turnsUntilShow) {
       this.turnsUntilShow = Math.random() * (5 - 2) + 2;
     }
@@ -60,6 +61,9 @@ export default class Algorithm {
   }
   getTurnsUntilShow() {
     return this.turnsUntilShow;
+  }
+  getSolutions() {
+    return this.solutions;
   }
 
   /**
