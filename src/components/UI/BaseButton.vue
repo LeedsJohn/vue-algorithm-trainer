@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  props: ["type"]
-}
+  props: ["type"],
+};
 </script>
 
 <style scoped>
@@ -47,7 +47,8 @@ button {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.include, .ignore {
+.include,
+.ignore {
   border: #000 solid;
   border-radius: 10px;
   height: 125%;
@@ -71,7 +72,8 @@ button {
   background-color: rgba(255, 0, 0, 0.6);
 }
 
-.correct, .wrong {
+.correct,
+.wrong {
   border: #000 solid;
   height: 16vh;
 }
@@ -125,17 +127,27 @@ button {
   filter: opacity(100%);
 }
 
-.close {
+.close,
+.deleteSolution {
   background: url("../../assets/icons/close.png");
   background-repeat: no-repeat;
   background-size: contain;
   border: none;
-  height: 2.4rem;
-  width: 2.4rem;
-  color: rgba(0,0,0,0);
+  color: rgba(0, 0, 0, 0);
 }
 
-.close:hover {
+.close {
+  height: 2.4rem;
+  width: 2.4rem;
+}
+
+.deleteSolution {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.close:hover,
+.deleteSolution:hover {
   background-color: rgba(255, 0, 0, 0.3);
 }
 </style>

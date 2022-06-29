@@ -3,8 +3,14 @@
     <h2>{{ algName }}</h2>
     <ol>
       <li v-for="userSolution in userSolutions" :key="userSolution">
-        {{ userSolution }}
-        <button @click="deleteSolution(userSolution)">delete</button>
+        <div class="solution">
+          {{ userSolution }}
+          <base-button
+            type="deleteSolution"
+            class="delete"
+            @click="deleteSolution(userSolution)"
+          ></base-button>
+        </div>
       </li>
       <li v-for="solution in solutions" :key="solution">
         {{ solution }}
@@ -69,8 +75,10 @@ export default {
         const endIndex = localStorage[this.algName]
           .split("*#*", 5)
           .join("*#*").length;
-        localStorage[this.algName] =
-          localStorage[this.algName].substring(0, endIndex);
+        localStorage[this.algName] = localStorage[this.algName].substring(
+          0,
+          endIndex
+        );
         console.log(`AFTER: ${localStorage[this.algName]}`);
       }
     },
@@ -116,5 +124,15 @@ ol {
 li {
   margin-left: 2%;
   font-size: 1.2rem;
+  margin: 8px;
 }
+
+.solution {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+/* .delete {
+  justify-items: right;
+} */
 </style>
