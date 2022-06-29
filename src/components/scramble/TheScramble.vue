@@ -162,6 +162,10 @@ p {
   cursor: pointer;
 }
 
+.scramble:hover {
+  color: #60ffff;
+}
+
 .display-box {
   margin-top: 30vh;
 }
