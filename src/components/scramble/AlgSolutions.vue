@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     addSolution() {
+      this.userInput = this.userInput.substring(0, 50);
       if (this.userInput) {
         if (localStorage[this.algName]) {
           localStorage[this.algName] = `${this.userInput.replace(
@@ -45,13 +46,14 @@ export default {
         }
       }
       this.userInput = "";
+      this.cropSolutions();
       this.updateUserSolutions();
     },
     deleteSolution(sol) {
       localStorage[this.algName] = localStorage[this.algName]
         .replace(sol, "")
         .replace("*#**#*", "*#*");
-      if(localStorage[this.algName].slice(0, 3) === "*#*") {
+      if (localStorage[this.algName].slice(0, 3) === "*#*") {
         localStorage[this.algName] = localStorage[this.algName].slice(3);
       }
       this.updateUserSolutions();
@@ -61,6 +63,45 @@ export default {
         ? localStorage[this.algName].split("*#*")
         : [];
     },
+    cropSolutions() {
+      if (this.occurrences(localStorage[this.algName], "*#*") >= 5) {
+        console.log(`BEFORE: ${localStorage[this.algName]}`);
+        const endIndex = localStorage[this.algName]
+          .split("*#*", 5)
+          .join("*#*").length;
+        localStorage[this.algName] =
+          localStorage[this.algName].substring(0, endIndex);
+        console.log(`AFTER: ${localStorage[this.algName]}`);
+      }
+    },
+    /** Function that count occurrences of a substring in a string;
+     * @param {String} string               The string
+     * @param {String} subString            The sub string to search for
+     * @param {Boolean} [allowOverlapping]  Optional. (Default:false)
+     *
+     * @author Vitim.us https://gist.github.com/victornpb/7736865
+     * @see Unit Test https://jsfiddle.net/Victornpb/5axuh96u/
+     * @see https://stackoverflow.com/a/7924240/938822
+     */
+    occurrences(string, subString, allowOverlapping) {
+      string += "";
+      subString += "";
+      if (subString.length <= 0) return string.length + 1;
+
+      var n = 0,
+        pos = 0,
+        step = allowOverlapping ? 1 : subString.length;
+
+      const t = 0;
+      while (t < 1) {
+        pos = string.indexOf(subString, pos);
+        if (pos >= 0) {
+          ++n;
+          pos += step;
+        } else break;
+      }
+      return n;
+    },
   },
 };
 </script>
@@ -69,5 +110,11 @@ export default {
 ol {
   height: 60vh;
   width: 60vw;
+  text-align: left;
+}
+
+li {
+  margin-left: 2%;
+  font-size: 1.2rem;
 }
 </style>
