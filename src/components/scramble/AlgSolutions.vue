@@ -51,6 +51,9 @@ export default {
       localStorage[this.algName] = localStorage[this.algName]
         .replace(sol, "")
         .replace("*#**#*", "*#*");
+      if(localStorage[this.algName].slice(0, 3) === "*#*") {
+        localStorage[this.algName] = localStorage[this.algName].slice(3);
+      }
       this.updateUserSolutions();
     },
     updateUserSolutions() {
