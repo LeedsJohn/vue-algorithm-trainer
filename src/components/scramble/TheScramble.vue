@@ -7,7 +7,7 @@
     >Select Algorithms
   </base-button>
   <div v-if="showSolutions">
-    <alg-solutions @close="toggleSolutions" :solutions="solutions"></alg-solutions>
+    <alg-solutions @close="toggleSolutions" :solutions="solutions" :algName="algName"></alg-solutions>
   </div>
   <div v-if="!selectAlgScreen && !finished">
     <p class="scramble" @click="toggleSolutions">{{ scramble }}</p>
@@ -60,9 +60,9 @@ export default {
   },
   created() {
     window.addEventListener("keydown", (e) => {
-      if (e.key === " " && !this.selectAlgScreen && !this.finished) {
+      if (e.key === " ") {
         this.correct();
-      } else if (e.key === "x" && !this.selectAlgScreen && !this.finished) {
+      } else if (e.key === "x") {
         this.wrong();
       }
     });
@@ -96,10 +96,16 @@ export default {
       this.solutions = this.algTrainer.curAlg.getSolutions();
     },
     wrong() {
+            if (this.selectAlgScreen || this.finished || this.showSolutions) {
+        return;
+      }
       this.algTrainer.wrongAnswer();
       this.getScramble();
     },
     correct() {
+      if (this.selectAlgScreen || this.finished || this.showSolutions) {
+        return;
+      }
       this.algTrainer.correctAnswer();
       this.getScramble();
     },
