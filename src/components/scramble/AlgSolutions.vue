@@ -7,7 +7,6 @@
           {{ userSolution }}
           <base-button
             type="deleteSolution"
-            class="delete"
             @click="deleteSolution(userSolution)"
           ></base-button>
         </div>
@@ -16,8 +15,8 @@
         {{ solution }}
       </li>
     </ol>
-    <input v-model.trim="userInput" />
-    <button @click="addSolution">submitaonsetaonste</button>
+    <input class="inputBox" placeholder="Add solution..." v-model.trim="userInput" />
+    <button class="submit" @click="addSolution">Add solution</button>
   </base-foreground>
 </template>
 
@@ -132,7 +131,34 @@ li {
   display: flex;
   justify-content: space-between;
 }
-/* .delete {
-  justify-items: right;
-} */
+
+.inputBox {
+  height: 1rem;
+  width: 20rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: #000 solid;
+  border-radius: 20rem;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.submit {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.3);
+  border: #000 solid;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 550;
+  height: 2.5rem;
+  filter: opacity(100%);
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.submit:hover {
+  filter: opacity(60%);
+}
 </style>
