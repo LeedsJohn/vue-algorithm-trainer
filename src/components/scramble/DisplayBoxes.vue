@@ -56,7 +56,7 @@ export default {
   display: grid;
   grid-template-columns: 25vw 25vw;
   grid-template-rows: repeat(3, calc(25vw + 3rem));
-  gap: 20px 20px;
+  gap: 0 20px;
   margin-left: 2%;
 }
 
