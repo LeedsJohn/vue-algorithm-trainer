@@ -96,11 +96,6 @@ export default {
 </script>
 
 <style scoped>
-.center {
-  margin-right: auto;
-  margin-left: auto;
-  width: 90vw;
-}
 
 .grid-container {
   display: grid;
@@ -122,15 +117,6 @@ export default {
     grid-template-columns: 20% 20% 20% 20% 20%;
     gap: 16px 16px;
   }
-}
-
-li {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  padding: 0px;
 }
 
 .algName {

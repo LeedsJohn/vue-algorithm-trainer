@@ -148,6 +148,7 @@ export default {
 .stretch-screen {
   height: 110vh;
   width: 98%;
+  z-index: -100;
   position: absolute;
 }
 
