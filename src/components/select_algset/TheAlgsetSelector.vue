@@ -47,11 +47,13 @@ h2 {
 }
 
 .grid-container {
-  margin: 0 10% 5% 10%;
+  margin: 0 auto;
+  border: white solid;
   display: grid;
   gap: 20px 20px;
   grid-template-columns: auto auto auto;
   grid-auto-rows: 5rem;
+  justify-content: space-between;
 }
 
 @media screen and (min-width: 800px) {
@@ -72,29 +74,24 @@ h2 {
   }
 }
 
-ul {
-  margin: 0 auto;
-  text-align: center;
-}
-
 li {
-  display: inline-block;
-  vertical-align: top;
+  list-style: none;
   height: 100%;
   width: 100%;
-  margin: auto;
+  border: red solid;
 }
 
 button {
   background: none;
-  border: 3px solid;
+  border: #000 5px solid;
   text-align: center;
   height: 100%;
   width: 100%;
   font-size: 1.5rem;
-  font-weight: 400;
   border-radius: 16px;
-  box-shadow: 3px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+  color: #222;
+  font-weight: 600;
 }
 
 button:hover {
