@@ -12,8 +12,8 @@
     >Toggle Groups</base-button
   >
   <div class="center">
-    <ul class="grid-container">
-      <li v-for="alg in allAlgs" :key="alg.name">
+    <div class="grid-container">
+      <div v-for="alg in allAlgs" :key="alg.name">
         <div
           class="alg-container"
           :class="[ignored.includes(alg.name) ? 'not-learning' : 'learning']"
@@ -28,8 +28,8 @@
             "
           />
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -106,18 +106,21 @@ export default {
   display: grid;
   gap: 10px 10px;
   grid-template-columns: 33% 33% 33%;
+  padding: 0 8%;
   justify-content: center;
 }
 
 @media screen and (min-width: 700px) {
   .grid-container {
     grid-template-columns: 25% 25% 25% 25%;
+    gap: 13px 13px;
   }
 }
 
 @media screen and (min-width: 1000px) {
   .grid-container {
     grid-template-columns: 20% 20% 20% 20% 20%;
+    gap: 16px 16px;
   }
 }
 
