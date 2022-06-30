@@ -1,14 +1,10 @@
 <template>
   <div class="box-container">
-    <ul>
-      <li v-for="i in numAlgs" :key="i">
+      <span v-for="i in algs.length" :key="this.algs[i-1].name">
         <span :class="getClass(this.algs[i-1])">{{
           fixName(this.algs[i - 1].getName())
-        }}</span
-        ><span v-if="i !== algs.length" class="comma" :class="getClass(this.algs[i-1])">, </span>
-      </li>
-      <li v-if="algs.length > 10">...</li>
-    </ul>
+        }}, </span>
+      </span>
   </div>
 </template>
 
@@ -62,24 +58,16 @@ export default {
 
 <style scoped>
 .box-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: space-around;
   width: 100%;
   height: 100%;
-  position: relative;
   border: solid #000;
   border-radius: 10%;
-  display: inline-block;
-  padding: 3px;
-}
-ul {
-  display: inline;
-}
-li {
-  list-style: none;
-  display: inline;
-  font-weight: 600;
-  font-size: 0.85rem;
-  float: left;
-  margin: 0 3px;
+  padding: 10px;
+  overflow: hidden;
 }
 
 .zero {
