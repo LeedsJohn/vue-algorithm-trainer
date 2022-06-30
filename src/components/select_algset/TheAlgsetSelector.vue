@@ -75,7 +75,7 @@ h2 {
 
 button {
   background: none;
-  border: #000 5px solid;
+  border: #000 3px solid;
   text-align: center;
   height: 100%;
   width: 100%;
