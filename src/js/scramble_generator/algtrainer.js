@@ -167,6 +167,7 @@ export default class AlgTrainer {
    * @param {Algorithm} alg The algorithm to be unignored.
    */
   unignoreAlg(alg) {
+    alg.seen = false;
     this._move(alg, 6, 0);
   }
 
@@ -226,6 +227,7 @@ export default class AlgTrainer {
   reset() {
     this.finished = false;
     while (this.boxes[5].length() !== 0) {
+      this.boxes[5].algorithms[0].seen = false;
       this._move(this.boxes[5].algorithms[0], 5, 0);
     }
     this.getAlgs();
