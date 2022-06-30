@@ -47,14 +47,6 @@ export default {
       return "five";
     },
   },
-  computed: {
-    numAlgs() {
-      if (this.algs) {
-        return Math.min(this.algs.length, 10);
-      }
-      return 10;
-    },
-  },
 };
 </script>
 
@@ -111,7 +103,4 @@ export default {
   color: #0f0;
 }
 
-.comma {
-  margin-right: 2px;
-}
 </style>
