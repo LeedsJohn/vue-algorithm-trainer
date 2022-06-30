@@ -72,35 +72,37 @@ export default {
 }
 
 .zero {
-  color: #2c3e50;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .one {
-  color: #d00;
+  color: rgb(200, 0, 0);
+  font-weight: 600;
 }
 
 .two {
-  color: #a30;
+  color: rgb(160, 0, 0);
 }
 
 .three {
-  color: #860;
+  color: rgb(200, 200, 200);
 }
 
 .four {
-  color: #680;
+  color: rgb(85, 220, 85);
 }
 
 .five {
-  color: #3a0;
+  color: rgb(85, 237, 85);
 }
 
 .six {
-  color: #1c0;
+  color: rgb(0, 255, 0);
 }
 
 .seven {
-  color: #0f0;
+  color: rgb(0, 255, 0);
+  font-weight: 600;
 }
 
 </style>
