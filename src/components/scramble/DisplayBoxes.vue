@@ -1,9 +1,9 @@
 <template>
-  <ul>
-    <li v-for="i in 5" :key="i">
+  <div class="boxes-container">
+    <div v-for="i in 5" :key="i">
       <display-box :algs="this.boxes[i-1]" :algTrainer="this.algTrainer"></display-box>
-    </li>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -33,26 +33,27 @@ export default {
 </script>
 
 <style scoped>
-ul {
-  /* margin-top: 30vh; */
+.boxes-container {
   display: grid;
   grid-template-columns: 25vw 25vw;
   grid-template-rows: 25vw 25vw 25vw;
-  gap: 18px 18px;
+  gap: 30px 30px;
+  margin-left: 2%;
 }
 
 @media screen and (min-width: 600px) {
-  ul {
+  .boxes-container {
     grid-template-columns: 16vw 16vw 16vw;
     grid-template-rows: 16vw 16vw;
-    gap: 10px 20px;
+    gap: 30px 30px;
   }
 }
 
 @media screen and (min-width: 1000px) {
-  ul {
+  .boxes-container {
     grid-template-columns: 12vw 12vw 12vw 12vw 12vw;
     grid-template-rows: 12vw;
+    gap: 40px;
   }
 }
 
