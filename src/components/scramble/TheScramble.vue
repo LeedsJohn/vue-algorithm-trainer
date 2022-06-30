@@ -197,6 +197,7 @@ p {
   position: absolute;
   top: 1%;
   right: 1%;
+  overflow: hidden;
 }
 
 .display-box {
