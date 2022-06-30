@@ -100,21 +100,22 @@ export default {
 .grid-container {
   display: grid;
   gap: 10px 10px;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 0 auto;
   padding: 0 8%;
   justify-content: center;
 }
 
 @media screen and (min-width: 700px) {
   .grid-container {
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 13px 13px;
   }
 }
 
 @media screen and (min-width: 1000px) {
   .grid-container {
-    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 16px 16px;
   }
 }
@@ -136,7 +137,6 @@ img {
 }
 
 .alg-container {
-  width: 100%;
   cursor: pointer;
   border: #000 solid;
   border-radius: 10px;
