@@ -1,10 +1,12 @@
 <template>
   <div class="box-container">
+    <div class="overflow-protection">
       <span v-for="i in algs.length" :key="this.algs[i-1].name">
         <span :class="getClass(this.algs[i-1])">{{
           fixName(this.algs[i - 1].getName())
         }}, </span>
       </span>
+      </div>
   </div>
 </template>
 
@@ -68,6 +70,13 @@ export default {
   border-radius: 10%;
   padding: 10px;
   overflow: hidden;
+}
+
+.overflow-protection {
+  -webkit-column-width: 200vw;
+  -moz-column-width: 200vw;
+  column-width: 200vw;
+  height: 100%;
 }
 
 .zero {
