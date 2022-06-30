@@ -51,8 +51,7 @@ button {
 .ignore {
   border: #000 solid;
   border-radius: 10px;
-  height: 125%;
-  width: 100%;
+  font-size: 0.8rem;
   box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
 }
 
