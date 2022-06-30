@@ -1,10 +1,10 @@
 <template>
   <h2>Select Algorithm Set</h2>
-  <ul class="grid-container">
-    <li v-for="algSet in algSets" :key="algSet">
+  <div class="grid-container">
+    <div v-for="algSet in algSets" :key="algSet" class="button-container">
       <button @click="selectSet(algSet)">{{ algSet }}</button>
-    </li>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -43,22 +43,21 @@ export default {
 h2 {
   font-size: 2.5rem;
   color: #30dfe9;
-  padding: 0 10px;
+  padding: 0 5%;
 }
 
 .grid-container {
-  margin: 0 auto;
-  border: white solid;
   display: grid;
   gap: 20px 20px;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-auto-rows: 5rem;
-  justify-content: space-between;
+  justify-items: stretch;
+  padding: 0 5%;
 }
 
 @media screen and (min-width: 800px) {
   .grid-container {
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   h2 {
     font-size: 3rem;
@@ -67,18 +66,11 @@ h2 {
 
 @media screen and (min-width: 1250px) {
   .grid-container {
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
   h2 {
     font-size: 3.5rem;
   }
-}
-
-li {
-  list-style: none;
-  height: 100%;
-  width: 100%;
-  border: red solid;
 }
 
 button {
