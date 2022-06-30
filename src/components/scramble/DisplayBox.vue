@@ -58,7 +58,7 @@ export default {
   justify-content: space-around;
   width: 95%;
   height: 95%;
-  border: solid #000;
+  border: 0.18rem solid #000;
   border-radius: 10%;
   padding: 2.5%;
   overflow: hidden;
