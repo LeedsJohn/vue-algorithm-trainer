@@ -1,4 +1,5 @@
 <template>
+  <div v-if="isMobile()" class="stretch-screen"></div>
   <base-button
     v-if="!finished"
     @click="toggleSelectAlgScreen"
@@ -144,6 +145,12 @@ export default {
 </script>
 
 <style scoped>
+.stretch-screen {
+  height: 110vh;
+  width: 98%;
+  position: absolute;
+}
+
 p {
   color: #30dfe9;
 }
