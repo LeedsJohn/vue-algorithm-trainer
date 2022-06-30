@@ -157,8 +157,8 @@ p {
   text-align: center;
   font-size: 2.5rem;
   font-weight: 500;
-  margin-top: 16vh;
-  padding: 0 20px;
+  margin-top: 8vh;
+  margin-bottom: 0;
   display: inline-block;
   cursor: pointer;
 }
@@ -174,6 +174,7 @@ p {
 @media (orientation: landscape) {
   .scramble {
     margin-top: 20vh;
+    margin-bottom: 3%;
   }
 }
 
