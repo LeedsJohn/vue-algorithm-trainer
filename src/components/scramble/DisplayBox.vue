@@ -56,11 +56,11 @@ export default {
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: space-around;
-  width: 100%;
-  height: 100%;
+  width: 95%;
+  height: 95%;
   border: solid #000;
   border-radius: 10%;
-  padding: 10px;
+  padding: 2.5%;
   overflow: hidden;
 }
 
