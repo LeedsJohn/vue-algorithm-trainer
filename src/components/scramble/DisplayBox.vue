@@ -4,7 +4,7 @@
       <span v-for="i in algs.length" :key="this.algs[i-1].name">
         <span :class="getClass(this.algs[i-1])">{{
           fixName(this.algs[i - 1].getName())
-        }}, </span>
+        }}<span v-if="i < algs.length">, </span></span>
       </span>
       </div>
   </div>
