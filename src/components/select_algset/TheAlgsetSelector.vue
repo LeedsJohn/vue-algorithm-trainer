@@ -79,11 +79,11 @@ button {
   text-align: center;
   height: 100%;
   width: 100%;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   border-radius: 16px;
   box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
   color: #222;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 button:hover {
