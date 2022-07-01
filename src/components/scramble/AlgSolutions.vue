@@ -1,21 +1,28 @@
 <template>
   <base-foreground>
     <h2>{{ algName }}</h2>
-    <ol>
-      <li v-for="userSolution in userSolutions" :key="userSolution">
-        <div class="solution">
-          {{ userSolution }}
-          <base-button
-            type="deleteSolution"
-            @click="deleteSolution(userSolution)"
-          ></base-button>
-        </div>
-      </li>
-      <li v-for="solution in solutions" :key="solution">
-        {{ solution }}
-      </li>
-    </ol>
-    <input class="inputBox" placeholder="Add solution..." v-model.trim="userInput" />
+    <div class="solutions">
+      <div
+        class="user-solution"
+        v-for="userSolution in userSolutions"
+        :key="userSolution"
+      >
+        <base-button
+          type="deleteSolution"
+          @click="deleteSolution(userSolution)"
+        ></base-button>
+        <span>{{ userSolution }}</span>
+      </div>
+      <div class="default-solution" v-for="i in solutions.length" :key="i">
+        <span class="index">{{ i }}. </span>
+        <span>{{ solutions[i - 1] }}</span>
+      </div>
+    </div>
+    <input
+      class="inputBox"
+      placeholder="Add solution..."
+      v-model.trim="userInput"
+    />
     <button class="submit" @click="addSolution">Add solution</button>
   </base-foreground>
 </template>
@@ -114,22 +121,32 @@ export default {
 </script>
 
 <style scoped>
-ol {
+.solutions {
   height: 60vh;
   width: 60vw;
   text-align: left;
 }
 
-li {
-  margin-left: 2%;
+.user-solution,
+.default-solution {
   font-size: 1.2rem;
+}
+
+.user-solution {
+  margin: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.default-solution {
   margin: 8px;
 }
 
-.solution {
-  width: 60%;
-  display: flex;
-  justify-content: space-between;
+.index {
+  display: inline-block;
+  width: 2rem;
 }
 
 .inputBox {
