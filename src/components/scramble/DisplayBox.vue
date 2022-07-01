@@ -68,7 +68,7 @@ export default {
   -webkit-column-width: 200vw;
   -moz-column-width: 200vw;
   column-width: 200vw;
-  height: 100%;
+  height: 280%;
 }
 
 .zero {
