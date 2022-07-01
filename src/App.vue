@@ -1,7 +1,7 @@
 <template>
   <div v-if="!showAbout && !selectingAlgset && chosenSet">
     <the-scramble :algSet="chosenSet"></the-scramble>
-    <base-button @click="toggleAbout" type="helpbutton"></base-button>
+    <base-button @click="toggleAbout" type="helpbutton" :mobile="helpMobileStyle"></base-button>
     <base-button @click="toggleSelectingAlgset" class="topLeft" type="menu"
       >Select Algorithm Set</base-button
     >
@@ -42,6 +42,14 @@ export default {
       selectingAlgset: true,
     };
   },
+  computed: {
+    helpMobileStyle() {
+      if (this.isMobile()) {
+        return 'mobile';
+      }
+      return '';
+    }
+  },
   methods: {
     toggleAbout() {
       this.showAbout = !this.showAbout;
@@ -53,6 +61,11 @@ export default {
       this.toggleSelectingAlgset();
       this.chosenSet = algSet;
       console.log(this.chosenSet);
+    },
+    isMobile() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
     },
   },
 };

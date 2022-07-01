@@ -1,12 +1,12 @@
 <template>
-  <button :class="type">
+  <button :class="[type, mobile]">
     <slot></slot>
   </button>
 </template>
 
 <script>
 export default {
-  props: ["type"],
+  props: ["type", "mobile"],
 };
 </script>
 
@@ -120,6 +120,10 @@ button {
   bottom: 2%;
   right: 2%;
   filter: opacity(50%);
+}
+
+.helpbutton.mobile {
+  bottom: 18vh;
 }
 
 .helpbutton:hover {
