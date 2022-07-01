@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>John's Algorithm Trainer</h1>
+    <h1>Optimize your learning experience</h1>
     <h2>Instructions</h2>
     <ol>
       <li>Select the algorithm set you wish to learn.</li>
@@ -12,6 +12,9 @@
         successfully recall the algorithm, hit the spacebar. Otherwise, hit the
         "x" key.
       </li>
+      <li>
+        You can view the solution to the algorithm by clicking the scramble.
+      </li>
     </ol>
     <h2>About</h2>
     <p>
@@ -20,33 +23,46 @@
       it uses a modified version of the
       <a href="https://en.wikipedia.org/wiki/Leitner_system" target="_blank"
         >Leitner system</a
-      > to strategically quiz you on algorithms that you don't know more often
-      and to stop quizzing you on algorithms after you've successfully recalled
-      the solution several times consecutively.
+      >
+      to strategically quiz you on algorithms that you don't know more often and
+      to stop quizzing you on algorithms after you've successfully recalled the
+      solution several times consecutively.
+    </p>
+    <h2>Contact me</h2>
+    <p>
+      If you have any questions, comments, or are interested in hiring me,
+      please email me at john.algtrainer@gmail.com
+    </p>
+    <p>
+      If you have noticed any accessibility issues, would like to see an
+      algorithm set added, or have other suggestions, any feedback is greatly
+      appreciated.
     </p>
   </div>
 </template>
 
 <style scoped>
 div {
-  padding: 1% 3%;
+  padding: 0 3%;
   font-size: 0.9rem;
 }
 
 h1 {
-  margin: 20px 2.5rem;
+  margin: 10px 2.5rem;
+  font-style: italic;
 }
 
-h2, p, li {
+h2,
+p,
+li {
   text-align: left;
-}
-
-p, li {
   line-height: 1.5em;
+  padding: 0;
+  margin: 0;
 }
 
 ol {
   padding-left: 1.25em;
+  margin: 0;
 }
-
 </style>

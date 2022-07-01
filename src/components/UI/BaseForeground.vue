@@ -1,6 +1,6 @@
 <template>
   <div class="background">
-    <div :class="['content', type]">
+    <div class="stuff" :class="['content', type]">
       <base-button class="close" @click="close" type="close"></base-button>
       <slot></slot>
     </div>
@@ -32,6 +32,16 @@ export default {
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.stuff {
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.stuff::-webkit-scrollbar {
+  display: none;
 }
 
 .content {
