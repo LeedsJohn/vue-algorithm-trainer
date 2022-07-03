@@ -27,7 +27,7 @@
     v-if="algCountWarning"
     @close="toggleAlgCountWarning"
     type="alert"
-    >Please select at least one algorithm.</base-foreground
+    ><p class="alertText">Please select at least one algorithm.</p></base-foreground
   >
   <display-boxes
     v-if="scramble && !selectAlgScreen && !algCountWarning && !finished"
@@ -217,5 +217,10 @@ p {
 
 .correct {
   right: 0;
+}
+
+.alertText {
+  padding-top: 2.1rem;
+  color: black;
 }
 </style>

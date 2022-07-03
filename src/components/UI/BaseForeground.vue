@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       className: this.type,
-    }
+    };
   },
   methods: {
     close() {
@@ -63,6 +63,7 @@ export default {
 .alert {
   height: 20%;
   width: 30%;
+  min-width: 200px;
 }
 
 .close {
