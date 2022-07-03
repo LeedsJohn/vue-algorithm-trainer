@@ -1,5 +1,6 @@
 <template>
   <div v-if="isMobile()" class="stretch-screen"></div>
+  <the-instructions></the-instructions>
   <base-button
     v-if="!finished"
     @click="toggleSelectAlgScreen"
@@ -52,12 +53,14 @@ import AlgTrainer from "../../js/scramble_generator/algtrainer.js";
 import TheAlgSelector from "../select_algs/TheAlgSelector.vue";
 import DisplayBoxes from "./DisplayBoxes.vue";
 import AlgSolutions from "./AlgSolutions.vue";
+import TheInstructions from "./TheInstructions.vue";
 
 export default {
   components: {
     TheAlgSelector,
     DisplayBoxes,
     AlgSolutions,
+    TheInstructions,
   },
   created() {
     window.addEventListener("keydown", (e) => {
