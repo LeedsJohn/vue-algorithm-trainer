@@ -88,12 +88,12 @@ export default {
 
 .groupName {
   color: black;
-  font-size: 1.25rem;
-  width: 30%;
+  font-size: 1.1rem;
+  width: 40%;
 }
 
 .toggle {
-  width: 30%;
+  width: 26%;
   height: 2rem;
 }
 
