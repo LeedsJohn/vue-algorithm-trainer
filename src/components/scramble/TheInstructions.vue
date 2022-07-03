@@ -6,17 +6,28 @@
         Select the algorithms you want to learn using the "Select Algorithms"
         button in the top right
       </li>
-      <li>Apply the scramble to your Rubik's Cube</li>
+      <li>Apply the scramble to your Rubik's cube</li>
       <li>Attempt to solve the case</li>
       <li>
         If you remember the algorithm, press the spacebar. If you make a
         mistake, press the "x" key on your keyboard. On mobile, press the red /
         green buttons at the bottom.
       </li>
-      <li>If you want to see the solution, either press the "enter" key or click the scramble</li>
+      <li>
+        If you want to see the solution, either press the "enter" key or click
+        the scramble
+      </li>
     </ol>
-    <p class="more-info">Click the question mark in the bottom left corner for more information. Thank you for visiting my website, and good luck!</p>
-    <p class="name"> - John (<a class="email" href="mailto:john.algtrainer@gmail.com">john.algtrainer@gmail.com</a>)</p>
+    <p class="more-info">
+      Click the question mark in the bottom left corner to learn what makes this
+      website efficient for learning and for more information. Thank you for
+      visiting my website, and good luck!
+    </p>
+    <p class="name">
+      - John (<a class="email" href="mailto:john.algtrainer@gmail.com"
+        >john.algtrainer@gmail.com</a
+      >)
+    </p>
   </base-foreground>
 </template>
 
@@ -55,35 +66,37 @@ export default {
 </script>
 
 <style scoped>
-  ol {
-    margin-left: 1.2rem;
-    margin-right: 1.2rem;
-  }
+ol {
+  margin-left: 0.8rem;
+  margin-right: 0.8rem;
+}
 
-  li {
-    text-align: left;
-  }
+li {
+  text-align: left;
+  padding-bottom: 0.4rem;
+}
 
-  .more-info, .name {
-    text-align: left;
-    margin-left: 2.4rem;
-  }
+.more-info,
+.name {
+  text-align: left;
+  margin-left: 1.6rem;
+  margin-right: 1.2rem;
+}
 
-  .more-info {
-    margin-bottom: 0;
-  }
+.more-info {
+  margin-bottom: 0;
+}
 
-  .name {
-    margin-left: 5rem;
-    margin-top: 1rem;
-  }
+.name {
+  margin-left: 3rem;
+  margin-top: 1rem;
+}
 
-  .email {
-    color: #114;
-  }
+.email {
+  color: #114;
+}
 
-  .email:hover {
-    color: #337;
-  }
-
+.email:hover {
+  color: #337;
+}
 </style>
