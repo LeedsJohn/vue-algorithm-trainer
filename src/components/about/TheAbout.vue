@@ -10,14 +10,14 @@
       <li>
         Apply the scramble to your cube and attempt to solve it. If you
         successfully recall the algorithm, hit the spacebar. Otherwise, hit the
-        "x" key.
+        "x" key. On mobile, use the red and green buttons.
       </li>
       <li>
-        You can view the solution to the algorithm by clicking the scramble.
+        You can view the solution to the algorithm by clicking the scramble or pressing the enter key on your keyboard.
       </li>
     </ol>
     <h2>About</h2>
-    <p>
+    <p class="about">
       While there are many algorithm trainers out there, this one is unique
       because it does not select algorithms to quiz you on at random. Instead,
       it uses a modified version of the
@@ -29,9 +29,11 @@
       solution several times consecutively.
     </p>
     <h2>Contact me</h2>
-    <p>
+    <p class="contact">
       If you have any questions, comments, or are interested in hiring me,
-      please email me at john.algtrainer@gmail.com
+      please email me at
+      <a href="mailto:john.algtrainer@gmail.com">john.algtrainer@gmail.com</a>
+      or join my <a href="https://discord.gg/AjPerMsuZM">Discord Server</a>.
     </p>
     <p>
       If you have noticed any accessibility issues, would like to see an
@@ -56,13 +58,30 @@ h2,
 p,
 li {
   text-align: left;
-  line-height: 1.5em;
+  line-height: 1.4rem;
   padding: 0;
   margin: 0;
 }
 
 ol {
-  padding-left: 1.25em;
+  padding-left: 1.25rem;
   margin: 0;
+  margin-bottom: 0.7rem;
+}
+
+.about {
+  margin-bottom: 0.7rem;
+}
+
+.contact {
+  margin-bottom: 0.35rem;
+}
+
+a {
+  color: #114;
+}
+
+a:hover {
+  color: #558;
 }
 </style>

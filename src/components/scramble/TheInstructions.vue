@@ -97,6 +97,6 @@ li {
 }
 
 .email:hover {
-  color: #337;
+  color: #558;
 }
 </style>
