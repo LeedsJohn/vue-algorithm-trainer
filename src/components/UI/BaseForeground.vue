@@ -1,15 +1,15 @@
 <template>
-  <div class="background">
-    <div class="stuff" :class="['content', type]">
-      <base-button class="close" @click="close" type="close"></base-button>
-      <slot></slot>
-    </div>
+  <div class="background" @click="close"></div>
+  <div class="stuff" :class="['content', type]">
+    <base-button class="close" @click="close" type="close"></base-button>
+    <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
   props: ["type"],
+  emits: ["close"],
   data() {
     return {
       className: this.type,

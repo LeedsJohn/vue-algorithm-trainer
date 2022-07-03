@@ -25,7 +25,7 @@
   </div>
   <base-foreground
     v-if="algCountWarning"
-    @click="toggleAlgCountWarning"
+    @close="toggleAlgCountWarning"
     type="alert"
     >Please select at least one algorithm.</base-foreground
   >
