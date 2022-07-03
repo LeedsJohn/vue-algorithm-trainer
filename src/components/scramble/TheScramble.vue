@@ -120,7 +120,6 @@ export default {
         0 + this.algTrainer.boxes[0].length()
       ) {
         this.toggleAlgCountWarning();
-        console.log("it should be showing");
         return;
       }
       this.getScramble();
@@ -128,7 +127,6 @@ export default {
     },
     toggleAlgCountWarning() {
       this.algCountWarning = !this.algCountWarning;
-      console.log(this.algCountWarning);
     },
     toggleSolutions() {
       this.showSolutions = !this.showSolutions;

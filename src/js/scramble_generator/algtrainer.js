@@ -55,14 +55,11 @@ export default class AlgTrainer {
     Tests the user on one algorithm
     Returns true if the user has learned every algorithm
     */
-    console.log("Box lengths: ");
     let i = 0;
     while (i < 6) {
-      console.log("Box " + i + ": " + this.boxes[i].length());
       i += 1;
     }
     const info = this.pickAlg();
-    console.log(info);
     this.curBox = info[0];
     this.curAlg = info[1];
     if (this.curBox == -1) {
@@ -360,7 +357,6 @@ export default class AlgTrainer {
    * Shows every algorithm in box 4 and moves it to either box 5 or box 1 depending on whether the user answers correctly.
    */
   _reviewSession() {
-    console.log("Review: ");
     this.curAlg = this.boxes[4].pop();
     this.curBox = 4;
   }
@@ -370,7 +366,6 @@ export default class AlgTrainer {
    * Resets every algorithm in incorrectAlgs and adds them to box 1.
    */
   _concludeReview() {
-    console.log("Concluding");
     this.currentlyReviewing = false;
     const curInCycle = this.algsInCycle();
     const removeCount = curInCycle - (CONCURRENT - this.incorrectAlgs.length);
@@ -400,8 +395,6 @@ export default class AlgTrainer {
     const algs = require(`../../assets/scrambles/${algSet}.json`);
     const scrambleInfo = algs;
     const solutions = require(`../../assets/solutions/${algSet}.json`);
-    // console.log(`SOLUTION: ${solutions}`);
-    console.log(solutions);
 
     for (let algName in scrambleInfo) {
       const newAlg = new Algorithm(algName, scrambleInfo[algName], solutions[algName]);

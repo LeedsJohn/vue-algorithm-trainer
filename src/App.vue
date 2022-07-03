@@ -60,7 +60,6 @@ export default {
     selectSet(algSet) {
       this.toggleSelectingAlgset();
       this.chosenSet = algSet;
-      console.log(this.chosenSet);
     },
     isMobile() {
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(

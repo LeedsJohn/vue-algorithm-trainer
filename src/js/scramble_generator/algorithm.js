@@ -12,7 +12,6 @@ export default class Algorithm {
     Receives the name of the algorithm (string)
     Receives scrambles that lead to that algorithm (array of strings)
     */
-    console.log(`${name}: ${solutions}`);
     this.seen = false;
     this.name = name;
     this.scrambles = scrambles;

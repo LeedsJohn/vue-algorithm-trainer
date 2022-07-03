@@ -77,7 +77,6 @@ export default {
     },
     cropSolutions() {
       if (this.occurrences(localStorage[this.algName], "*#*") >= 5) {
-        console.log(`BEFORE: ${localStorage[this.algName]}`);
         const endIndex = localStorage[this.algName]
           .split("*#*", 5)
           .join("*#*").length;
@@ -85,7 +84,6 @@ export default {
           0,
           endIndex
         );
-        console.log(`AFTER: ${localStorage[this.algName]}`);
       }
     },
     /** Function that count occurrences of a substring in a string;
