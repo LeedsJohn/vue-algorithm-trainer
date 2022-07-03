@@ -40,6 +40,8 @@
       algorithm set added, or have other suggestions, any feedback is greatly
       appreciated.
     </p>
+    <h3>Special Thanks</h3>
+    <p>This project would not have been possible without the many people who generously offered their feedback and support. In particular, I would like to thank Herbert Kociemba for allowing me to use his Rubik's Cube solver which I used to generate scrambles and AlgDb.net for providing the algorithms.</p>
   </div>
 </template>
 
@@ -55,12 +57,19 @@ h1 {
 }
 
 h2,
+h3,
 p,
 li {
   text-align: left;
   line-height: 1.4rem;
   padding: 0;
   margin: 0;
+}
+
+h3 {
+  font-style: italic;
+  margin-top: 0.7rem;
+  color: #2c3e50;
 }
 
 ol {
