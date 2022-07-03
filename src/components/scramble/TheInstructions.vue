@@ -34,7 +34,7 @@
 <script>
 export default {
   created() {
-    // this.shouldShow();
+    this.shouldShow();
   },
   data() {
     return {
