@@ -106,10 +106,23 @@ export default {
   justify-content: center;
 }
 
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 5.5rem;
+  width: 5.5rem;
+  padding-bottom: 10px;
+}
+
 @media screen and (min-width: 700px) {
   .grid-container {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 13px 13px;
+  }
+  img {
+    height: 7rem;
+    width: 7rem;
   }
 }
 
@@ -117,6 +130,10 @@ export default {
   .grid-container {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 16px 16px;
+  }
+  img {
+    height: 8rem;
+    width: 8rem;
   }
 }
 
@@ -127,16 +144,12 @@ export default {
   text-align: center;
 }
 
-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 5px;
-  height: 60%;
-  width: 60%;
-}
-
 .alg-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
   border: #000 solid;
   border-radius: 10px;
