@@ -57,6 +57,12 @@ export default {
   right: 0;
   overflow-x: hidden;
   background-color: rgba(50, 179, 217, 0.9);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 .groups {
