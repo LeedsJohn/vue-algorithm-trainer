@@ -156,7 +156,7 @@ export default {
 }
 
 p {
-  color: #30dfe9;
+  color: #60ffff;
 }
 
 .name {
@@ -176,7 +176,7 @@ p {
 }
 
 .scramble:hover {
-  color: #60ffff;
+  color: #30dfe9;
 }
 
 .display-box {
