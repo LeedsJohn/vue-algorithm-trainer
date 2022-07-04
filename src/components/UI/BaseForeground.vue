@@ -10,6 +10,13 @@
 export default {
   props: ["type"],
   emits: ["close"],
+  created() {
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        this.close();
+      }
+    });
+  },
   data() {
     return {
       className: this.type,
