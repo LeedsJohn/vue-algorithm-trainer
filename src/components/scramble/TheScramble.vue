@@ -64,10 +64,13 @@ export default {
   },
   created() {
     window.addEventListener("keydown", (e) => {
+      console.log(e);
       if (e.key === " ") {
         this.correct();
       } else if (e.key === "x") {
         this.wrong();
+      } else if (e.key === "Enter") {
+        this.toggleSolutions();
       }
     });
   },
