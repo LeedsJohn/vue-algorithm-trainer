@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import TheScramble from "./components/scramble/TheScramble.vue";
+import TheScramble from "./components/learning/TheScramble.vue";
 // import TheAbout from "./components/about/TheAbout.vue";
 import TheAlgsetSelector from "./components/select_algset/TheAlgsetSelector.vue";
 
