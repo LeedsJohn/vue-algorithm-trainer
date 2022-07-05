@@ -71,8 +71,7 @@ button {
 }
 
 button:hover {
-  cursor:pointer;
+  cursor: pointer;
   background-color: rgba(0, 0, 0, 0.2);
 }
-
 </style>

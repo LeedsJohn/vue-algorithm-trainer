@@ -1,11 +1,6 @@
 <template>
   <h2>Select Algorithm Set</h2>
-  <button
-    type="menu"
-    class="back"
-    @click="back"
-    >Back</button
-  >
+  <button type="menu" class="back" @click="back">Back</button>
   <div class="grid-container">
     <div
       v-for="algSet in algSets[puzzle]"
@@ -25,15 +20,7 @@ export default {
     return {
       algSets: {
         "2x2": ["CLL", "EG-1", "EG-2", "Ortega"],
-        "3x3": [
-          "CMLL",
-          "COLL",
-          "ELL",
-          "OLL",
-          "PLL",
-          "WVLS",
-          "ZBLL"
-        ],
+        "3x3": ["CMLL", "COLL", "ELL", "OLL", "PLL", "WVLS", "ZBLL"],
       },
     };
   },
@@ -44,7 +31,7 @@ export default {
     },
     back() {
       this.$emit("back");
-    }
+    },
   },
 };
 </script>

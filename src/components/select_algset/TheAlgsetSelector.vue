@@ -1,7 +1,20 @@
 <template>
-  <the-puzzles v-if="active === 'puzzles'" @selectPuzzle="selectPuzzle"></the-puzzles>
-  <the-algsets v-else-if="active === 'alg-sets'" :puzzle="puzzle" @selectSet="selectSet" @back="setActive('puzzles')"></the-algsets>
-  <the-algsubsets v-else-if="active === 'alg-subsets'" :subset="subset" @selectSet="selectSet" @back="setActive('alg-sets')"></the-algsubsets>
+  <the-puzzles
+    v-if="active === 'puzzles'"
+    @selectPuzzle="selectPuzzle"
+  ></the-puzzles>
+  <the-algsets
+    v-else-if="active === 'alg-sets'"
+    :puzzle="puzzle"
+    @selectSet="selectSet"
+    @back="setActive('puzzles')"
+  ></the-algsets>
+  <the-algsubsets
+    v-else-if="active === 'alg-subsets'"
+    :subset="subset"
+    @selectSet="selectSet"
+    @back="setActive('alg-sets')"
+  ></the-algsubsets>
 </template>
 
 <script>
@@ -21,14 +34,14 @@ export default {
       active: "puzzles",
       puzzle: "",
       subset: "",
-      subsets: ["Ortega", "WVLS", "ZBLL"]
+      subsets: ["Ortega", "WVLS", "ZBLL"],
     };
   },
   methods: {
     selectSet(algSet) {
       if (this.subsets.includes(algSet)) {
         this.subset = algSet;
-        this.active = "alg-subsets"
+        this.active = "alg-subsets";
         return;
       }
       const underscore = algSet.replace(" ", "_");
@@ -40,7 +53,7 @@ export default {
     },
     setActive(page) {
       this.active = page;
-    }
+    },
   },
 };
 </script>
@@ -93,8 +106,7 @@ button {
 }
 
 button:hover {
-  cursor:pointer;
+  cursor: pointer;
   background-color: rgba(0, 0, 0, 0.2);
 }
-
 </style>
