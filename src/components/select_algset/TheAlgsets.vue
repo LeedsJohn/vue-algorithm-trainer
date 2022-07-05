@@ -24,22 +24,15 @@ export default {
   data() {
     return {
       algSets: {
-        "2x2": ["CLL", "EG-1", "EG-2", "Ortega OLL", "Ortega PBL"],
+        "2x2": ["CLL", "EG-1", "EG-2", "Ortega"],
         "3x3": [
           "CMLL",
           "COLL",
           "ELL",
           "OLL",
           "PLL",
-          "WVLS FL",
           "WVLS",
-          "ZBLL AS",
-          "ZBLL H",
-          "ZBLL L",
-          "ZBLL Pi",
-          "ZBLL S",
-          "ZBLL T",
-          "ZBLL U",
+          "ZBLL"
         ],
       },
     };
