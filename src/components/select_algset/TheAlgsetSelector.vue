@@ -27,6 +27,11 @@ export default {
         "ZBLL S",
         "ZBLL T",
         "ZBLL U",
+        "CLL",
+        "EG-1",
+        "EG-2",
+        "Ortega OLL",
+        "Ortega PBL"
       ],
     };
   },
