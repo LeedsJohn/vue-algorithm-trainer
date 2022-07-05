@@ -1,6 +1,6 @@
 <template>
   <the-algset-selector v-if="active === 'algset-selector'" @selectSet="selectSet"></the-algset-selector>
-  <the-scramble v-if="active === 'scramble'" :algSet="chosenSet"></the-scramble>
+  <the-learning v-if="active === 'scramble'" :algSet="chosenSet"></the-learning>
   <!-- <div v-if="!showAbout && !selectingAlgset && chosenSet">
     <the-scramble :algSet="chosenSet"></the-scramble>
     <base-button @click="toggleAbout" type="helpbutton" :mobile="helpMobileStyle"></base-button>
@@ -26,14 +26,14 @@
 </template>
 
 <script>
-import TheScramble from "./components/learning/TheScramble.vue";
+import TheLearning from "./components/learning/TheLearning.vue";
 // import TheAbout from "./components/about/TheAbout.vue";
 import TheAlgsetSelector from "./components/select_algset/TheAlgsetSelector.vue";
 
 export default {
   name: "App",
   components: {
-    TheScramble,
+    TheLearning,
     // TheAbout,
     TheAlgsetSelector,
   },
