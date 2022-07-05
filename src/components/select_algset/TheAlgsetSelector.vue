@@ -1,38 +1,22 @@
 <template>
-  <h2>Select Algorithm Set</h2>
-  <div class="grid-container">
-    <div v-for="algSet in algSets" :key="algSet" class="button-container">
-      <button @click="selectSet(algSet)">{{ algSet }}</button>
-    </div>
-  </div>
+  <the-puzzles v-if="active === 'puzzles'" @selectPuzzle="selectPuzzle"></the-puzzles>
+  <the-algsets v-else-if="active === 'alg-sets'" :puzzle="puzzle" @selectSet="selectSet"></the-algsets>
 </template>
 
 <script>
+import ThePuzzles from "./ThePuzzles.vue";
+import TheAlgsets from "./TheAlgsets.vue";
+
 export default {
+  components: {
+    ThePuzzles,
+    TheAlgsets,
+  },
   emits: ["selectSet"],
   data() {
     return {
-      algSets: [
-        "CMLL",
-        "COLL",
-        "ELL",
-        "OLL",
-        "PLL",
-        "WVLS FL",
-        "WVLS",
-        "ZBLL AS",
-        "ZBLL H",
-        "ZBLL L",
-        "ZBLL Pi",
-        "ZBLL S",
-        "ZBLL T",
-        "ZBLL U",
-        "CLL",
-        "EG-1",
-        "EG-2",
-        "Ortega OLL",
-        "Ortega PBL"
-      ],
+      active: "puzzles",
+      puzzle: "",
     };
   },
   methods: {
@@ -40,6 +24,10 @@ export default {
       const underscore = algSet.replace(" ", "_");
       this.$emit("selectSet", underscore);
     },
+    selectPuzzle(puzzle) {
+      this.puzzle = puzzle;
+      this.active = "alg-sets";
+    }
   },
 };
 </script>
