@@ -1,5 +1,7 @@
 <template>
-  <div v-if="!showAbout && !selectingAlgset && chosenSet">
+  <the-algset-selector v-if="active === 'algset-selector'" @selectSet="selectSet"></the-algset-selector>
+  <the-scramble v-if="active === 'scramble'" :algSet="chosenSet"></the-scramble>
+  <!-- <div v-if="!showAbout && !selectingAlgset && chosenSet">
     <the-scramble :algSet="chosenSet"></the-scramble>
     <base-button @click="toggleAbout" type="helpbutton" :mobile="helpMobileStyle"></base-button>
     <base-button @click="toggleSelectingAlgset" class="topLeft" type="menu"
@@ -20,26 +22,25 @@
   <the-algset-selector
     v-else-if="!showAbout && selectingAlgset"
     @selectSet="selectSet"
-  ></the-algset-selector>
+  ></the-algset-selector> -->
 </template>
 
 <script>
 import TheScramble from "./components/scramble/TheScramble.vue";
-import TheAbout from "./components/about/TheAbout.vue";
+// import TheAbout from "./components/about/TheAbout.vue";
 import TheAlgsetSelector from "./components/select_algset/TheAlgsetSelector.vue";
 
 export default {
   name: "App",
   components: {
     TheScramble,
-    TheAbout,
+    // TheAbout,
     TheAlgsetSelector,
   },
   data() {
     return {
-      showAbout: false,
-      chosenSet: null,
-      selectingAlgset: true,
+      active: "algset-selector",
+      chosenSet: "",
     };
   },
   computed: {
@@ -51,14 +52,11 @@ export default {
     }
   },
   methods: {
-    toggleAbout() {
-      this.showAbout = !this.showAbout;
-    },
-    toggleSelectingAlgset() {
-      this.selectingAlgset = !this.selectingAlgset;
+    setActive(page) {
+      this.active = page;
     },
     selectSet(algSet) {
-      this.toggleSelectingAlgset();
+      this.setActive("scramble");
       this.chosenSet = algSet;
     },
     isMobile() {
