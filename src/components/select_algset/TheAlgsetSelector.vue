@@ -1,6 +1,6 @@
 <template>
   <the-puzzles v-if="active === 'puzzles'" @selectPuzzle="selectPuzzle"></the-puzzles>
-  <the-algsets v-else-if="active === 'alg-sets'" :puzzle="puzzle" @selectSet="selectSet"></the-algsets>
+  <the-algsets v-else-if="active === 'alg-sets'" :puzzle="puzzle" @selectSet="selectSet" @back="setActive('puzzles')"></the-algsets>
 </template>
 
 <script>
@@ -27,6 +27,9 @@ export default {
     selectPuzzle(puzzle) {
       this.puzzle = puzzle;
       this.active = "alg-sets";
+    },
+    setActive(page) {
+      this.active = page;
     }
   },
 };

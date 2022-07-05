@@ -1,12 +1,18 @@
 <template>
   <h2>Select Algorithm Set</h2>
+  <button
+    type="menu"
+    class="back"
+    @click="back"
+    >Back</button
+  >
   <div class="grid-container">
     <div
       v-for="algSet in algSets[puzzle]"
       :key="algSet"
       class="button-container"
     >
-      <button @click="selectSet(algSet)">{{ algSet }}</button>
+      <button class="algset" @click="selectSet(algSet)">{{ algSet }}</button>
     </div>
   </div>
 </template>
@@ -14,7 +20,7 @@
 <script>
 export default {
   props: ["puzzle"],
-  emits: ["selectSet"],
+  emits: ["selectSet", "back"],
   data() {
     return {
       algSets: {
@@ -43,6 +49,9 @@ export default {
       const underscore = algSet.replace(" ", "_");
       this.$emit("selectSet", underscore);
     },
+    back() {
+      this.$emit("back");
+    }
   },
 };
 </script>
@@ -81,7 +90,25 @@ h2 {
   }
 }
 
-button {
+.back {
+  position: fixed;
+  top: 2%;
+  left: 2%;
+  height: 4rem;
+  width: 8rem;
+  font-size: 1.3rem;
+  background-color: rgba(255, 0, 0, 0.3);
+  color: #000;
+  border: #000 3px solid;
+  border-radius: 1rem;
+  box-shadow: 3px 3px;
+}
+
+.back:hover {
+  background-color: rgba(255, 0, 0, 0.6);
+}
+
+.algset {
   background: none;
   border: #000 3px solid;
   text-align: center;
