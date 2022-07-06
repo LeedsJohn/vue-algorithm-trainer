@@ -1,5 +1,10 @@
 <template>
-  <the-scramble v-show="active === 'scramble'" :algSet="algSet" @selectAlgs="selectAlgs"></the-scramble>
+  <the-scramble
+    v-show="active === 'main'"
+    :algSet="algSet"
+    @selectAlgs="changeScreen('alg-selector')"
+    @selectAlgset="selectAlgset"
+  ></the-scramble>
   <the-alg-selector v-if="active === 'alg-selector'"></the-alg-selector>
 </template>
 
@@ -9,19 +14,23 @@ import TheScramble from "./TheScramble.vue";
 
 export default {
   props: ["algSet"],
+  emits: ["selectAlgset"],
   components: {
     TheAlgSelector,
     TheScramble,
   },
   data() {
     return {
-      active: "scramble",
+      active: "main",
     };
   },
   methods: {
-    selectAlgs() {
-      this.active = "alg-selector";
+    changeScreen(page) {
+      this.active = page;
+    },
+    selectAlgset() {
+      this.$emit("selectAlgset")
     }
-  }
+  },
 };
 </script>

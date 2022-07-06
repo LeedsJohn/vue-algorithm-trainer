@@ -1,6 +1,13 @@
 <template>
-  <the-algset-selector v-if="active === 'algset-selector'" @selectSet="selectSet"></the-algset-selector>
-  <the-learning v-if="active === 'scramble'" :algSet="chosenSet"></the-learning>
+  <the-algset-selector
+    v-if="active === 'algset-selector'"
+    @selectSet="selectSet"
+  ></the-algset-selector>
+  <the-learning
+    v-if="active === 'scramble'"
+    :algSet="chosenSet"
+    @selectAlgset="setActive('algset-selector')"
+  ></the-learning>
   <!-- <div v-if="!showAbout && !selectingAlgset && chosenSet">
     <the-scramble :algSet="chosenSet"></the-scramble>
     <base-button @click="toggleAbout" type="helpbutton" :mobile="helpMobileStyle"></base-button>
@@ -46,10 +53,10 @@ export default {
   computed: {
     helpMobileStyle() {
       if (this.isMobile()) {
-        return 'mobile';
+        return "mobile";
       }
-      return '';
-    }
+      return "";
+    },
   },
   methods: {
     setActive(page) {

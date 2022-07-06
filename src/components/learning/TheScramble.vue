@@ -1,6 +1,7 @@
 <template>
   <div v-if="isMobile()" class="stretch-screen"></div>
   <the-instructions></the-instructions>
+  <base-button class ="select-algset" type="menu" @click="selectAlgset">Select Algset</base-button>
   <base-button
     v-if="!finished"
     @click="toggleSelectAlgScreen"
@@ -78,6 +79,7 @@ export default {
     this.getScramble();
   },
   props: ["algSet"],
+  emits: ["selectAlgset"],
   data() {
     return {
       algName: "",
@@ -114,6 +116,9 @@ export default {
       }
       this.algTrainer.correctAnswer();
       this.getScramble();
+    },
+    selectAlgset() {
+      this.$emit("selectAlgset");
     },
     toggleSelectAlgScreen() {
       this.algTrainer.getAlgs();
@@ -188,6 +193,12 @@ p {
     margin-top: 10vh;
     margin-bottom: 3%;
   }
+}
+
+.select-algset {
+  position: absolute;
+  top: 1%;
+  left: 1%;
 }
 
 .finished {
