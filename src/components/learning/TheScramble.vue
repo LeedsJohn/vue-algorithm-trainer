@@ -50,7 +50,7 @@
 
 <script>
 import AlgTrainer from "../../js/scramble_generator/algtrainer.js";
-import TheAlgSelector from "../select_algs/TheAlgSelector.vue";
+import TheAlgSelector from "./select_algs/TheAlgSelector.vue";
 import DisplayBoxes from "./DisplayBoxes.vue";
 import AlgSolutions from "./AlgSolutions.vue";
 import TheInstructions from "./TheInstructions.vue";

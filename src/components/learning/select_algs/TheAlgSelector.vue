@@ -22,7 +22,7 @@
           <span class="algName">{{ alg.name }}</span>
           <img
             :src="
-              require(`../../assets/scramble_icons/${algset}/${replaceSpace(
+              require(`../../../assets/scramble_icons/${algset}/${replaceSpace(
                 alg.name
               )}.png`)
             "
@@ -49,7 +49,7 @@ export default {
     return {
       allAlgs: null,
       ignored: [],
-      groupings: require("../../assets/groupings.json")[this.algset],
+      groupings: require("../../../assets/groupings.json")[this.algset],
       showGroups: false,
     };
   },

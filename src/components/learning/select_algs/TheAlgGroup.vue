@@ -33,7 +33,7 @@ export default {
   emits: ["closeSide", "includeAlgs", "ignoreAlgs"],
   data() {
     return {
-      groupings: require("../../assets/groupings.json")[this.algset],
+      groupings: require("../../../assets/groupings.json")[this.algset],
     };
   },
   methods: {
