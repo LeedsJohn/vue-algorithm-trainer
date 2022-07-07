@@ -1,32 +1,35 @@
 <template>
-  <Transition>
-    <the-alg-group
-      v-if="showGroups"
-      :algset="algset"
-      @closeSide="toggleShowGroups"
-      @includeAlgs="(value) => this.toggleSet(value, true)"
-      @ignoreAlgs="(value) => this.toggleSet(value, false)"
-    ></the-alg-group
-  ></Transition>
-  <base-button @click="toggleShowGroups" type="toggleAlgGroups"
-    >Toggle Groups</base-button
-  >
-  <div class="center">
-    <div class="grid-container">
-      <div v-for="alg in allAlgs" :key="alg.name">
-        <div
-          class="alg-container"
-          :class="[ignored.includes(alg.name) ? 'not-learning' : 'learning']"
-          @click="toggleIgnored(alg)"
-        >
-          <span class="algName">{{ alg.name }}</span>
-          <img
-            :src="
-              require(`../../../assets/scramble_icons/${algset}/${replaceSpace(
-                alg.name
-              )}.png`)
-            "
-          />
+  <div>
+    <base-button @click="close" class="close" type="close"></base-button>
+    <Transition>
+      <the-alg-group
+        v-if="showGroups"
+        :algset="algset"
+        @closeSide="toggleShowGroups"
+        @includeAlgs="(value) => this.toggleSet(value, true)"
+        @ignoreAlgs="(value) => this.toggleSet(value, false)"
+      ></the-alg-group
+    ></Transition>
+    <base-button @click="toggleShowGroups" type="toggleAlgGroups"
+      >Toggle Groups</base-button
+    >
+    <div class="center">
+      <div class="grid-container">
+        <div v-for="alg in allAlgs" :key="alg.name">
+          <div
+            class="alg-container"
+            :class="[ignored.includes(alg.name) ? 'not-learning' : 'learning']"
+            @click="toggleIgnored(alg)"
+          >
+            <span class="algName">{{ alg.name }}</span>
+            <img
+              :src="
+                require(`../../../assets/scramble_icons/${algset}/${replaceSpace(
+                  alg.name
+                )}.png`)
+              "
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -39,6 +42,7 @@ import TheAlgGroup from "./TheAlgGroup.vue";
 export default {
   components: { TheAlgGroup },
   props: ["algTrainer", "algset"],
+  emits: ["close"],
   mounted() {
     this.allAlgs = this.algTrainer.getAllAlgs();
     for (let i = 0; i < this.algTrainer.boxes[6].length(); i++) {
@@ -91,11 +95,20 @@ export default {
     replaceSpace(name) {
       return name.replace(/ /g, "_");
     },
+    close() {
+      this.$emit("close");
+    },
   },
 };
 </script>
 
 <style scoped>
+.close {
+  position: absolute;
+  top: 1%;
+  right: 1%;
+}
+
 .grid-container {
   display: grid;
   gap: 10px 10px;

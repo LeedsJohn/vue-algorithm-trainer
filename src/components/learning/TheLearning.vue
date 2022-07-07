@@ -9,6 +9,7 @@
     v-if="active === 'alg-selector'"
     :algTrainer="algSelectData.trainer"
     :algset="algSelectData.algset"
+    @close="changeScreen('main')"
   ></the-alg-selector>
 </template>
 
