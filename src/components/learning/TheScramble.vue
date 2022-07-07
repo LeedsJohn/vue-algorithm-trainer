@@ -18,10 +18,6 @@
     <div v-if="!selectAlgScreen && !finished">
       <p class="scramble" @click="toggleSolutions">{{ scramble }}</p>
     </div>
-    <div v-else-if="finished">
-      <p class="finished">Good job!</p>
-      <base-button @click="restart" type="restart">Restart</base-button>
-    </div>
     <base-foreground
       v-if="algCountWarning"
       @close="toggleAlgCountWarning"
@@ -78,7 +74,7 @@ export default {
     this.getScramble();
   },
   props: ["algSet"],
-  emits: ["selectAlgset", "selectAlgs"],
+  emits: ["selectAlgset", "selectAlgs", "finished"],
   data() {
     return {
       algName: "",
@@ -95,6 +91,7 @@ export default {
     getScramble() {
       this.algTrainer.playRound();
       if (this.algTrainer.finished) {
+        this.$emit("finished");
         this.finished = true;
         return;
       }
@@ -121,7 +118,6 @@ export default {
     },
     selectAlgs() {
       const data = { trainer: this.algTrainer, algset: this.algSet };
-      console.log(data);
       this.$emit("selectAlgs", data);
     },
     toggleSelectAlgScreen() {
@@ -209,12 +205,6 @@ p {
   position: absolute;
   top: 1%;
   right: 1%;
-}
-
-.finished {
-  font-size: 5rem;
-  font-weight: 700;
-  font-style: italic;
 }
 
 .display-box {

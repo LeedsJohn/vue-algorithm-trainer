@@ -4,6 +4,8 @@
     :algSet="algSet"
     @selectAlgs="(data) => this.selectAlgs(data)"
     @selectAlgset="selectAlgset"
+    @finished="changeScreen('restart')"
+    ref="scramble"
   ></the-scramble>
   <the-alg-selector
     v-if="active === 'alg-selector'"
@@ -12,11 +14,17 @@
     @close="changeScreen('main')"
     @selectAlgset="selectAlgset"
   ></the-alg-selector>
+  <the-restart
+    v-if="active === 'restart'"
+    @restart="restart"
+    @selectAlgset="selectAlgset"
+  ></the-restart>
 </template>
 
 <script>
 import TheAlgSelector from "./select_algs/TheAlgSelector.vue";
 import TheScramble from "./TheScramble.vue";
+import TheRestart from "./TheRestart.vue";
 
 export default {
   props: ["algSet"],
@@ -24,6 +32,7 @@ export default {
   components: {
     TheAlgSelector,
     TheScramble,
+    TheRestart,
   },
   data() {
     return {
@@ -41,6 +50,10 @@ export default {
     },
     selectAlgset() {
       this.$emit("selectAlgset");
+    },
+    restart() {
+      this.$refs.scramble.restart();
+      this.active = "main";
     },
   },
 };
