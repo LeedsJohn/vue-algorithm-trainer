@@ -2,10 +2,14 @@
   <the-scramble
     v-show="active === 'main'"
     :algSet="algSet"
-    @selectAlgs="changeScreen('alg-selector')"
+    @selectAlgs="(data) => this.selectAlgs(data)"
     @selectAlgset="selectAlgset"
   ></the-scramble>
-  <the-alg-selector v-if="active === 'alg-selector'"></the-alg-selector>
+  <the-alg-selector
+    v-if="active === 'alg-selector'"
+    :algTrainer="algSelectData.trainer"
+    :algset="algSelectData.algset"
+  ></the-alg-selector>
 </template>
 
 <script>
@@ -22,15 +26,20 @@ export default {
   data() {
     return {
       active: "main",
+      algSelectData: null,
     };
   },
   methods: {
     changeScreen(page) {
       this.active = page;
     },
+    selectAlgs(data) {
+      this.algSelectData = data;
+      this.active = "alg-selector";
+    },
     selectAlgset() {
-      this.$emit("selectAlgset")
-    }
+      this.$emit("selectAlgset");
+    },
   },
 };
 </script>

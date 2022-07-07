@@ -96,7 +96,6 @@ export default {
 </script>
 
 <style scoped>
-
 .grid-container {
   display: grid;
   gap: 10px 10px;

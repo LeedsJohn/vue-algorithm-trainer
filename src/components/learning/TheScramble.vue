@@ -1,64 +1,63 @@
 <template>
-  <div v-if="isMobile()" class="stretch-screen"></div>
-  <the-instructions></the-instructions>
-  <base-button class ="select-algset" type="menu" @click="selectAlgset">Select Algset</base-button>
-  <base-button
-    v-if="!finished"
-    @click="toggleSelectAlgScreen"
-    class="topRight"
-    :type="selectAlgScreen ? 'close' : 'menu'"
-    >Select Algorithms
-  </base-button>
-  <div v-if="showSolutions">
-    <alg-solutions @close="toggleSolutions" :solutions="solutions" :algName="algName"></alg-solutions>
-  </div>
-  <div v-if="!selectAlgScreen && !finished">
-    <p class="scramble" @click="toggleSolutions">{{ scramble }}</p>
-  </div>
-  <the-alg-selector
-    v-else-if="selectAlgScreen"
-    :algTrainer="algTrainer"
-    :algset="algSet"
-  ></the-alg-selector>
-  <div v-else-if="finished">
-    <p class="finished">Good job!</p>
-    <base-button @click="restart" type="restart">Restart</base-button>
-  </div>
-  <base-foreground
-    v-if="algCountWarning"
-    @close="toggleAlgCountWarning"
-    type="alert"
-    ><p class="alertText">Please select at least one algorithm.</p></base-foreground
-  >
-  <display-boxes
-    v-if="scramble && !selectAlgScreen && !algCountWarning && !finished"
-    :algTrainer="algTrainer"
-    class="display-box"
-  ></display-boxes>
-  <div v-if="!finished && !selectAlgScreen && isMobile()">
-    <base-button
-      @click="wrong"
-      type="wrong"
-      class="touchscreen wrong"
-    ></base-button>
-    <base-button
-      @click="correct"
-      type="correct"
-      class="touchscreen correct"
-    ></base-button>
+  <div>
+    <div v-if="isMobile()" class="stretch-screen"></div>
+    <the-instructions></the-instructions>
+    <base-button class="select-algset" type="menu" @click="selectAlgset"
+      >Select Algorithm Set</base-button
+    >
+    <base-button class="select-algs" type="menu" @click="selectAlgs"
+      >Select Algorithms</base-button
+    >
+    <div v-if="showSolutions">
+      <alg-solutions
+        @close="toggleSolutions"
+        :solutions="solutions"
+        :algName="algName"
+      ></alg-solutions>
+    </div>
+    <div v-if="!selectAlgScreen && !finished">
+      <p class="scramble" @click="toggleSolutions">{{ scramble }}</p>
+    </div>
+    <div v-else-if="finished">
+      <p class="finished">Good job!</p>
+      <base-button @click="restart" type="restart">Restart</base-button>
+    </div>
+    <base-foreground
+      v-if="algCountWarning"
+      @close="toggleAlgCountWarning"
+      type="alert"
+      ><p class="alertText">
+        Please select at least one algorithm.
+      </p></base-foreground
+    >
+    <display-boxes
+      v-if="scramble && !selectAlgScreen && !algCountWarning && !finished"
+      :algTrainer="algTrainer"
+      class="display-box"
+    ></display-boxes>
+    <div v-if="!finished && !selectAlgScreen && isMobile()">
+      <base-button
+        @click="wrong"
+        type="wrong"
+        class="touchscreen wrong"
+      ></base-button>
+      <base-button
+        @click="correct"
+        type="correct"
+        class="touchscreen correct"
+      ></base-button>
+    </div>
   </div>
 </template>
 
 <script>
 import AlgTrainer from "../../js/scramble_generator/algtrainer.js";
-import TheAlgSelector from "./select_algs/TheAlgSelector.vue";
 import DisplayBoxes from "./DisplayBoxes.vue";
 import AlgSolutions from "./AlgSolutions.vue";
 import TheInstructions from "./TheInstructions.vue";
 
 export default {
   components: {
-    TheAlgSelector,
     DisplayBoxes,
     AlgSolutions,
     TheInstructions,
@@ -79,7 +78,7 @@ export default {
     this.getScramble();
   },
   props: ["algSet"],
-  emits: ["selectAlgset"],
+  emits: ["selectAlgset", "selectAlgs"],
   data() {
     return {
       algName: "",
@@ -104,7 +103,7 @@ export default {
       this.solutions = this.algTrainer.curAlg.getSolutions();
     },
     wrong() {
-            if (this.selectAlgScreen || this.finished || this.showSolutions) {
+      if (this.selectAlgScreen || this.finished || this.showSolutions) {
         return;
       }
       this.algTrainer.wrongAnswer();
@@ -119,6 +118,11 @@ export default {
     },
     selectAlgset() {
       this.$emit("selectAlgset");
+    },
+    selectAlgs() {
+      const data = { trainer: this.algTrainer, algset: this.algSet };
+      console.log(data);
+      this.$emit("selectAlgs", data);
     },
     toggleSelectAlgScreen() {
       this.algTrainer.getAlgs();
@@ -201,17 +205,16 @@ p {
   left: 1%;
 }
 
+.select-algs {
+  position: absolute;
+  top: 1%;
+  right: 1%;
+}
+
 .finished {
   font-size: 5rem;
   font-weight: 700;
   font-style: italic;
-}
-
-.topRight {
-  position: absolute;
-  top: 1%;
-  right: 1%;
-  overflow: hidden;
 }
 
 .display-box {
