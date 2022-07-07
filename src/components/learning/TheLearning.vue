@@ -10,6 +10,7 @@
     :algTrainer="algSelectData.trainer"
     :algset="algSelectData.algset"
     @close="changeScreen('main')"
+    @selectAlgset="selectAlgset"
   ></the-alg-selector>
 </template>
 

@@ -1,6 +1,7 @@
 <template>
   <div>
     <base-button @click="close" class="close" type="close"></base-button>
+    <base-button @click="selectAlgset" class="select-algset" type="menu">Select Algorithm Set</base-button>
     <Transition>
       <the-alg-group
         v-if="showGroups"
@@ -42,7 +43,7 @@ import TheAlgGroup from "./TheAlgGroup.vue";
 export default {
   components: { TheAlgGroup },
   props: ["algTrainer", "algset"],
-  emits: ["close"],
+  emits: ["close", "selectAlgset"],
   mounted() {
     this.allAlgs = this.algTrainer.getAllAlgs();
     for (let i = 0; i < this.algTrainer.boxes[6].length(); i++) {
@@ -98,6 +99,9 @@ export default {
     close() {
       this.$emit("close");
     },
+    selectAlgset() {
+      this.$emit("selectAlgset");
+    }
   },
 };
 </script>
@@ -107,6 +111,12 @@ export default {
   position: absolute;
   top: 1%;
   right: 1%;
+}
+
+.select-algset {
+  position: absolute;
+  top: 1%;
+  left: 1%;
 }
 
 .grid-container {
