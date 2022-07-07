@@ -164,6 +164,9 @@ export default class AlgTrainer {
    * @param {Algorithm} alg The algorithm to be unignored.
    */
   unignoreAlg(alg) {
+    if (!this.boxes[6].exists(alg)) {
+      return;
+    }
     alg.seen = false;
     this._move(alg, 6, 0);
   }
