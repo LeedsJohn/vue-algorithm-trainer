@@ -57,6 +57,9 @@ export default class Box {
    * @returns {Algorithm} The algorithm with the minimum turnsUntilShow
    */
   getMinAlgorithm() {
+    if (!this.algorithms[0]) {
+      return null;
+    }
     let minTurns = this.algorithms[0].getTurnsUntilShow();
     let minAlg = this.algorithms[0];
 
