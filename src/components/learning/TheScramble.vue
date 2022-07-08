@@ -8,16 +8,13 @@
     <base-button class="select-algs" type="menu" @click="selectAlgs"
       >Select Algorithms</base-button
     >
-    <div v-if="showSolutions">
-      <alg-solutions
-        @close="toggleSolutions"
-        :solutions="solutions"
-        :algName="algName"
-      ></alg-solutions>
-    </div>
-    <div v-if="!selectAlgScreen && !finished">
-      <p class="scramble" @click="toggleSolutions">{{ scramble }}</p>
-    </div>
+    <alg-solutions
+      v-if="showSolutions"
+      @close="toggleSolutions"
+      :solutions="solutions"
+      :algName="algName"
+    ></alg-solutions>
+    <p class="scramble" @click="toggleSolutions">{{ scramble }}</p>
     <display-boxes
       v-if="scramble && !selectAlgScreen && !algCountWarning && !finished"
       :algTrainer="algTrainer"
@@ -219,5 +216,4 @@ p {
 .correct {
   right: 0;
 }
-
 </style>
