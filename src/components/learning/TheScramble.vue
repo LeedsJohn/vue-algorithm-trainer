@@ -70,9 +70,7 @@ export default {
       scramble: "",
       solutions: [],
       algTrainer: null,
-      selectAlgScreen: false,
       finished: false,
-      algCountWarning: false,
       showSolutions: false,
     };
   },
@@ -87,9 +85,6 @@ export default {
       this.algName = this.algTrainer.curAlg.getName();
       this.scramble = this.algTrainer.curAlg.getScramble();
       this.solutions = this.algTrainer.curAlg.getSolutions();
-    },
-    drawAlgorithms() {
-      this.algTrainer.getAlgs();
     },
     wrong() {
       if (this.selectAlgScreen || this.finished || this.showSolutions) {
@@ -111,21 +106,6 @@ export default {
     selectAlgs() {
       const data = { trainer: this.algTrainer, algset: this.algSet };
       this.$emit("selectAlgs", data);
-    },
-    toggleSelectAlgScreen() {
-      this.algTrainer.getAlgs();
-      if (
-        this.algTrainer.algsInCycle() ===
-        0 + this.algTrainer.boxes[0].length()
-      ) {
-        this.toggleAlgCountWarning();
-        return;
-      }
-      this.getScramble();
-      this.selectAlgScreen = !this.selectAlgScreen;
-    },
-    toggleAlgCountWarning() {
-      this.algCountWarning = !this.algCountWarning;
     },
     toggleSolutions() {
       this.showSolutions = !this.showSolutions;
