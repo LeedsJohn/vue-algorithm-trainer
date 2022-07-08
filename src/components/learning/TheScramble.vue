@@ -18,14 +18,6 @@
     <div v-if="!selectAlgScreen && !finished">
       <p class="scramble" @click="toggleSolutions">{{ scramble }}</p>
     </div>
-    <base-foreground
-      v-if="algCountWarning"
-      @close="toggleAlgCountWarning"
-      type="alert"
-      ><p class="alertText">
-        Please select at least one algorithm.
-      </p></base-foreground
-    >
     <display-boxes
       v-if="scramble && !selectAlgScreen && !algCountWarning && !finished"
       :algTrainer="algTrainer"
@@ -228,8 +220,4 @@ p {
   right: 0;
 }
 
-.alertText {
-  padding-top: 2.1rem;
-  color: black;
-}
 </style>

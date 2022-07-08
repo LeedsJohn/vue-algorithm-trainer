@@ -1,7 +1,17 @@
 <template>
   <div>
     <base-button @click="close" class="close" type="close"></base-button>
-    <base-button @click="selectAlgset" class="select-algset" type="menu">Select Algorithm Set</base-button>
+    <base-button @click="selectAlgset" class="select-algset" type="menu"
+      >Select Algorithm Set</base-button
+    >
+    <base-foreground
+      v-if="algCountWarning"
+      @close="toggleAlgCountWarning"
+      type="alert"
+      ><p class="alertText">
+        Please select at least one algorithm.
+      </p></base-foreground
+    >
     <Transition>
       <the-alg-group
         v-if="showGroups"
@@ -46,6 +56,7 @@ export default {
   emits: ["close", "selectAlgset"],
   mounted() {
     this.allAlgs = this.algTrainer.getAllAlgs();
+    this.numAlgs = this.allAlgs.length;
     for (let i = 0; i < this.algTrainer.boxes[6].length(); i++) {
       this.ignored.push(this.algTrainer.boxes[6].algorithms[i].getName());
     }
@@ -56,6 +67,8 @@ export default {
       ignored: [],
       groupings: require("../../../assets/groupings.json")[this.algset],
       showGroups: false,
+      numAlgs: 0,
+      algCountWarning: false,
     };
   },
   methods: {
@@ -67,8 +80,10 @@ export default {
       }
     },
     addToIgnored(alg) {
-      this.ignored.push(alg.name);
-      this.algTrainer.ignoreAlg(alg);
+      if (!this.ignored.includes(alg.name)) {
+        this.ignored.push(alg.name);
+        this.algTrainer.ignoreAlg(alg);
+      }
     },
     removeFromIgnored(alg) {
       this.ignored = this.ignored.filter((e) => e !== alg.name);
@@ -96,12 +111,19 @@ export default {
     replaceSpace(name) {
       return name.replace(/ /g, "_");
     },
+    toggleAlgCountWarning() {
+      this.algCountWarning = !this.algCountWarning;
+    },
     close() {
-      this.$emit("close");
+      if (this.ignored.length === this.numAlgs) {
+        this.algCountWarning = true;
+      } else {
+        this.$emit("close");
+      }
     },
     selectAlgset() {
       this.$emit("selectAlgset");
-    }
+    },
   },
 };
 </script>
@@ -117,6 +139,11 @@ export default {
   position: absolute;
   top: 1%;
   left: 1%;
+}
+
+.alertText {
+  padding-top: 2.1rem;
+  color: black;
 }
 
 .grid-container {
