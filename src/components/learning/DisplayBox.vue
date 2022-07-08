@@ -1,12 +1,13 @@
 <template>
   <div class="box-container">
     <div class="overflow-protection">
-      <span v-for="i in algs.length" :key="this.algs[i-1].name">
-        <span :class="getClass(this.algs[i-1])">{{
-          fixName(this.algs[i - 1].getName())
-        }}<span v-if="i < algs.length">, </span></span>
+      <span v-for="i in algs.length" :key="this.algs[i - 1].name">
+        <span :class="getClass(this.algs[i - 1])"
+          >{{ fixName(this.algs[i - 1].getName())
+          }}<span v-if="i < algs.length">, </span></span
+        >
       </span>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -15,8 +16,11 @@ export default {
   props: ["algs", "algTrainer"],
   methods: {
     fixName(algName) {
-      if (algName.slice(0, 4) === "CMLL" || algName.slice(0, 4) === "ZBLL") {
-        return algName.slice(5);
+      const values = ["CMLL", "ZBLL", "CLL", "EG-1", "EG-2"];
+      for (const value of values) {
+        if (algName.includes(`${value} `)) {
+          return algName.slice(value.length + 1);
+        }
       }
       return algName;
     },
@@ -104,5 +108,4 @@ export default {
   color: rgb(0, 255, 0);
   font-weight: 600;
 }
-
 </style>
