@@ -16,11 +16,11 @@
     ></alg-solutions>
     <p class="scramble" @click="toggleSolutions">{{ scramble }}</p>
     <display-boxes
-      v-if="scramble && !selectAlgScreen && !algCountWarning && !finished"
+      v-if="started"
       :algTrainer="algTrainer"
       class="display-box"
     ></display-boxes>
-    <div v-if="!finished && !selectAlgScreen && isMobile()">
+    <div v-if="isMobile()">
       <base-button
         @click="wrong"
         type="wrong"
@@ -61,6 +61,7 @@ export default {
   mounted() {
     this.algTrainer = new AlgTrainer(this.algSet);
     this.getScramble();
+    this.started = true;
   },
   props: ["algSet"],
   emits: ["selectAlgset", "selectAlgs", "finished"],
@@ -69,6 +70,7 @@ export default {
       algName: "",
       scramble: "",
       solutions: [],
+      started: false,
       algTrainer: null,
       finished: false,
       showSolutions: false,
