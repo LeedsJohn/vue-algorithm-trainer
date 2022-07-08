@@ -11,7 +11,7 @@
     v-if="active === 'alg-selector'"
     :algTrainer="algSelectData.trainer"
     :algset="algSelectData.algset"
-    @close="changeScreen('main')"
+    @close="showScramble"
     @selectAlgset="selectAlgset"
   ></the-alg-selector>
   <the-restart
@@ -43,6 +43,10 @@ export default {
   methods: {
     changeScreen(page) {
       this.active = page;
+    },
+    showScramble() {
+      this.$refs.scramble.drawAlgorithms();
+      this.active = "main";
     },
     selectAlgs(data) {
       this.algSelectData = data;

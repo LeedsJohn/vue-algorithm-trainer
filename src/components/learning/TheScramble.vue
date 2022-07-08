@@ -99,6 +99,9 @@ export default {
       this.scramble = this.algTrainer.curAlg.getScramble();
       this.solutions = this.algTrainer.curAlg.getSolutions();
     },
+    drawAlgorithms() {
+      this.algTrainer.getAlgs();
+    },
     wrong() {
       if (this.selectAlgScreen || this.finished || this.showSolutions) {
         return;
