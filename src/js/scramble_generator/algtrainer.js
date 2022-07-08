@@ -55,6 +55,7 @@ export default class AlgTrainer {
     Tests the user on one algorithm
     Returns true if the user has learned every algorithm
     */
+    this.getAlgs();
     let i = 0;
     while (i < 6) {
       i += 1;

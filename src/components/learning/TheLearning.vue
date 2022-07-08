@@ -45,7 +45,7 @@ export default {
       this.active = page;
     },
     showScramble() {
-      this.$refs.scramble.drawAlgorithms();
+      this.$refs.scramble.getScramble();
       this.active = "main";
     },
     selectAlgs(data) {
