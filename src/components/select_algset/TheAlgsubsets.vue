@@ -50,6 +50,7 @@ h2 {
   font-size: 2.5rem;
   color: #30dfe9;
   padding: 0 5%;
+  margin-top: 30%;
 }
 
 .grid-container {
