@@ -20,6 +20,8 @@
       :algTrainer="algTrainer"
       class="display-box"
     ></display-boxes>
+    <base-button @click="toggleAbout" type="helpbutton"></base-button>
+    <the-about v-if="showAbout" @close="toggleAbout"></the-about>
     <div v-if="isMobile()">
       <base-button
         @click="wrong"
@@ -40,12 +42,14 @@ import AlgTrainer from "../../js/scramble_generator/algtrainer.js";
 import DisplayBoxes from "./DisplayBoxes.vue";
 import AlgSolutions from "./AlgSolutions.vue";
 import TheInstructions from "./TheInstructions.vue";
+import TheAbout from "../about/TheAbout.vue";
 
 export default {
   components: {
     DisplayBoxes,
     AlgSolutions,
     TheInstructions,
+    TheAbout,
   },
   created() {
     window.addEventListener("keydown", (e) => {
@@ -74,6 +78,7 @@ export default {
       algTrainer: null,
       finished: false,
       showSolutions: false,
+      showAbout: false,
     };
   },
   methods: {
@@ -111,6 +116,9 @@ export default {
     },
     toggleSolutions() {
       this.showSolutions = !this.showSolutions;
+    },
+    toggleAbout() {
+      this.showAbout = !this.showAbout;
     },
     async restart() {
       this.finished = false;
