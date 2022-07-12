@@ -2,6 +2,12 @@
   <div>
     <div v-if="isMobile()" class="stretch-screen"></div>
     <the-instructions></the-instructions>
+    <the-suggestions
+      v-if="showSuggestions"
+      :algSet="algSet"
+      :algNames="algTrainer.getAllAlgs(true)"
+      @close="closeSuggestions"
+    ></the-suggestions>
     <base-button class="select-algset" type="menu" @click="selectAlgset"
       >Select Algorithm Set</base-button
     >
@@ -40,12 +46,14 @@ import AlgTrainer from "../../js/scramble_generator/algtrainer.js";
 import DisplayBoxes from "./DisplayBoxes.vue";
 import AlgSolutions from "./AlgSolutions.vue";
 import TheInstructions from "./TheInstructions.vue";
+import TheSuggestions from "./TheSuggestions.vue";
 
 export default {
   components: {
     DisplayBoxes,
     AlgSolutions,
     TheInstructions,
+    TheSuggestions,
   },
   created() {
     window.addEventListener("keydown", (e) => {
@@ -61,7 +69,11 @@ export default {
   mounted() {
     this.algTrainer = new AlgTrainer(this.algSet);
     this.getScramble();
-    this.createLocalStorage();
+    if (this.checkShowSuggestions()) {
+      this.showSuggestions = true;
+    } else {
+      this.createLocalStorage();
+    }
     this.started = true;
   },
   props: ["algSet"],
@@ -75,6 +87,7 @@ export default {
       algTrainer: null,
       finished: false,
       showSolutions: false,
+      showSuggestions: false,
     };
   },
   methods: {
@@ -114,7 +127,11 @@ export default {
     toggleSolutions() {
       this.showSolutions = !this.showSolutions;
     },
-    showSuggested() {
+    closeSuggestions() {
+      this.showSuggestions = false;
+      this.createLocalStorage();
+    },
+    checkShowSuggestions() {
       const algs = this.algTrainer.getAllAlgs(true);
       for (const alg of algs) {
         if (localStorage[`${this.algSet}${alg}Wrong`] === "1") {
@@ -126,11 +143,11 @@ export default {
     createLocalStorage() {
       const algs = this.algTrainer.getAllAlgs(true);
       for (const alg of algs) {
-        localStorage[`${this.algSet}${alg}Wrong`] = '0';
+        localStorage[`${this.algSet}${alg}Wrong`] = "0";
       }
     },
     updateWrongAlg() {
-      localStorage[`${this.algSet}${this.algName}Wrong`] = '1';
+      localStorage[`${this.algSet}${this.algName}Wrong`] = "1";
     },
     async restart() {
       this.finished = false;
