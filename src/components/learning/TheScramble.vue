@@ -51,7 +51,7 @@ export default {
     window.addEventListener("keydown", (e) => {
       if (e.key === " ") {
         this.correct();
-      } else if (e.key === "x") {
+      } else if (e.key.toLowerCase() === "x") {
         this.wrong();
       } else if (e.key === "Enter") {
         this.toggleSolutions();
