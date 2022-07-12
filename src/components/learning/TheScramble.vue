@@ -61,6 +61,7 @@ export default {
   mounted() {
     this.algTrainer = new AlgTrainer(this.algSet);
     this.getScramble();
+    this.createLocalStorage();
     this.started = true;
   },
   props: ["algSet"],
@@ -93,6 +94,7 @@ export default {
         return;
       }
       this.algTrainer.wrongAnswer();
+      this.updateWrongAlg();
       this.getScramble();
     },
     correct() {
@@ -111,6 +113,24 @@ export default {
     },
     toggleSolutions() {
       this.showSolutions = !this.showSolutions;
+    },
+    showSuggested() {
+      const algs = this.algTrainer.getAllAlgs(true);
+      for (const alg of algs) {
+        if (localStorage[`${this.algSet}${alg}Wrong`] === "1") {
+          return true;
+        }
+      }
+      return false;
+    },
+    createLocalStorage() {
+      const algs = this.algTrainer.getAllAlgs(true);
+      for (const alg of algs) {
+        localStorage[`${this.algSet}${alg}Wrong`] = '0';
+      }
+    },
+    updateWrongAlg() {
+      localStorage[`${this.algSet}${this.algName}Wrong`] = '1';
     },
     async restart() {
       this.finished = false;
