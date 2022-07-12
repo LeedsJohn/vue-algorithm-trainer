@@ -8,28 +8,6 @@
     :algSet="chosenSet"
     @selectAlgset="setActive('algset-selector')"
   ></the-learning>
-  <!-- <div v-if="!showAbout && !selectingAlgset && chosenSet">
-    <the-scramble :algSet="chosenSet"></the-scramble>
-    <base-button @click="toggleAbout" type="helpbutton" :mobile="helpMobileStyle"></base-button>
-    <base-button @click="toggleSelectingAlgset" class="topLeft" type="menu"
-      >Select Algorithm Set</base-button
-    >
-  </div>
-  <base-button
-    v-else-if="!chosenSet && !selectingAlgset"
-    @click="toggleSelectingAlgset"
-    >Select Algorithm Set</base-button
-  >
-  <base-foreground
-    type="screen"
-    v-else-if="showAbout && !selectingAlgset"
-    @close="toggleAbout"
-    ><the-about></the-about
-  ></base-foreground>
-  <the-algset-selector
-    v-else-if="!showAbout && selectingAlgset"
-    @selectSet="selectSet"
-  ></the-algset-selector> -->
 </template>
 
 <script>
