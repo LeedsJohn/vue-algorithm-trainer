@@ -87,6 +87,7 @@ export default {
       finished: false,
       showSolutions: false,
       showSuggestions: false,
+      BRUH: 0,
     };
   },
   methods: {
@@ -102,21 +103,36 @@ export default {
       this.solutions = this.algTrainer.curAlg.getSolutions();
     },
     wrong() {
-      if (this.selectAlgScreen || this.finished || this.showSolutions || this.showSuggestions ) {
+      if (
+        this.selectAlgScreen ||
+        this.finished ||
+        this.showSolutions ||
+        this.showSuggestions
+      ) {
         return;
       }
+      this.BRUH += 1;
+      console.log(this.BRUH);
       this.algTrainer.wrongAnswer();
       this.updateWrongAlg();
       this.getScramble();
     },
     correct() {
-      if (this.selectAlgScreen || this.finished || this.showSolutions || this.showSuggestions) {
+      if (
+        this.selectAlgScreen ||
+        this.finished ||
+        this.showSolutions ||
+        this.showSuggestions
+      ) {
         return;
       }
       this.algTrainer.correctAnswer();
       this.getScramble();
     },
     selectAlgset() {
+      this.finished = true;
+      this.algTrainer = null;
+      this.solutions = null;
       this.$emit("selectAlgset");
     },
     selectAlgs() {
@@ -156,7 +172,6 @@ export default {
       }
     },
     updateWrongAlg() {
-      console.log(this.algName);
       localStorage[`${this.algSet}${this.algName}Wrong`] = "1";
     },
     async restart() {
