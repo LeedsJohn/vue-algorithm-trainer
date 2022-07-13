@@ -87,7 +87,6 @@ export default {
       finished: false,
       showSolutions: false,
       showSuggestions: false,
-      BRUH: 0,
     };
   },
   methods: {
@@ -111,8 +110,6 @@ export default {
       ) {
         return;
       }
-      this.BRUH += 1;
-      console.log(this.BRUH);
       this.algTrainer.wrongAnswer();
       this.updateWrongAlg();
       this.getScramble();
