@@ -7,6 +7,7 @@
       :algSet="algSet"
       :algNames="algTrainer.getAllAlgs(true)"
       @close="closeSuggestions"
+      @useSuggestions="useSuggestions"
     ></the-suggestions>
     <base-button class="select-algset" type="menu" @click="selectAlgset"
       >Select Algorithm Set</base-button
@@ -71,8 +72,6 @@ export default {
     this.getScramble();
     if (this.checkShowSuggestions()) {
       this.showSuggestions = true;
-    } else {
-      this.createLocalStorage();
     }
     this.started = true;
   },
@@ -103,7 +102,7 @@ export default {
       this.solutions = this.algTrainer.curAlg.getSolutions();
     },
     wrong() {
-      if (this.selectAlgScreen || this.finished || this.showSolutions) {
+      if (this.selectAlgScreen || this.finished || this.showSolutions || this.showSuggestions ) {
         return;
       }
       this.algTrainer.wrongAnswer();
@@ -111,7 +110,7 @@ export default {
       this.getScramble();
     },
     correct() {
-      if (this.selectAlgScreen || this.finished || this.showSolutions) {
+      if (this.selectAlgScreen || this.finished || this.showSolutions || this.showSuggestions) {
         return;
       }
       this.algTrainer.correctAnswer();
@@ -131,6 +130,16 @@ export default {
       this.showSuggestions = false;
       this.createLocalStorage();
     },
+    useSuggestions(suggestions) {
+      const allAlgs = this.algTrainer.getAllAlgs();
+      for (const alg of allAlgs) {
+        if (!suggestions.includes(alg.name)) {
+          this.algTrainer.ignoreAlg(alg);
+        }
+      }
+      this.getScramble();
+      this.closeSuggestions();
+    },
     checkShowSuggestions() {
       const algs = this.algTrainer.getAllAlgs(true);
       for (const alg of algs) {
@@ -147,6 +156,7 @@ export default {
       }
     },
     updateWrongAlg() {
+      console.log(this.algName);
       localStorage[`${this.algSet}${this.algName}Wrong`] = "1";
     },
     async restart() {

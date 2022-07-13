@@ -6,13 +6,15 @@
         {{ alg }}
       </p>
     </div>
+    <button @click="close">Ignore Suggestions</button>
+    <button @click="useSuggestions">Train Suggested Algorithms</button>
   </base-foreground>
 </template>
 
 <script>
 export default {
   props: ["algSet", "algNames"],
-  emits: ["close"],
+  emits: ["close", "useSuggestions"],
   mounted() {
     for (const alg of this.algNames) {
       if (localStorage[`${this.algSet}${alg}Wrong`] === "1") {
@@ -29,6 +31,9 @@ export default {
     close() {
       this.$emit("close");
     },
+    useSuggestions() {
+      this.$emit("useSuggestions", this.suggestions);
+    }
   },
 };
 </script>
