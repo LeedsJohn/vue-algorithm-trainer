@@ -92,6 +92,7 @@ export default {
   },
   methods: {
     getScramble() {
+      console.log(this.timeTracker);
       this.algTrainer.playRound();
       if (this.algTrainer.finished) {
         this.$emit("finished");
@@ -111,7 +112,8 @@ export default {
       ) {
         return;
       }
-      this.updateTimes();
+      this.incrementTime();
+      this.checkAlgTime();
       this.algTrainer.wrongAnswer();
       this.updateWrongAlg();
       this.getScramble();
@@ -125,7 +127,8 @@ export default {
       ) {
         return;
       }
-      this.updateTimes();
+      this.incrementTime();
+      this.checkAlgTime();
       this.algTrainer.correctAnswer();
       this.getScramble();
     },
@@ -159,7 +162,7 @@ export default {
     checkShowSuggestions() {
       const algs = this.algTrainer.getAllAlgs(true);
       for (const alg of algs) {
-        if (localStorage[`${this.algSet}${alg}Wrong`] === "1") {
+        if (localStorage[`${this.algSet}${alg}Wrong`] === "1" || localStorage[`${this.algSet}${alg}Time`] === "0") {
           return true;
         }
       }
@@ -169,12 +172,13 @@ export default {
       const algs = this.algTrainer.getAllAlgs(true);
       for (const alg of algs) {
         localStorage[`${this.algSet}${alg}Wrong`] = "0";
+        localStorage[`${this.algSet}${alg}Time`] = "0";
       }
     },
     updateWrongAlg() {
       localStorage[`${this.algSet}${this.algName}Wrong`] = "1";
     },
-    incrementTime(algTime) {
+    incrementTime() {
       const time = new Date();
       if (!this.timeTracker.time) {
         this.timeTracker.time = time;
@@ -200,10 +204,13 @@ export default {
       }
     },
     checkAlgTime() {
+      if (this.timeTracker.count === 0) {
+        return; // ignore first algorithm
+      }
       // Algorithms that are answered quickly enough
       if (this.timeTracker.algs[this.curAlg].avg < this.timeTracker.cutOff) {
         localStorage[`${this.curAlg}Time`] = "0";
-      } else {
+      } else { // slow algorithms
         localStorage[`${this.curAlg}Time`] = "1";
       }
     },
