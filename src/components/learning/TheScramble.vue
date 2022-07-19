@@ -87,6 +87,7 @@ export default {
       finished: false,
       showSolutions: false,
       showSuggestions: false,
+      timeTracker: { time: null, total: 0, count: 0, cutOff: 0, algs: {} },
     };
   },
   methods: {
@@ -110,6 +111,7 @@ export default {
       ) {
         return;
       }
+      this.updateTimes();
       this.algTrainer.wrongAnswer();
       this.updateWrongAlg();
       this.getScramble();
@@ -123,6 +125,7 @@ export default {
       ) {
         return;
       }
+      this.updateTimes();
       this.algTrainer.correctAnswer();
       this.getScramble();
     },
@@ -170,6 +173,39 @@ export default {
     },
     updateWrongAlg() {
       localStorage[`${this.algSet}${this.algName}Wrong`] = "1";
+    },
+    incrementTime(algTime) {
+      const time = new Date();
+      if (!this.timeTracker.time) {
+        this.timeTracker.time = time;
+        return;
+      }
+      const timeElapsed = time.getTime() - this.timeTracker.time.getTime();
+      this.timeTracker.total += timeElapsed;
+      this.timeTracker.count += 1;
+      this.timeTracker.cutOff =
+        (this.timeTracker.total / this.timeTracker.count) * 2;
+      if (this.curAlg in this.timeTracker.algs) {
+        this.timeTracker.algs[this.curAlg].total += timeElapsed;
+        this.timeTracker.algs[this.curAlg].count += 1;
+        this.timeTracker.algs[this.curAlg].avg +=
+          this.timeTracker.algs[this.curAlg].total /
+          this.timeTracker.algs[this.curAlg].count;
+      } else {
+        this.timeTracker.algs[this.curAlg] = {
+          total: timeElapsed,
+          count: 1,
+          avg: timeElapsed,
+        };
+      }
+    },
+    checkAlgTime() {
+      // Algorithms that are answered quickly enough
+      if (this.timeTracker.algs[this.curAlg].avg < this.timeTracker.cutOff) {
+        localStorage[`${this.curAlg}Time`] = "0";
+      } else {
+        localStorage[`${this.curAlg}Time`] = "1";
+      }
     },
     async restart() {
       this.finished = false;
