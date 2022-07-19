@@ -214,7 +214,7 @@ export default {
       }
       for (const alg in this.timeTracker.algs) {
         // Algorithms that are answered quickly enough
-        if (alg.avg < this.timeTracker.cutOff) {
+        if (this.timeTracker.algs[alg].avg < this.timeTracker.cutOff) {
           localStorage[`${this.algSet}${alg}Time`] = "0";
         } else {
           // slow algorithms
