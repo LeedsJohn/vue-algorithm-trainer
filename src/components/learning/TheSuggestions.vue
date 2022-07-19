@@ -30,10 +30,10 @@ export default {
     for (const alg of this.algNames) {
       const data = { name: alg, include: true, reason: [] };
       if (localStorage[`${this.algSet}${alg}Wrong`] === "1") {
-        data.reason.push("Incorrect response");
+        data.reason.push("incorrect response");
       }
       if (localStorage[`${this.algSet}${alg}Time`] === "1") {
-        data.reason.push("Slow response time");
+        data.reason.push("slow response time");
       }
       if (data.reason.length !== 0) {
         this.suggestions.push(data);
