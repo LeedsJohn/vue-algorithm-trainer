@@ -94,7 +94,6 @@ export default {
   },
   methods: {
     getScramble() {
-      console.log(this.timeTracker);
       this.algTrainer.playRound();
       if (this.algTrainer.finished) {
         this.$emit("finished");
@@ -164,7 +163,10 @@ export default {
     checkShowSuggestions() {
       const algs = this.algTrainer.getAllAlgs(true);
       for (const alg of algs) {
-        if (localStorage[`${this.algSet}${alg}Wrong`] === "1" || localStorage[`${this.algSet}${alg}Time`] === "1") {
+        if (
+          localStorage[`${this.algSet}${alg}Wrong`] === "1" ||
+          localStorage[`${this.algSet}${alg}Time`] === "1"
+        ) {
           return true;
         }
       }
@@ -206,15 +208,18 @@ export default {
       }
       this.timeTracker.time = time;
     },
-    checkAlgTime() {
+    checkAlgTimes() {
       if (this.timeTracker.count === 0) {
         return; // ignore first algorithm
       }
-      // Algorithms that are answered quickly enough
-      if (this.timeTracker.algs[this.algName].avg < this.timeTracker.cutOff) {
-        localStorage[`${this.algSet}${this.algName}Time`] = "0";
-      } else { // slow algorithms
-        localStorage[`${this.algSet}${this.algName}Time`] = "1";
+      for (const alg in this.timeTracker.algs) {
+        // Algorithms that are answered quickly enough
+        if (alg.avg < this.timeTracker.cutOff) {
+          localStorage[`${this.algSet}${alg}Time`] = "0";
+        } else {
+          // slow algorithms
+          localStorage[`${this.algSet}${alg}Time`] = "1";
+        }
       }
     },
     async restart() {
