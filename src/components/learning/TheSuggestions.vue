@@ -76,7 +76,7 @@ div {
 
 h1 {
   font-size: 1.5rem;
-  margin-bottom: 0;
+  margin: 25px 40px 0 40px;
 }
 
 h2 {
@@ -106,12 +106,12 @@ h2 {
 }
 
 .buttons {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
   display: flex;
   justify-content: center;
-  column-gap: 30px;
+  align-items: flex-end;
+  column-gap: 1rem;
+  min-height: 300px;
+  padding-top: 0;
 }
 
 .ignore-button,
