@@ -4,13 +4,13 @@
     <h2>Click to toggle</h2>
     <div>
       <p
-        class="algName"
+        class="alg"
         :class="alg.include ? 'include' : 'ignore'"
         v-for="alg in suggestions"
         @click="toggleAlg(alg)"
         :key="alg.name"
       >
-        {{ alg.name }}
+        {{ alg.name }} ({{ alg.reason.join(", ") }})
       </p>
     </div>
     <div class="buttons">
@@ -28,8 +28,15 @@ export default {
   emits: ["close", "useSuggestions"],
   mounted() {
     for (const alg of this.algNames) {
+      const data = { name: alg, include: true, reason: [] };
       if (localStorage[`${this.algSet}${alg}Wrong`] === "1") {
-        this.suggestions.push({ name: alg, include: true });
+        data.reason.push("Incorrect response");
+      }
+      if (localStorage[`${this.algSet}${alg}Time`] === "1") {
+        data.reason.push("Slow response time");
+      }
+      if (data.reason.length !== 0) {
+        this.suggestions.push(data);
       }
     }
   },
@@ -89,12 +96,12 @@ h2 {
   font-style: italic;
 }
 
-.algName {
+.alg {
   text-align: left;
   margin: 10px 0;
 }
 
-.algName:hover {
+.alg:hover {
   cursor: pointer;
 }
 
