@@ -164,7 +164,7 @@ export default {
     checkShowSuggestions() {
       const algs = this.algTrainer.getAllAlgs(true);
       for (const alg of algs) {
-        if (localStorage[`${this.algSet}${alg}Wrong`] === "1" || localStorage[`${this.algSet}${alg}Time`] === "0") {
+        if (localStorage[`${this.algSet}${alg}Wrong`] === "1" || localStorage[`${this.algSet}${alg}Time`] === "1") {
           return true;
         }
       }
