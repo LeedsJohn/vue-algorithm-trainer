@@ -114,7 +114,7 @@ export default {
         return;
       }
       this.incrementTime();
-      this.checkAlgTime();
+      this.checkAlgTimes();
       this.algTrainer.wrongAnswer();
       this.updateWrongAlg();
       this.getScramble();
@@ -129,7 +129,7 @@ export default {
         return;
       }
       this.incrementTime();
-      this.checkAlgTime();
+      this.checkAlgTimes();
       this.algTrainer.correctAnswer();
       this.getScramble();
     },
