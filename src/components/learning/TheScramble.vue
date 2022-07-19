@@ -72,6 +72,8 @@ export default {
     this.getScramble();
     if (this.checkShowSuggestions()) {
       this.showSuggestions = true;
+    } else {
+      this.createLocalStorage();
     }
     this.started = true;
   },
@@ -189,29 +191,30 @@ export default {
       this.timeTracker.count += 1;
       this.timeTracker.cutOff =
         (this.timeTracker.total / this.timeTracker.count) * 2;
-      if (this.curAlg in this.timeTracker.algs) {
-        this.timeTracker.algs[this.curAlg].total += timeElapsed;
-        this.timeTracker.algs[this.curAlg].count += 1;
-        this.timeTracker.algs[this.curAlg].avg +=
-          this.timeTracker.algs[this.curAlg].total /
-          this.timeTracker.algs[this.curAlg].count;
+      if (this.algName in this.timeTracker.algs) {
+        this.timeTracker.algs[this.algName].total += timeElapsed;
+        this.timeTracker.algs[this.algName].count += 1;
+        this.timeTracker.algs[this.algName].avg +=
+          this.timeTracker.algs[this.algName].total /
+          this.timeTracker.algs[this.algName].count;
       } else {
-        this.timeTracker.algs[this.curAlg] = {
+        this.timeTracker.algs[this.algName] = {
           total: timeElapsed,
           count: 1,
           avg: timeElapsed,
         };
       }
+      this.timeTracker.time = time;
     },
     checkAlgTime() {
       if (this.timeTracker.count === 0) {
         return; // ignore first algorithm
       }
       // Algorithms that are answered quickly enough
-      if (this.timeTracker.algs[this.curAlg].avg < this.timeTracker.cutOff) {
-        localStorage[`${this.curAlg}Time`] = "0";
+      if (this.timeTracker.algs[this.algName].avg < this.timeTracker.cutOff) {
+        localStorage[`${this.algSet}${this.algName}Time`] = "0";
       } else { // slow algorithms
-        localStorage[`${this.curAlg}Time`] = "1";
+        localStorage[`${this.algSet}${this.algName}Time`] = "1";
       }
     },
     async restart() {
