@@ -50,6 +50,7 @@ import DisplayBoxes from "./DisplayBoxes.vue";
 import AlgSolutions from "./AlgSolutions.vue";
 import TheInstructions from "./TheInstructions.vue";
 import TheSuggestions from "./TheSuggestions.vue";
+import TheAbout from "../about/TheAbout.vue";
 
 export default {
   components: {
@@ -57,6 +58,7 @@ export default {
     AlgSolutions,
     TheInstructions,
     TheSuggestions,
+    TheAbout,
   },
   created() {
     window.addEventListener("keydown", (e) => {
@@ -90,6 +92,7 @@ export default {
       algTrainer: null,
       finished: false,
       showSolutions: false,
+      showAbout: false,
       showSuggestions: false,
       timeTracker: { time: null, total: 0, count: 0, cutOff: 0, algs: {} },
     };
@@ -144,6 +147,9 @@ export default {
     selectAlgs() {
       const data = { trainer: this.algTrainer, algset: this.algSet };
       this.$emit("selectAlgs", data);
+    },
+    toggleAbout() {
+      this.showAbout = !this.showAbout;
     },
     toggleSolutions() {
       this.showSolutions = !this.showSolutions;
