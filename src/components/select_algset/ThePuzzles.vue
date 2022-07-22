@@ -1,8 +1,14 @@
 <template>
   <h2>Select Puzzle</h2>
-  <div class="grid-container">
-    <div v-for="puzzle in puzzles" :key="puzzle" class="button-container">
-      <button @click="selectPuzzle(puzzle)">{{ puzzle }}</button>
+  <div class="flex-container">
+    <div
+      v-for="puzzle in puzzles"
+      :key="puzzle"
+      class="button-container"
+      @click="selectPuzzle(puzzle)"
+    >
+      <p>{{ puzzle }}</p>
+      <img :src="require(`../../assets/scramble_icons/${files[puzzle]}`)" />
     </div>
   </div>
 </template>
@@ -13,6 +19,10 @@ export default {
   data() {
     return {
       puzzles: ["2x2", "3x3"],
+      files: {
+        "2x2": "Ortega_OLL/OLL_7.png",
+        "3x3": "PLL/H.png",
+      },
     };
   },
   methods: {
@@ -30,47 +40,47 @@ h2 {
   padding: 0 5%;
 }
 
-.grid-container {
-  display: grid;
-  gap: 20px 20px;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: 5rem;
-  justify-items: stretch;
+.flex-container {
+  display: flex;
+  justify-content: center;
+  column-gap: 2rem;
   padding: 0 5%;
 }
 
 @media screen and (min-width: 800px) {
-  .grid-container {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
   h2 {
     font-size: 3rem;
   }
 }
 
 @media screen and (min-width: 1250px) {
-  .grid-container {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  }
   h2 {
     font-size: 3.5rem;
   }
 }
 
-button {
-  background: none;
+.button-container {
   border: #000 3px solid;
-  text-align: center;
-  height: 100%;
-  width: 100%;
-  font-size: 1.7rem;
   border-radius: 16px;
   box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
-  color: #222;
-  font-weight: 500;
+  width: 16rem;
 }
 
-button:hover {
+p {
+  text-align: center;
+  font-size: 1.7rem;
+  color: #222;
+  font-weight: 500;
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  height: 6rem;
+  width: 6rem;
+}
+
+.button-container:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.2);
 }
