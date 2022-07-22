@@ -27,6 +27,8 @@
       :algTrainer="algTrainer"
       class="display-box"
     ></display-boxes>
+    <base-button @click="toggleAbout" :type="isMobile() ? 'helpbutton mobile' : 'helpbutton'"></base-button>
+    <the-about v-if="showAbout" @close="toggleAbout"></the-about>
     <div v-if="isMobile()">
       <base-button
         @click="wrong"
