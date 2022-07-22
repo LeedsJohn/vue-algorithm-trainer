@@ -106,12 +106,11 @@ h2 {
 }
 
 .buttons {
+  position: absolute;
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
   column-gap: 1rem;
-  min-height: 300px;
-  padding-top: 0;
 }
 
 .ignore-button,
