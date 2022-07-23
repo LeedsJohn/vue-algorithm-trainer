@@ -72,7 +72,7 @@ h2 {
 }
 
 .back {
-  position: fixed;
+  position: absolute;
   top: 2%;
   left: 2%;
   height: 4rem;
