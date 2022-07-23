@@ -44,7 +44,10 @@ export default {
         this.active = "alg-subsets";
         return;
       }
-      const underscore = algSet.replace(" ", "_");
+      let underscore = algSet.replace(" ", "_");
+      if (underscore.slice(-1) === "*") {
+        underscore = underscore.slice(0, -1);
+      }
       this.$emit("selectSet", underscore);
     },
     selectPuzzle(puzzle) {

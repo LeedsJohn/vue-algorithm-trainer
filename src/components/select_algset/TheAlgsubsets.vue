@@ -35,7 +35,8 @@ export default {
   },
   methods: {
     selectSet(algSet) {
-      const underscore = algSet.replace(" ", "_");
+      let underscore = algSet.replace(" ", "_");
+      underscore += "*";
       this.$emit("selectSet", underscore);
     },
     back() {
